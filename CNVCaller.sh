@@ -25,14 +25,14 @@ cp referenceDB.800 RD_normalized
 # Enter the directly RD_normalized
 cd RD_normalized
 
-# 将RD_normalized目录下新生成的sex_1结尾的文件名，以绝对路径的形式写入list.txt中
+# Write  *.sex_1 in the RD_normalized directory to list.txt as  absolute path
 ls -R `pwd`/*sex_1 > list.txt
 
-# 新建exclude_list文件
+# Creat a exclude_list file
 touch exclude_list
 
-# 拷贝数变异区域的确定
+# Determin the CNV region
 bash CNV.Discovery.sh -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 1 -r 0.1 -p primaryCNVR -m mergeCNVR
 
-# 基因型判定
+# Genotype determination
 python Genotype.py --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
