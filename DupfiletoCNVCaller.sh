@@ -20,7 +20,6 @@ python 0.1.Kmer_Generate.py genomic.fna 400 kmer.fa
 
 
 # 2 Align the kmer FASTA (from step 1) to reference genome using blasr.
-
 # 1) creat .sa file use sawriter
 sawritermc genomic.fna.sa genomic.fna
 # 2) blasr 
@@ -30,7 +29,6 @@ blasr kmer.fa genomic.fna --sa genomic.fna.sa \
                           --fastSDP --aggressiveIntervalCut --bestn 10
 
 # 3 Generate duplicated window record file
-
 python 0.2.Kmer_Link.py kmer.aln 400 Bos_ARS1.2_window.link
 
 # <BLASR>       blasr results (-m 5 format)
