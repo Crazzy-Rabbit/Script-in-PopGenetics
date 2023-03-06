@@ -2,6 +2,7 @@
 ################ CNVCaller for genome data ##############
 # Run this program in your bam file directory
 # The format of the bam file should be .sorted.addhead.markdup.bam
+# 800 in step 1 should change same as your Dup file window size
 
 # Set up the file name(obtain the absolute paths), software
 CNVReferenceDB.pl="/home/sll/miniconda3/CNVcaller/bin/CNVReferenceDB.pl"                  #change as you want
