@@ -7,8 +7,8 @@
 # Set up the file name(obtain the absolute paths), software
 0.1.Kmer_Generate.py="/home/sll/miniconda3/CNVcaller/bin/0.1.Kmer_Generate.py"                #change as you want
 genomic.fna="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"       #change as you want
-sawritermc="/home/sll/software/blasr-master/alignment/bin/sawritermc"                         #change as you want
-blasr="/home/sll/miniconda3/bin.blasr"                                                        #change as you want
+sawritermc="/home/sll/software/blasr/alignment/bin/SAWriter"                                  #change as you want
+blasr="/home/sll/software/blasr-master/alignment/Blasr"                                       #change as you want
 0.2.Kmer_Link.py="/home/sll/miniconda3/CNVcaller/bin/0.2.Kmer_Link.py"                        #change as you want
 
 # 1 Split genome into short kmer sequences
