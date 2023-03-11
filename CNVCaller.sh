@@ -1,4 +1,5 @@
 #! /bin/bash
+# author: Shill
 ################ CNVCaller for genome data ##############
 # Run this program in your bam file directory
 # The format of the bam file should be .sorted.addhead.markdup.bam
@@ -13,12 +14,14 @@ CNV.Discovery.sh="/home/sll/miniconda3/CNVcaller/CNV.Discovery.sh"              
 Genotype.py="/home/sll/miniconda3/CNVcaller/Genotype.py"                                  #change as you want
 
 # Create a window file for the genome (you can use it directly later)
-perl CNVReferenceDB.pl genomic.fna -w 800
+perl ${CNVReferenceDB.pl} ${genomic.fna} -w 800
 
 # Calculate the absolute copy number  of each window
-ls *bam|cut -d"." -f 1 | sort -u | while read id; 
-do bash Individual.Process.sh -b `pwd`/${id}.sorted.addhead.markdup.bam -h ${id} -d Btau5.0.1_800_link -s none; 
-done
+bam=`ls *bam|cut -d"." -f 1`
+for i in $bam
+do 
+bash ${Individual.Process.sh} -b `pwd`/${bam}.sorted.addhead.markdup.bam -h ${id} -d ${Btau5.0.1_800_link} -s none;
+done    
 
 # Copy the file referenceDB.800 to directly RD_normalized
 cp referenceDB.800 RD_normalized
@@ -33,7 +36,7 @@ ls -R `pwd`/*sex_1 > list.txt
 touch exclude_list
 
 # Determin the CNV region
-bash CNV.Discovery.sh -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 1 -r 0.1 -p primaryCNVR -m mergeCNVR
+bash ${CNV.Discovery.sh} -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 1 -r 0.1 -p primaryCNVR -m mergeCNVR
 
 # Genotype determination
-python Genotype.py --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
+python ${Genotype.py} --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
