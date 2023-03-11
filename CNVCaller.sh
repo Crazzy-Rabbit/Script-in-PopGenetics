@@ -25,13 +25,10 @@ done
 
 # Copy the file referenceDB.800 to directly RD_normalized
 cp referenceDB.800 RD_normalized
-
 # Enter the directly RD_normalized
 cd RD_normalized
-
 # Write  *.sex_1 in the RD_normalized directory to list.txt as  absolute path
 ls -R `pwd`/*sex_1 > list.txt
-
 # Creat a exclude_list file
 touch exclude_list
 
