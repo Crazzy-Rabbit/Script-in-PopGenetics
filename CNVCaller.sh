@@ -5,7 +5,8 @@
 # The format of the bam file should be .sorted.addhead.markdup.bam
 # 800 in step 1 should change same as your Dup file window size
 
-# Set up the file name(obtain the absolute paths), software
+
+# Set up the file name(obtain the absolute paths), software                                             
 CNVReferenceDB.pl="/home/sll/miniconda3/CNVcaller/bin/CNVReferenceDB.pl"                  #change as you want
 Individual.Process.sh="/home/sll/miniconda3/CNVcaller/Individual.Process.sh"              #change as you want
 CNV.Discovery.sh="/home/sll/miniconda3/CNVcaller/CNV.Discovery.sh"                        #change as you want
@@ -13,6 +14,7 @@ Genotype.py="/home/sll/miniconda3/CNVcaller/Genotype.py"                        
 genomic.fna="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"   #Reference genome fa file, change as you want
 Btau5.0.1_800_link="/home/sll/miniconda3/CNVcaller/Btau5.0.1_800_link"                    #dup file that you have created use blasr, change as you want
 
+export PYTHONPATH="/home/sll/miniconda3/bin:$PYTHONPATH"                                  #Python3 path you set
 echo $CNVReferenceDB.pl
 echo $genomic.fna
 echo $Individual.Process.sh
@@ -25,10 +27,10 @@ perl $CNVReferenceDB.pl $genomic.fna -w 800
 
 # Calculate the absolute copy number  of each window
 bam=`ls *bam|cut -d"." -f 1 | sort -u`
-for i in $bam
-do 
-bash $Individual.Process.sh -b `pwd`/$bam.sorted.addhead.markdup.bam -h $bam -d $Btau5.0.1_800_link -s none;
-done    
+for i in $bam;
+	do 
+	bash $Individual.Process.sh -b `pwd`/$bam.sorted.addhead.markdup.bam -h $bam -d $Btau5.0.1_800_link -s none;
+	done    
 
 cp referenceDB.800 RD_normalized
 cd RD_normalized
