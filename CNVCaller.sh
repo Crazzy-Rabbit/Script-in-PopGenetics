@@ -14,7 +14,7 @@ Genotype.py="/home/sll/miniconda3/CNVcaller/Genotype.py"                        
 genomic.fna="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"   #Reference genome fa file, change as you want
 Btau5.0.1_800_link="/home/sll/miniconda3/CNVcaller/Btau5.0.1_800_link"                    #dup file that you have created use blasr, change as you want
 
-export PYTHONPATH="/home/sll/miniconda3/bin:$PYTHONPATH"                                  #Python3 path you set
+export PYTHONPATH="/home/sll/miniconda3/lib/python3.9/site-packages:$PYTHONPATH"          #Python3 path you set
 echo $CNVReferenceDB.pl
 echo $genomic.fna
 echo $Individual.Process.sh
