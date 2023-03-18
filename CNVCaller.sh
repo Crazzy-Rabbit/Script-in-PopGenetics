@@ -28,9 +28,9 @@ perl $CNVReferenceDB.pl $genomic.fna -w 800
 # Calculate the absolute copy number  of each window
 bam=`ls *bam|cut -d"." -f 1 | sort -u`
 for i in $bam;
-	do 
-	bash $Individual.Process.sh -b `pwd`/$bam.sorted.addhead.markdup.bam -h $bam -d $Btau5.0.1_800_link -s none;
-	done    
+do 
+    bash $Individual.Process.sh -b `pwd`/$bam.sorted.addhead.markdup.bam -h $bam -d $Btau5.0.1_800_link -s none;
+done    
 
 cp referenceDB.800 RD_normalized
 cd RD_normalized
@@ -42,4 +42,4 @@ bash $CNV.Discovery.sh -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 1 -r 0.
 
 # Genotype determination
 python $Genotype.py --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
-echo "CNVCaller finished!"
+echo "Congratulation!CNVCaller has finished now!"
