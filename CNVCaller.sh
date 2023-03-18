@@ -15,12 +15,12 @@ genomic.fna="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genom
 Btau5.0.1_800_link="/home/sll/miniconda3/CNVcaller/Btau5.0.1_800_link"                    #dup file that you have created use blasr, change as you want
 
 export PYTHONPATH="/home/sll/miniconda3/lib/python3.9/site-packages:$PYTHONPATH"          #Python3 path you set
-echo $CNVReferenceDB.pl
-echo $genomic.fna
-echo $Individual.Process.sh
-echo $Btau5.0.1_800_link
-echo $CNV.Discovery.sh
-echo $Genotype.py
+echo "CNVReferenceDB.pl:    $CNVReferenceDB.pl";
+echo "genomic.fna:    $genomic.fna";
+echo "Individual.Process.sh:    $Individual.Process.sh";
+echo "winsize_link:    $Btau5.0.1_800_link";
+echo "CNV.Discovery.sh:    $CNV.Discovery.sh";
+echo "Genotype.py:    $Genotype.py";
 
 # Create a window file for the genome (you can use it directly later)
 perl $CNVReferenceDB.pl $genomic.fna -w 800
