@@ -4,7 +4,7 @@
 # Set up the file name, software
 Vcf="20230218-deer-54-chr_1"                           #change as you want
 GATK="/home/software/gatk-4.1.4.0/gatk"                #change as you want
-
+bcftools="/home/sll/miniconda3/bin/bcftools"           #change as you want
 ## get SNP
 $GATK SelectVariants  --select-type  SNP  \
                       -V ${Vcf}.vcf.gz  \
@@ -17,7 +17,7 @@ $GATK VariantFiltration -V ${Vcf}.snps.vcf.gz \
                         -O ${Vcf}.snps.filter.vcf.gz
 
 # index
-bcftools index -t ${Vcf}.snps.filter.vcf.gz
+$bcftools index -t ${Vcf}.snps.filter.vcf.gz
 
 ## get pass 
 $GATK  SelectVariants -V ${Vcf}.snps.filter.vcf.gz \
@@ -25,6 +25,6 @@ $GATK  SelectVariants -V ${Vcf}.snps.filter.vcf.gz \
                       -select "vc.isNotFiltered()"
 
 # delect muitl allells
-bcftools view -m 2 -M 2 \
-              --type "snps"  ${Vcf}.snps.filter.pass.vcf.gz \
-              -Ov -o ${Vcf}.snps.filter.pass.2allell.vcf
+$bcftools view -m 2 -M 2 \
+               --type "snps"  ${Vcf}.snps.filter.pass.vcf.gz \
+               -Ov -o ${Vcf}.snps.filter.pass.2allell.vcf
