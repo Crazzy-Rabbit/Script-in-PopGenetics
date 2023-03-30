@@ -8,18 +8,14 @@
 # /home/sll/genome-sheep/Oar_rambouillet_v1.0-ncbi/GCF_002742125.1_Oar_rambouillet_v1.0_genomic.gtf
 #牛gtf文件
 # /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.gtf
-
-
 fastq-dump="/home/software/sratoolkit.2.9.6-1-centos_linux64/bin/fastq-dump"
 fastp="/home/sll/miniconda3/bin/fastp"
 hisat2="/home/sll/miniconda3/bin/hisat2"
 samtools="/home/sll/miniconda3/bin/samtools"
 featureCounts="/home/sll/miniconda3/bin/featureCounts"
 multiqc="/home/sll/miniconda3/bin/multiqc"
-
 genomefa="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic"                   # change as you want
 genomegtf="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.gtf"              # change as you want 
-
 
 # ensure your sra file was xxx.sra format
 ls *sra | while read id;
@@ -52,7 +48,7 @@ $samtools sort -@ 8 ${sample}.hismap.bam -o ${sample}_sort.bam
 $samtools index ${sample}_sort.bam ${sample}_sort.bam.index
 
 # 5 featurecount count the reads number
-featureCounts -p -t -g gene_id -M -T 8\
+$featureCounts -p -t -g gene_id -M -T 8\
               -a $genomegtf
               -o all.featurecounts.txt
               *_sort.bam
