@@ -22,14 +22,15 @@ java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
                                    ne=${ne}
 
 echo "beagle has been finished!"
-
 gunzip -d -c sample.beagle.vcf.gz > sample.beagle.vcf
+
+mkdir sample.iHS.progress
+cd sample.iHS.progress
 
 for i in {1..29};
 do 
-
 # calculate map distance
-$vcftools --vcf sample.beagle.vcf --recode --recode-INFO-all --chr ${i} --out sample.chr${i}
+$vcftools --vcf ../sample.beagle.vcf --recode --recode-INFO-all --chr ${i} --out sample.chr${i}
 $vcftools --vcf sample.chr${i}.recode --plink --out chr${i}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${k}.MT.map.distance
 echo "map distance has been calculated"
@@ -47,9 +48,10 @@ $norm --ihs --files  Chr${i}.ihs.out  --bp-win --winsize $winsize
 
 # extract result and merge
 awk  '{print '${k}',$1,$2,$4}'   Chr${i}.ihs.out.100bins.norm.50kb.windows > Chr${i}.chart.ihs.out.50kb.windows
-cat ./*.chart.ihs.out.500kb.windows > all.ihs.out.50kb.windows
+cat ./*.chart.ihs.out.500kb.windows > ../all.ihs.out.50kb.windows
 
 # sort 
+cd ..
 sort -k 4n,4  all.ihs.out.50kb.windows > all.ihs.out.50kb.windows.sort
 echo "Norm and sort has been finished"
 
