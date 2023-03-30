@@ -35,17 +35,14 @@ $fsatp -i ${sample}_1.fastq.gz -I ${sample}_2.fastq.gz \
 
 # 3 reads mapping  ----hisat2
 mkdir hismap.sam
-
 $hisat2 -p 8 -x $genomefa \
         -1 ${sample}_1.filter.fastq.gz -2 ${sample}_2.filter.fastq.gz \
         -S hismap.sam/${sample}.hismap.sam
        
 # 4 sam to bam and sorted and index for *sort.bam file
 cd hismap.sam
-
 $samtools view -S ${sample}.hismap.sam -b > ${sample}.hismap.bam
 $samtools sort -@ 8 ${sample}.hismap.bam -o ${sample}_sort.bam
-
 $samtools index ${sample}_sort.bam ${sample}_sort.bam.index
 
 # 5 featurecount count the reads number
