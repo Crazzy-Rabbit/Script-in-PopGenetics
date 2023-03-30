@@ -24,8 +24,8 @@ java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
 echo "beagle has been finished!"
 gunzip -d -c sample.beagle.vcf.gz > sample.beagle.vcf
 
-mkdir sample.iHS.progress
-cd sample.iHS.progress
+mkdir iHS.progress
+cd iHS.progress
 
 for i in {1..29};
 do 
