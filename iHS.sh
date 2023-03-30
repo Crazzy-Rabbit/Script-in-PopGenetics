@@ -54,35 +54,3 @@ sort -k 4n,4  all.ihs.out.50kb.windows > all.ihs.out.50kb.windows.sort
 echo "Norm and sort has been finished"
 
 done
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
