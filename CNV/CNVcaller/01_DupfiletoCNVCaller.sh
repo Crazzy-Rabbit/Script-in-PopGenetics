@@ -7,8 +7,8 @@
 # Set up the file name(obtain the absolute paths), software and winsize 
 KmerGeneratepy="/home/sll/miniconda3/CNVcaller/bin/0.1.Kmer_Generate.py"                      #change as you want
 genomicfa="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"         #change as you want
-sawriter="/home/sll/software/blasr/alignment/SAWriter"                                        #change as you want
-blasr="/home/sll/software/blasr/alignment/Blasr"                                              #change as you want
+sawriter="/home/sll/software/blasr/alignment/bin/sawritermc"                                  #change as you want
+blasr="/home/sll/software/blasr/alignment/bin/blasrmc"                                        #change as you want
 KmerLinkpy="/home/sll/miniconda3/CNVcaller/bin/0.2.Kmer_Link.py"                              #change as you want
 species="Deer"                                                                                #change as you want
 winsize=1000                                                                                  #change as you want
