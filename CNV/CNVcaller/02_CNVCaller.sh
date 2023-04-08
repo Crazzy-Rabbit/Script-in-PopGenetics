@@ -11,21 +11,22 @@ CNVReferenceDBpl="/home/sll/miniconda3/CNVcaller/bin/CNVReferenceDB.pl"         
 IndividualProcesssh="/home/sll/miniconda3/CNVcaller/Individual.Process.sh"               #change as you want
 CNVDiscoverysh="/home/sll/miniconda3/CNVcaller/CNV.Discovery.sh"                         #change as you want
 Genotypepy="/home/sll/miniconda3/CNVcaller/Genotype.py"                                  #change as you want
-genomicfna="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"   #Reference genome fa file, change as you want
+genomicfa="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"    #Reference genome fa file, change as you want
 Winsizelink="/home/sll/miniconda3/CNVcaller/Btau5.0.1_800_link"                          #dup file that you have created use blasr, change as you want
-winsize=800
 
-export PYTHONPATH="/home/sll/miniconda3/lib/python3.9/site-packages:$PYTHONPATH"          #Python3 path you set
-echo "CNVReferenceDB.pl:    $CNVReferenceDB.pl";
-echo "genomic.fna:    $genomic.fna";
-echo "Individual.Process.sh:    $Individual.Process.sh";
-echo "winsize_link:    $Btau5.0.1_800_link";
-echo "CNV.Discovery.sh:    $CNV.Discovery.sh";
-echo "Genotype.py:    $Genotype.py";
+python="/home/sll/miniconda3/bin/python3.9"
+winsize=1000
+
+echo "CNVReferenceDB.pl:    $CNVReferenceDBpl";
+echo "genomic.fna:    $genomicfna";
+echo "Individual.Process.sh:    $IndividualProcesssh";
+echo "winsize_link:    $Winsizelink";
+echo "CNV.Discovery.sh:    $CNVDiscoverysh";
+echo "Genotype.py:    $Genotypepy";
 echo "Winsize:    $winsize"
 
 # Create a window file for the genome (you can use it directly later)
-perl $CNVReferenceDBpl $genomicfna -w $winsize
+perl $CNVReferenceDBpl $genomicfa -w $winsize
 
 # Calculate the absolute copy number  of each window
 bam=`ls *bam|cut -d"." -f 1 | sort -u`
@@ -43,5 +44,5 @@ touch exclude_list
 bash $CNVDiscoverysh -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 1 -r 0.1 -p primaryCNVR -m mergeCNVR
 
 # Genotype determination
-python $Genotypepy --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
+$python $Genotypepy --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
 echo "Congratulation!CNVCaller has finished now!"
