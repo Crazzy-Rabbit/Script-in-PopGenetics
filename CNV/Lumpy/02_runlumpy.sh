@@ -24,4 +24,4 @@ done
 # 3 merge samples
 ls *gt.vcf > vcf.list
 
-svtools vcfpaste -f  vcf.list  > all.genotype.vcf
+/home/sll/miniconda3/envs/python2.7/bin/svtools vcfpaste -f  vcf.list  > all.genotype.vcf
