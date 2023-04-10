@@ -21,3 +21,8 @@ svtyper \
 -i ${sample}.recode.vcf
 > ${sample}.gt.vcf
 done
+
+# 3 merge samples
+ls *gt.vcf > vcf.list
+
+svtools vcfpaste -f  vcf.list  > all.genotype.vcf
