@@ -1,8 +1,9 @@
 #! bin/bash
 ############################### lumpy ###############################
 
-sample="ReiD-18"
-
+sample=`ls *bam|cut -d"." -f 1 | sort -u`
+for i in $sample;
+do
 # 1.extract discordant paired-end alignments
 samtools view -b -F 1294 \
 ${sample}.sorted.addhead.markdup.bam \
@@ -22,3 +23,4 @@ ${sample}.discordants
 samtools sort \
 ${sample}.splitters.unsorted.bam \
 ${sample}.splitters
+done
