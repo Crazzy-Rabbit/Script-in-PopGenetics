@@ -15,17 +15,13 @@ IndividualProcesssh="/home/sll/miniconda3/CNVcaller/Individual.Process.sh"      
 genomicfa="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"    #Reference genome fa file, change as you want
 Winsizelink="/home/sll/miniconda3/CNVcaller/Btau5.0.1_800_link"                          #dup file that you have created use blasr, change as you want
 
-python="/home/sll/miniconda3/bin/python3.9"
 winsize=1000
-
 echo "CNVReferenceDB.pl:    $CNVReferenceDBpl";
 echo "genomic.fna:    $genomicfna";
 echo "Individual.Process.sh:    $IndividualProcesssh";
 echo "winsize_link:    $Winsizelink";
-echo "CNV.Discovery.sh:    $CNVDiscoverysh";
-echo "Genotype.py:    $Genotypepy";
 echo "Winsize:    $winsize"
-/home/sll/software/blasr/alignment/bin/sawritermc genomic.fa.sa /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
+
 # Create a window file for the genome (you can use it directly later)
 perl $CNVReferenceDBpl $genomicfa -w $winsize
 
