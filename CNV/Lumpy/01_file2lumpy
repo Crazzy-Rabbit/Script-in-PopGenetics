@@ -22,11 +22,3 @@ ${sample}.discordants
 samtools sort \
 ${sample}.splitters.unsorted.bam \
 ${sample}.splitters
-
-# 4.run lumpy
-lumpyexpress \
--B ${sample}.sorted.addhead.markdup.bam \
--S ${sample}.splitters.bam \
--D ${sample}.discordants.bam \
--o ${sample}.vcf
-
