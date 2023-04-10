@@ -1,26 +1,25 @@
 #! bin/bash
 ############################### lumpy ###############################
 
-sample=`ls *markdup.bam|cut -d"." -f 1 | sort -u`
-for i in $sample;
+ls *markdup.bam|cut -d"." -f 1 | sort -u | while read id;
 do
 # 1.extract discordant paired-end alignments
 samtools view -b -F 1294 \
-${sample}.sorted.addhead.markdup.bam \
-> ${sample}.discordants.unsorted.bam
+${id}.sorted.addhead.markdup.bam \
+> ${id}.discordants.unsorted.bam
 
 # 2.extract split-reads alignments
-samtools view -h $sample \
+samtools view -h $id.sorted.addhead.markdup.bam \
 | /home/sll/miniconda3/bin/extractSplitReads_BwaMem -i stdin \
 | samtools view -Sb - \
-> ${sample}.splitters.unsorted.bam
+> ${id}.splitters.unsorted.bam
 
 # 3.sort bams
 samtools sort \
-${sample}.discordants.unsorted.bam \
-${sample}.discordants
+${id}.discordants.unsorted.bam \
+${id}.discordants
 
 samtools sort \
-${sample}.splitters.unsorted.bam \
-${sample}.splitters
+${id}.splitters.unsorted.bam \
+${id}.splitters
 done
