@@ -4,7 +4,10 @@
 # Run this program in your bam file directory
 # The format of the bam file should be .sorted.addhead.markdup.bam
 # 800 in step 1 should change same as your Dup file window size
-
+# 鹿基因组： /home/sll/software/snpEff/data/genomes/RedDeerv1.1.fa
+# 牛基因组： /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
+# 鹿1000K窗口link文件： /home/sll/genome-red_deer/CNVCaller-Duplink/RedDeerv1.1_1000.link
+# 牛1000K窗口link文件：/home/sll/genome-cattle/CNVCaller-Duplink/ARS-UCD1.2_1000.link
 
 # Set up the file name(obtain the absolute paths), software                                             
 CNVReferenceDBpl="/home/sll/miniconda3/CNVcaller/bin/CNVReferenceDB.pl"                  #change as you want
@@ -24,7 +27,7 @@ echo "winsize_link:    $Winsizelink";
 echo "CNV.Discovery.sh:    $CNVDiscoverysh";
 echo "Genotype.py:    $Genotypepy";
 echo "Winsize:    $winsize"
-
+/home/sll/software/blasr/alignment/bin/sawritermc genomic.fa.sa /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
 # Create a window file for the genome (you can use it directly later)
 perl $CNVReferenceDBpl $genomicfa -w $winsize
 
