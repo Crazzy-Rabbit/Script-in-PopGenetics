@@ -1,7 +1,7 @@
 #! bin/bash
 ############################### lumpy ###############################
 
-sample=`ls *bam|cut -d"." -f 1 | sort -u`
+sample=`ls *markdup.bam|cut -d"." -f 1 | sort -u`
 for i in $sample;
 do
 # 1.extract discordant paired-end alignments
