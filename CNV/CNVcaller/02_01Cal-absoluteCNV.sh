@@ -26,7 +26,7 @@ echo "Winsize:    $winsize"
 perl $CNVReferenceDBpl $genomicfa -w $winsize
 
 # Calculate the absolute copy number  of each window
-ls *bam|cut -d"." -f 1 | sort -u | while read id;
+ls *markdup.bam|cut -d"." -f 1 | sort -u | while read id;
 do
     bash $IndividualProcesssh -b `pwd`/${id}.sorted.addhead.markdup.bam -h $id -d $Winsizelink -s none;
 done    
