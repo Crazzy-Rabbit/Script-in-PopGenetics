@@ -16,9 +16,8 @@ vcftools --vcf all.sv.lumpy.vcf \ #指定提取样品名称
 
 # 2. genotype
 svtyper \
--B ${sample}.sorted.addhead.markdup.bam, \
+-B ${sample}.sorted.addhead.markdup.bam \
 -S ${sample}.splitters.bam \
--i ${sample}.vcf
+-i ${sample}.recode.vcf
 > ${sample}.gt.vcf
 done
-
