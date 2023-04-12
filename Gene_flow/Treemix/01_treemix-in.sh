@@ -16,3 +16,32 @@ gzip plink.frq.strat
 #转换格式【耗时小时计】
 #用treemix自带脚本进行格式转换，notes：输入输出都为压缩文件，plink2treemix.py使用python2并需要绝对路径（否则报错）。
 python2 /home/sll/miniconda3/bin/plink2treemix.py plink.frq.strat.gz sample.treemix.in.gz 
+
+# 2、treemix推断基因流
+# 多次分析以评估最佳m值
+比如m取1-10(常用1-5,1-10)，每个m值重复5次(至少两次)
+
+for m in {1..5}
+do
+	{
+	for i in {1..5}
+	do
+		{
+		   treemix -i sample.treemix.in.gz -o sample.${m}.${i} -bootstrap 100 -root wBGU -m ${m} -k 500 -noss
+		}
+	done
+	}
+done
+
+-i 指定基因频率输入文件
+-o 指定输出文件前缀
+-tf      【可选】指定树文件，指定后就使用指定树的拓扑结构(最好把支持率和其他无关信息都删除，只留最简单的Newick格式)，否则treemix会推断拓扑
+-root    指定外类群(指定的是居群名称)，多个用逗号分隔；最好指定，否则后面plot_tree画树没找到更换外类群的参数会很麻烦
+-m       为the number of migration edges即基因渗入的次数
+-k 1000  因为SNP之间不是独立位点，为了避免连锁不平衡，用k参数指定SNP数量有连锁，比如这里指定用1000个SNP组成的blocks评估协方差矩阵
+-se      计算迁移权重的标准误差(计算成本高)，如果想省时间可以不用这个参数
+-bootstrap 为了判断给定树拓扑的可信度，在blocks运行bootstrap重复
+-global  在增加所有种群后做一轮全局重组。
+-noss    关闭样本量校正。TreeMix计算协方差会考虑每个种群的样本量，有些情况(如果有种群的样本只有1个)会过度校正，可以关闭。
+-g old.vertices.gz old.edges.gz #使用之前生成的树和图结果，用-g指定之前的两个结果文件
+-cor_mig known_events and -climb #合并已知的迁移事件
