@@ -1,6 +1,6 @@
 #!/bin/bash
+# 需要使用python2.7的环境
 source /home/sll/miniconda3/bin/activate
-
 conda activate python2.7
 
 # 1.run lumpy
@@ -15,8 +15,8 @@ ls *.markdup.bam | cut -d '.' -f 1 | sort -u | while read id;
 do 
 # 2.提取样本
 vcftools --vcf all.sv.lumpy.vcf \ #指定提取样品名称
---indv $id --recode --recode-INFO-all \
---out $id  #输出文件前缀
+         --indv $id --recode --recode-INFO-all \
+         --out $id  #输出文件前缀
 
 # 2. genotype
 svtyper \
