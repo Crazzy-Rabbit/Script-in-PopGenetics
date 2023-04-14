@@ -15,7 +15,7 @@ for(my $i=0;$i<5;$i++){
         $m_para=" -m $i";
     }
     print O1 "treemix -i $file$m_para -root $root -o $output_dir/out_$i > $output_dir/out_$i.log\n";
-    print O2 "source('~/software/treemix/treemix-1.12/src/plotting_funcs.R')\n";
+    print O2 "source('plotting_funcs.R')\n";
     print O2 "pdf(file='$output_dir/out_$i.pdf')
 plot_tree('$output_dir/out_$i')
 plot_resid('$output_dir/out_$i','order.txt')
