@@ -5,7 +5,7 @@ plink --allow-extra-chr --chr-set 27 -bfile ld.QC.xll_noinclude0.recode-502502-g
 
 #####转成fa
 python ped2fa.py ld.QC.xll_noinclude0.recode-502502-geno02-maf03.ped ld.QC.xll_noinclude0.recode-502502-geno02-maf03.fa &
-     打开fa文件修改个体ID，当然也可以不改
+     # 打开fa文件修改个体ID，当然也可以不改
 
 #####过滤I成N
 sed -i "s/I/N/g" ld.QC.xll_noinclude0.recode-502502-geno02-maf03.fa
