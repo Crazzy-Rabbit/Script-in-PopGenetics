@@ -45,11 +45,11 @@ xpclr --out chr${k} --format vcf \
       --gdistkey None --phased \
       --size $winsize --step $stepsize
 
-echo "XP-CLR has been finished!"
-
 # merge
 awk  '{print $2,$3,$4,$12,$13}'   Chr${k} > Chr${k}.ref_tag.chart.xpclr.${win}kb.windows
 done
+
+echo "XP-CLR has been finished!"
 
 cat ./*.ref_tag.chart.xpclr.${win}kb.windows > ../all.xpclr.${win}kb.windows
 
