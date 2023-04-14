@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 my $vcf="merge.vcf.gz";
-my $out="merge.gz";
+my $out="treemix.in.gz";
 my $popList="pop.lst";
 
 =cut
