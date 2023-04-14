@@ -9,9 +9,9 @@ vcftools --vcf all.sv.lumpy.vcf \ #lumpy的输出文件
          --out $id #输出文件前缀
 
 # genotype
+# genotype
 svtyper \
 -B ${id}.sorted.addhead.markdup.bam \
--S ${id}.splitters.bam \
 -i ${id}.recode.vcf \
-> ${id}.gt.vcf
+-o ${id}.gt.vcf
 done
