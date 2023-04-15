@@ -1,4 +1,5 @@
 # 3 merge samples
-ls *gt.vcf > vcf.list
 
-svtools vcfpaste -f  vcf.list  > all.genotype.vcf
+svtools vcfpaste  -m ReiD-18.gt.vcf   ReiD-18.gt.vcf ReiD-19.gt.vcf > all.genotype.vcf
+
+# usage: vcfpaste [-h] [-m first file in vcf_list] [vcf [vcf ...]]
