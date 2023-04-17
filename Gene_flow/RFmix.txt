@@ -1,0 +1,15 @@
+需提供比较完善的参考群体，对目标群体的遗传背景应清楚
+1、过滤（去除多等位基因位点）
+2、beagle填充
+java -jar -Xmn12G -Xms24G -Xmx48G  /home/software/beagle.25Nov19.28d.jar gt=tibetan-36.filter-nchr.recode.vcf  out=tibetan-36.filter-nchr.recode.vcf.beagle ne=36
+3、RFMix推断渗入区域（分染色体推断）
+rfmix -f BC.test.recode.vcf -r ANG.test.recode.vcf -m map.txt -g genetic.map -o outer --chromosome=1
+
+-f 目标群体
+-r 参考群体(多个群体在一个vcf文件里即可)
+-m map文件包含两列；1：参考群体样本ID，2：参考群体品种ID（也是主要设定ID的文件）
+-g genetic.map包含三列；1:染色体号，2:物理距离(bp)，3:遗传距离（cM）, 1cM=1Mb(10-6)
+--chromosome= 选择需要分析的染色体（和vcf文件一致）
+
+
+应该是看msp.tsv文件，可规定渗入单倍型为多少为渗入区域，用于构建进化树验证渗入事件以及计算渗入时间
