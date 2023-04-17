@@ -37,7 +37,7 @@ def GetShell(queue,corenum,memory,output,Region,File,step):
     Shell.write(f'bcftools view {File} -S ~/05.Sheep/03.WorldSheep/03.Group/$pop.list -r {Region} -O z -o {Region}.$pop.vcf.gz\n') # 修改poplist路径
     Shell.write(f'done\n')
     awk = "awk '{print $1,$2,$2/1000000}' OFS='\\t'"
-    Shell.write(f"bcftools query -f '%CHROM\\t%POS\\n' {Region}.Dom.vcf.gz |{awk} > {Region}.map\n")
+    Shell.write(f"bcftools query -f '%CHROM\\t%POS\\n' {Region}.Dom.vcf.gz |{awk} > {Region}.map\n") # 修改gz文件中的Dom为上述pop中的任意一个的名字
     os.system(f'chmod 755 {output}/{Region}.sh')
     Submit(queue,corenum,memory,output,Region)
 @click.command()
@@ -61,7 +61,7 @@ def main(chr,vcf,window,step,output,queue,corenum,memory):
     for line in chr :
         line = line.strip().split()
         Chr = line[0]
-        File = f'{vcf}/Sheep.{Chr}.GATK.flt2.imp.phase.noBBS.vcf.gz'    #按实际情况更改
+        File = f'{vcf}/Sheep.{Chr}.GATK.flt2.imp.phase.noBBS.vcf.gz'    #按实际情况更改，改为你总的那个vcf文件
         
         Num = math.floor(int(line[1])/window)
         Start,End = 1,window
