@@ -1,4 +1,7 @@
 需提供比较完善的参考群体，对目标群体的遗传背景应清楚
+
+位置：/home/sll/miniconda3/bin/rfmix
+
 1、过滤（去除多等位基因位点）
 2、beagle填充
 java -jar -Xmn12G -Xms24G -Xmx48G  /home/software/beagle.25Nov19.28d.jar gt=tibetan-36.filter-nchr.recode.vcf  out=tibetan-36.filter-nchr.recode.vcf.beagle ne=36
