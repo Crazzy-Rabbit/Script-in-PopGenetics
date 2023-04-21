@@ -1,43 +1,49 @@
-# XP-CLR
-# get sample
 #!/bin/bash
+# XP-CLR
+
 beagle="/home/software/beagle.25Nov19.28d.jar"
-bcftools="/home/sll/miniconda3/bin/bcftools"
 vcftools="/home/sll/miniconda3/bin/vcftools"
 xpclr="/home/sll/miniconda3/bin/xpclr"
 
-# change as you want 
-vcf="tibetan-36.filter-nchr.recode"            # big vcffile
-allsmaple="allsample.txt"                      # ref and tag sample list to extract
-ref="refsample.txt"                            # ref sample list per row per ID
-tag="tagsample.txt"                            # tag sample list per row per ID
-winsize=50000                                  # winsize
-step=50000                                     # stepsize
-
-# extract sample 
-$bcftools view -S $allsample.txt  ${vcf}.vcf  -Ov > allsample.vcf
-echo "sample has been extracted from raw vcffile!"
+if [ $# -ne 5 ]; then 
+    echo "error.. need args"
+    echo "command: bash $0 <vcf> <ref> <tag> <winsize> <step>"
+    echo "vcf:     prefix of vcf file"
+    echo "ref:     ref sample list per row per ID"
+    echo "tag:     tag sample list per row per ID"
+    echo "winsize: winsize for xpclr"
+    echo "step:    step size for xpclr"
+    exit 1
+fi
+vcf=$1            # big vcffile
+ref=$2                            # ref sample list per row per ID
+tag=$3                           # tag sample list per row per ID
+winsize=$4                                  # winsize
+step=$5                                    # stepsize
 
 mkdir XP-CLR.progress
 cd XP-CLR.progress
 win=$((winsize/1000))  
 
 for k in {1..29};
-
-$vcftools --vcf ../allsample.vcf \
+do
+$vcftools --vcf ../${vcf}.vcf \
           --recode --recode-INFO-all \
           --chr ${k} \
-          --out allsample.chr${k}
+          --out ${vcf}.chr${k}
           
 # calculate map distance                
-$vcftools --vcf allsample.chr${k}.recode.vcf \
+$vcftools --vcf ${vcf}.chr${k}.recode.vcf \
           --plink \
           --out chr${k}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
+done 
 
+for k in {1..29};
+do
 # xpclr
 xpclr --out chr${k} --format vcf \
-      --input allsample.chr${k}.recode.vcf \
+      --input ${vcf}.chr${k}.recode.vcf \
       --samplesA $ref \
       --samplesB $tag \
       --map chr${k}.MT.map.distance \
