@@ -1,7 +1,6 @@
 #!/bin/bash
 # XP-CLR
 
-beagle="/home/software/beagle.25Nov19.28d.jar"
 vcftools="/home/sll/miniconda3/bin/vcftools"
 xpclr="/home/sll/miniconda3/bin/xpclr"
 
@@ -58,6 +57,3 @@ done
 echo "XP-CLR has been finished!"
 
 cat ./*.ref_tag.chart.xpclr.${win}kb.windows > ../all.xpclr.${win}kb.windows
-
-
-
