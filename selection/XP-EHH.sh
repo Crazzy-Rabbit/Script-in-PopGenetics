@@ -1,18 +1,28 @@
+#!/bin/bash
+
 # XP-EHH
 # beagle and get sample
-#!/bin/bash
 beagle="/home/software/beagle.25Nov19.28d.jar"
 bcftools="/home/sll/miniconda3/bin/bcftools"
 vcftools="/home/sll/miniconda3/bin/vcftools"
 selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
-# change as you want 
-vcf="tibetan-36.filter-nchr.recode"            # big vcffile
-ne=126                                         # sample number
-ref="refsample.txt"                            # ref sample list per row per ID
-tag="tagsample.txt"                            # tag sample list per row per ID
-winsize=50000                                  # norm bin winsize
+if [ $# -ne 5 ]; then
+    echo "error.. need args"
+    echo "command:  bash $0 <vcf> <ne> <ref> <tag> <winsize>"
+    echo "vcf:      Prefix of vcf file"
+    echo "ne:       ne was ne number in beagle"
+    echo "ref:      ref sample per row per ID"
+    echo "tag:      tag sample per row per ID"
+    echo "winsize:  winsize in xpehh"
+    exit 1
+fi
+vcf=$1                                         # big vcffile
+ne=$2                                         # sample number
+ref=$3                                        # ref sample list per row per ID
+tag=$4                                        # tag sample list per row per ID
+winsize=$5                                    # norm bin winsize
 
 # beagle
 java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
@@ -32,7 +42,7 @@ win=$((winsize/1000))
 
 for i in {1..29};
 do 
-# splite chr for ref ang tag
+# splite chr for ref and tag
 $vcftools --vcf ../ref.beagle.vcf \
           --recode --recode-INFO-all \
           --chr ${i} \
@@ -47,7 +57,10 @@ $vcftools --vcf ref.chr${i}.recode.vcf \
           --plink \
           --out chr${i}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${i}.MT.map.distance
+done
 
+for i in {1..29};
+do
 # XP-EHH
 $selscan --xpehh --vcf tag.chr${i}.recode.vcf \
                  --vcf-ref ref.chr${i}.recode.vcf \
