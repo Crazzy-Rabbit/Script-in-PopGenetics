@@ -2,27 +2,27 @@
 # beagle and get sample
 #!/bin/bash
 beagle="/home/software/beagle.25Nov19.28d.jar"
-bcftools="/home/sll/miniconda3/bin/bcftools"
 vcftools="/home/sll/miniconda3/bin/vcftools"
 selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
-# change as you want 
-vcf="tibetan-36.filter-nchr.recode"            # big vcffile
-sample="your-sample.txt"                       # iHS sample list per row per ID
-ne=36                                          # sample number
-winsize=50000                                  # norm bin winsize
+if [$# -ne 3]; then
+    echo "command: bash $0 <vcf> <ne> <winsize>"
+    echo "vcf:     prefix of vcf file"
+    echo "ne:      ne in beagle"
+    echo "winsize: winsize in iHS"
+    exit 1
+fi
+vcf=$1           
+ne=$2                                       
+winsize=$3
  
-$bcftools view -S $sample  ${vcf}.vcf  -Ov > sample.vcf
-echo "sample has been extracted from raw vcffile!"
-
 java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
-                                   gt=sample.vcf  \
-                                   out=sample.beagle \
+                                   gt=${vcf}.vcf  \
+                                   out=${vcf}.beagle \
                                    ne=${ne}
 
 echo "beagle has been finished!"
-gunzip -d -c sample.beagle.vcf.gz > sample.beagle.vcf
 
 mkdir iHS.progress
 cd iHS.progress
@@ -31,18 +31,21 @@ win=$((winsize/1000))
 for i in {1..29};
 do 
 # calculate map distance
-$vcftools --vcf ../sample.beagle.vcf \
+$vcftools --gzvcf ../${vcf}.beagle.vcf.gz \
           --recode --recode-INFO-all \
           --chr ${i} \
-          --out sample.chr${i}
-$vcftools --vcf sample.chr${i}.recode.vcf \
+          --out ${vcf}.chr${i}
+$vcftools --vcf ${vcf}.chr${i}.recode.vcf \
           --plink \
           --out chr${i}.MT
           
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${i}.MT.map.distance
+done 
 
+for i in {1..29};
+do
 # iHS
-$selscan --ihs --vcf sample.chr${i}.recode.vcf \
+$selscan --ihs --vcf ${vcf}.chr${i}.recode.vcf \
                --map chr${i}.MT.map.distance \
                --out  chr${i}.iHS
 
