@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jan 16 11:16:13 2018
-
 @author: Caiyd
 """
 
@@ -38,8 +37,8 @@ def main(group1, group2, nvars, outprefix):
                      suffixes=['_g1', '_g2'])
     newdf['ln_ratio'] = np.log(newdf['PI_g1'].values / newdf['PI_g2'].values)
     newdf[['CHROM', 'BIN_START',
-           'BIN_END', 'ln_ratio']].to_csv(f'{outprefix}.gz',
-                                          sep='\t', index=False, compression='gzip')
+           'BIN_END', 'PI_g1', 'PI_g2', 'ln_ratio']].to_csv(f'{outprefix}.txt',
+                                          sep='\t', index=False)
 
 
 if __name__ == '__main__':
