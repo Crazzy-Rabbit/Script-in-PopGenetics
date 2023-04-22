@@ -7,8 +7,7 @@ if [ $# -ne 7 ]; then
     echo "step:      步长大小"
     echo "navrs:     窗口内SNP数小于它则删除窗口，默认为20"
     echo "outprefix: 输出文件前缀"
-    
-    
+    exit 1
 fi
 vcf=$1
 group1=$2
@@ -17,6 +16,8 @@ winsize=$4
 step=$5
 nvars=$6
 outprefix=$7
+
+
 vcftools --vcf $vcf --window-pi $winsize --window-pi-step $step --keep ${group1}.txt --out $group1
 vcftools --vcf $vcf --window-pi $winsize --window-pi-step $step --keep ${group2}.txt --out $group2
 
