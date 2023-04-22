@@ -23,14 +23,14 @@ def load_data(infile, nvars: int):
 
 
 @click.command()
-@click.option('--group1', help='ÈºÌå1µÄvcftoolsÊä³öµÄPi½á¹ûÎÄ¼ş,Ö§³ÖÈ«»ùÒò×éÑ¹Ëõ')
-@click.option('--group2', help='ÈºÌå2µÄvcftoolsÊä³öµÄPi½á¹ûÎÄ¼ş,Ö§³ÖÈ«»ùÒò×éÑ¹Ëõ')
-@click.option('--nvars', help='snpÊıĞ¡ÓÚÕâ¸öÊıµÄ¹ıÂËµô, default is 20', default=20, type=int)
-@click.option('--outprefix', help='Êä³ö½á¹ûÎÄ¼şÇ°×º')
+@click.option('--group1', help='ç¾¤ä½“1çš„vcftoolsè¾“å‡ºçš„Piç»“æœæ–‡ä»¶,æ”¯æŒå…¨åŸºå› ç»„å‹ç¼©')
+@click.option('--group2', help='ç¾¤ä½“2çš„vcftoolsè¾“å‡ºçš„Piç»“æœæ–‡ä»¶,æ”¯æŒå…¨åŸºå› ç»„å‹ç¼©')
+@click.option('--nvars', help='snpæ•°å°äºè¿™ä¸ªæ•°çš„è¿‡æ»¤æ‰, default is 20', default=20, type=int)
+@click.option('--outprefix', help='è¾“å‡ºç»“æœæ–‡ä»¶å‰ç¼€')
 def main(group1, group2, nvars, outprefix):
     """
-    ¼ÆËãln(Pi_group1/Pi_group2)
-    group1ºÍgroup2ÊÇvcftools¼ÆËãµÄ»¬¶¯´°¿ÚPiÖµ
+    è®¡ç®—ln(Pi_group1/Pi_group2)
+    group1å’Œgroup2æ˜¯vcftoolsè®¡ç®—çš„æ»‘åŠ¨çª—å£Piå€¼
     """
     df1 = load_data(group1, nvars)
     df2 = load_data(group2, nvars)
