@@ -1,6 +1,6 @@
 #! /bin/bash
 
-usage() {
+function usage() {
     echo "Usage: bash $0 --vcf <vcf> --pop1 <pop1> --pop2 <pop2> --win <winsize> --step <step> --navr <navrs> --out <outprefix>"
     echo "required options"
       echo "-v|--vcf       vcf file"
@@ -12,13 +12,18 @@ usage() {
       echo "-o|--out       输出文件前缀"
       exit 1;
 }
-OPT=`getopt -o v:1:2:w:s:n:o: --long vcf:,pop1:,pop2:,win:,step:,navr:,out: -- "$@"`
-if [ $? != 0 ]; then usage; exit 1; fi
-eval set -- "OPTS"
+
+vcf=""
+pop1=""
+pop2=""
+win="50000"
+step="25000"
+navr="20"
+out=""
+
 while [[ $# -gt 0 ]]
 do
-  key="$1"
-  case "$key" in
+  case "$1" in
     -v|--vcf )
         vcf=$2 ; shift 2 ;;
     -1|--pop1 )
@@ -34,14 +39,18 @@ do
     -o|--out )
         out=$2 ; shift 2 ;;
     *) echo "Option error!";
-       usage
-       shift     
+       usage    
        ;;
   esac
 done
+
+if [ -z $vcf ] || [ -z $pop1 ] || [ -z $pop2 ] || [ -z $out]; then
+    echo "Option --vcf and --pop1 and --pop2 and --out not specified" >&2
+    usage
+fi
 
 vcftools --vcf $vcf --window-pi $win --window-pi-step $step --keep ${pop1}.txt --out $pop1
 vcftools --vcf $vcf --window-pi $win --window-pi-step $step --keep ${pop2}.txt --out $pop2
 
 source /home/sll/miniconda3/bin/activate
-python ln_ratio.py --group1 ${pop1}.windowed.pi --group2 ${pop2}.windowed.pi --nvars $nvar --outprefix $out
+python ln_ratio.py --group1 ${pop1}.windowed.pi --group2 ${pop2}.windowed.pi --nvars $navr --outprefix $out
