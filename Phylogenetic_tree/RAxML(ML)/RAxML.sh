@@ -1,6 +1,6 @@
 #! /bin/bash
 function usage() {
-    echo "Usage: bash $0 --vcf <vcf> --outgroup <Outgroup> --out <output> --boot <bootstrap>--thread <Threads>"
+    echo "Usage: bash $0 --vcf <vcf> --outgroup <Outgroup> --output <output> --boot <bootstrap>--thread <Threads>"
     echo "required options"
       echo "-v|--vcf      vcf文件"
       echo "-O|--outgroup  外群名称，或是外群那个个体ID"
