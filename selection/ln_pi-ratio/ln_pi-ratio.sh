@@ -49,8 +49,10 @@ if [ -z $vcf ] || [ -z $pop1 ] || [ -z $pop2 ] || [ -z $out]; then
     usage
 fi
 
+function main() {
 vcftools --vcf $vcf --window-pi $win --window-pi-step $step --keep ${pop1}.txt --out $pop1
 vcftools --vcf $vcf --window-pi $win --window-pi-step $step --keep ${pop2}.txt --out $pop2
 
 source /home/sll/miniconda3/bin/activate
 python ln_ratio.py --group1 ${pop1}.windowed.pi --group2 ${pop2}.windowed.pi --nvars $navr --outprefix $out
+}
