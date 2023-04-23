@@ -6,7 +6,7 @@ function usage() {
       echo "-O|--outgroup  外群名称，或是外群那个个体ID"
       echo "-o|--output    输出文件前缀"
       echo "-b|--boot      bootstrap次数，默认为100次"
-      echo "-T|--thread    线程数，默认为30"
+      echo "-T|--thread    线程数，默认为20，吃CPU"
     exit 1;
 }
 
