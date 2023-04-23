@@ -47,3 +47,4 @@ python /home/sll/software/vcf2phylip.py --input $vcf --output-prefix $output
 # 2、建树：
 raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -p 23 -x 123 -# $boot -s ${output}.min4.phy -n $output -T $thread -o $outgroup
 }
+main
