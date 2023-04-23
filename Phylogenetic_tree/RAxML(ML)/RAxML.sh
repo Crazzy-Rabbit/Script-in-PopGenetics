@@ -1,17 +1,21 @@
 #! /bin/bash
-usage() {
+function usage() {
     echo "Usage: bash $0 --vcf <vcf> --outgroup <Outgroup> --out <output> --boot <bootstrap>--thread <Threads>"
     echo "required options"
       echo "-v|--vcf      vcf文件"
       echo "-O|--outgroup  外群名称，或是外群那个个体ID"
       echo "-o|--output    输出文件前缀"
-      echo "-b|--boot      bootstrap次数，一般为100次"
-      echo "-T|--thread    线程数，一般可设置为30"
+      echo "-b|--boot      bootstrap次数，默认为100次"
+      echo "-T|--thread    线程数，默认为30"
     exit 1;
 }
-if [ $? != 0 ]; then usage; exit 1; fi
-OPT=`getopt -o v:O:o:b:T --long vcf:,outgroup:,output:,boot:,thread -- "#@"`
-eval set -- "OPTS"
+
+vcf=""
+outgroup=""
+output=""
+boot=100
+thread=30
+
 while [[ $# -gt 0 ]]
 do 
   case "$1" in 
@@ -32,7 +36,14 @@ do
    esac
 done
 
+if [ -z $vcf ] || [ -z $outgroup ] || [ -z $output ]; then 
+    echo "Option --vcf and --outgroup and --output not specified" >&2
+    usage
+fi
+
+function main() {
 # 1、转为phy格式：
 python /home/sll/software/vcf2phylip.py --input $vcf --output-prefix $output
 # 2、建树：
 raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -p 23 -x 123 -# $boot -s ${output}.min4.phy -n $output -T $thread -o $outgroup
+}
