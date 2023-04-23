@@ -8,37 +8,68 @@ vcftools="/home/sll/miniconda3/bin/vcftools"
 selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
-if [ $# -ne 5 ]; then
-    echo "error.. need args"
-    echo "command:  bash $0 <vcf> <ne> <ref> <tag> <winsize>"
-    echo "vcf:      Prefix of vcf file"
-    echo "ne:       ne was ne number in beagle"
-    echo "ref:      ref sample per row per ID"
-    echo "tag:      tag sample per row per ID"
-    echo "winsize:  winsize in xpehh"
-    exit 1
-fi
-vcf=$1                                         # big vcffile
-ne=$2                                         # sample number
-ref=$3                                        # ref sample list per row per ID
-tag=$4                                        # tag sample list per row per ID
-winsize=$5                                    # norm bin winsize
+function usage() {
+    echo "Usage: bash $0 --vcf <vcf> --ne <ne> --ref <ref> --tag <tag> --win <winsize> --thread <thread> --output <outprefix>"
+    echo "required options"
+      echo "-v|--vcf      vcf file"
+      echo "-n|--ne       ne was ne number in beagle"
+      echo "-r|--ref      ref sample per row per ID"
+      echo "-t|--tag      tag sample per row per ID"
+      echo "-w|--win      winsize in xpehh, default 50000"
+      echo "-T|--thread   threads, default 10"
+      echo "-o|--output   输出文件前缀"
+      exit 1;
+}
 
+vcf=""
+ne=""
+ref=""
+tag=""
+win="50000"
+thread="10"
+output=""
+
+while [[ $# -gt 0 ]];
+do
+  case "$1" in
+    -v|--vcf )
+        vcf=$2 ; shift2 ;;
+    -n|--ne )
+        ne=$2 ; shift2 ;;
+    -r|--ref )
+        ref=$2 ; shift2 ;;
+    -t|--tag )
+        tag=$2 ; shift2 ;;
+    -w|--win )
+        win=$2 ; shift2 ;;
+    -T|--thread )
+        thread=$2 ; shift2 ;;
+    -o|--output )
+        output=$2 ; shift2 ;;
+    *) echo "Option error!" >&2
+       usage
+       shift
+   esac
+done
+
+if [ -z $vcf ] || [ -z $ne ] || [ -z $ref ] || [ -z $tag ] || [ -z $output ]; then 
+    echo "option --vcf --ne --ref --tag --output not specified !" >&2
+    usage
+fi
+
+function main() {      
 # beagle
 java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
-                                   gt=${vcf}.vcf  \
-                                   out=${vcf}.beagle \
+                                   gt=${vcf} \
+                                   out=${output}.beagle \
                                    ne=${ne}
-echo "beagle has been finished!"
 
 # extract sample
-$bcftools view -S $ref  ${vcf}.beagle.vcf.gz  -Ov > ref.beagle.vcf
-$bcftools view -S $tag  ${vcf}.beagle.vcf.gz  -Ov > tag.beagle.vcf
-echo "sample has been extracted from raw vcffile!"
+$bcftools view -S $ref  ${output}.beagle.vcf.gz  -Ov > ref.beagle.vcf
+$bcftools view -S $tag  ${output}.beagle.vcf.gz  -Ov > tag.beagle.vcf
 
 mkdir XP-EHH.progress
 cd XP-EHH.progress
-win=$((winsize/1000))  
 
 for i in {1..29};
 do 
@@ -65,7 +96,7 @@ do
 $selscan --xpehh --vcf tag.chr${i}.recode.vcf \
                  --vcf-ref ref.chr${i}.recode.vcf \
                  --map chr${i}.MT.map.distance \
-                 --threads 10 \
+                 --threads $thread \
                  --out  chr${i}.ref_tag
 
 # chr
@@ -74,14 +105,12 @@ sed -i 's/ /\t/g' Chr${i}.ref_tag.xpehh.out
 
 # add win and norm
 $norm --xpehh --files  Chr${i}.ref_tag.xpehh.out \
-              --bp-win --winsize $winsize
+              --bp-win --winsize $win
               
 # merge    
-awk  '{print '${i}',$1,$2,$4,$5,$8,$9}'   Chr${i}.ref_tag.xpehh.out.norm.${win}kb.windows > Chr${i}.ref_tag.chart.xpehh.out.norm.${win}kb.windows
-done  
-echo "XP-EHH has been finished!"
+awk  '{print '${i}',$1,$2,$4,$5,$8,$9}'   Chr${i}.${output}.nochr > Chr${i}.${output}
+done
 
-
-cat ./*.ref_tag.chart.xpehh.out.norm.${win}kb.windows > ../all.xpehh.out.norm.${win}kb.windows
-
-    
+cat ./*.${output} > ../${output}.xpehh
+}
+main
