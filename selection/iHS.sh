@@ -7,11 +7,11 @@ norm="/home/software/selscan/bin/linux/norm"
 
 function usage() {
     echo "从beagle 一直到最后标准化合并染色体，然后排序的过程"
-    echo "Usage: bash $0 --vcf <vcf> --ne <ne> --win <winsize> --out <outprefix>"
+    echo "Usage: bash $0 --vcf <vcf> --ne <ne> --win <winsize> --thread <thread> --out <outprefix>"
     echo "required options"
       echo "-v|--vcf     vcf file"
       echo "-n|--ne      ne in beagle"
-      echo "-w|--win     winsize in iHS"
+      echo "-w|--win     winsize in iHS, default 50000"
       echo "-T|--thread  thread for selscan, default 10"
       echo "-o|--out     输出文件前缀"
       exit 1;
@@ -36,14 +36,15 @@ function usage() {
        thread=$2 ; shift2 ;;
      -o|--out )
        out=$2 ; shift2 ;;
-     *) echo "输入参数不对哦！" >&2
+     *) echo "输入参数不对哦！"
         usage
         shift
         ;;
+    esac
 done
 
 if [ -z $vcf ] || [ -z $ne ] || [ -z $out ]; then 
-    echo "检查这些参数是否指定 --vcf --ne --out ！"
+    echo "检查这些参数是否指定 --vcf --ne --out ！" >&2
     usage
 fi
 
