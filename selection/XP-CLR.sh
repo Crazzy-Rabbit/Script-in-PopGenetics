@@ -56,7 +56,7 @@ cd XP-CLR.progress
 
 for k in {1..29};
 do
-$vcftools --vcf $vcf \
+$vcftools --vcf ../$vcf \
           --recode --recode-INFO-all \
           --chr ${k} \
           --out ${out}.chr${k}
