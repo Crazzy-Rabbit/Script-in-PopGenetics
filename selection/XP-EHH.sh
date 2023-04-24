@@ -46,14 +46,14 @@ do
         thread=$2 ; shift2 ;;
     -o|--output )
         output=$2 ; shift2 ;;
-    *) echo "Option error!" >&2
+    *) echo "输入参数不对哦!" >&2
        usage
        shift
    esac
 done
 
 if [ -z $vcf ] || [ -z $ne ] || [ -z $ref ] || [ -z $tag ] || [ -z $output ]; then 
-    echo "option --vcf --ne --ref --tag --output not specified !" >&2
+    echo "检查一下这几个参数输了没 --vcf --ne --ref --tag --output !" >&2
     usage
 fi
 
