@@ -38,7 +38,7 @@ do
         step=$2 ; shift2 ;;
     -o|--out )
         out=$2 ; shift2 ;;
-    *) echo "Option error!" ;
+    *) echo "输入参数不对哦!" ;
         usage
         shift
         ;;
@@ -46,7 +46,7 @@ do
 done
 
 if [ -z $vcf ] || [ -z $ref ] || [ -z $tag ] || [ -z $out ]; then
-    echo "option --vcf and --ref and --tag and --out not specified" >&2
+    echo "检查下这些参数指定没有 --vcf and --ref and --tag and --out ！" >&2
     usage
 fi
         
