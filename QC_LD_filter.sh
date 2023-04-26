@@ -52,7 +52,7 @@ if [ -z "$bfile" ] || [ -z "$chr" ]; then
     usage
 fi
 
-function main () {
+function main() {
 # 过滤geno和maf
 plink --allow-extra-chr --chr-set $chr \
       -bfile $bfile \
