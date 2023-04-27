@@ -11,10 +11,7 @@ import click
 
 def read_intervals(file):
     """
-    bedtools intersect的代替版本，对两个区间文件文件取交集并去除重叠区间。
     从指定文件读取区间，要求文件中每一行是一个区间（必须含有3个整数字段：chr start end）
-    :param file: 区间文件对象
-    :return: 包含所有区间的元组列表，元组格式：(chrom, start, end)
     """
     intervals = []
     reader = csv.reader(file, delimiter='\t')
@@ -32,9 +29,6 @@ def read_intervals(file):
 def merge_sorted_intervals(intervals1, intervals2):
     """
     将两个已排好序的区间列表中的重叠部分合并成一个区间列表。
-    :param intervals1: 第一个区间列表，元组格式：(chrom, start, end)
-    :param intervals2: 第二个区间列表，元组格式：(chrom, start, end)
-    :return: 合并后的区间列表
     """
     results = []
     i, j = 0, 0
@@ -74,8 +68,6 @@ def merge_sorted_intervals(intervals1, intervals2):
 def write_intervals(intervals, file_path):
     """
     将区间写入到指定文件中。每一行为一个区间（格式：chrom start end）
-    :param intervals: 元组列表，格式：(chrom, start, end)
-    :param file_path: 输出文件路径
     """
     with open(file_path, 'w', newline='\n') as out_file:
         writer = csv.writer(out_file, delimiter='\t')
@@ -91,10 +83,8 @@ def write_intervals(intervals, file_path):
 @click.option('--out', '-o', type=click.Path(writable=True, dir_okay=False), required=True, help='输出文件路径')
 def merge_intervals(file1, file2, out):
     """
+    bedtools intersect的代替版本，对两个区间文件文件取交集并去除重叠区间。
     合并两个区间文件中的重叠部分，并将结果写入输出文件。
-    :param file1: 第一个区间文件，chr start end三列的tab分隔文件，不需要表头
-    :param file2: 第二个区间文件，chr start end三列的tab分隔文件，不需要表头
-    :param out: 输出文件路径
     """
     # 读取两个输入文件中的区间
     intervals1 = read_intervals(file1)
