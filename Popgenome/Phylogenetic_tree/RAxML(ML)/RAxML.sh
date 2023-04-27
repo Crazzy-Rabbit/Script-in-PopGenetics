@@ -2,7 +2,7 @@
 function usage() {
     echo "Usage: bash $0 --vcf <vcf> --outgroup <Outgroup> --output <output> --boot <bootstrap>--thread <Threads>"
     echo "required options"
-      echo "-v|--vcf      vcf文件"
+      echo "-v|--vcf       vcf文件"
       echo "-O|--outgroup  外群名称，或是外群那个个体ID"
       echo "-o|--output    输出文件前缀"
       echo "-b|--boot      bootstrap次数，默认为100次"
