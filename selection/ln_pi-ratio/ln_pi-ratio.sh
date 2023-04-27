@@ -56,3 +56,4 @@ vcftools --vcf $vcf --window-pi $win --window-pi-step $step --keep ${pop2}.txt -
 source /home/sll/miniconda3/bin/activate
 python ln_ratio.py --group1 ${pop1}.windowed.pi --group2 ${pop2}.windowed.pi --nvars $navr --outprefix $out
 }
+main
