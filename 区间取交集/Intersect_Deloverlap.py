@@ -41,7 +41,6 @@ def merge_sorted_intervals(intervals1, intervals2):
     while i < len(intervals1) and j < len(intervals2):
         interval1 = intervals1[i]
         interval2 = intervals2[j]
-
         # intervals1 和 intervals2 没有交集
         if interval1[0] < interval2[0] or (interval1[0] == interval2[0] and interval1[2] < interval2[1]):
             i += 1
@@ -52,7 +51,6 @@ def merge_sorted_intervals(intervals1, intervals2):
             start = max(interval1[1], interval2[1])
             end = min(interval1[2], interval2[2])
             results.append((interval1[0], start, end))
-
             # 判断区间的结束位置，更新指针
             if interval1[2] < interval2[2]:
                 i += 1
@@ -61,7 +59,6 @@ def merge_sorted_intervals(intervals1, intervals2):
             else:
                 i += 1
                 j += 1
-
     # 合并重叠的区间
     non_overlapping = [results[0]] if len(results) > 0 else []
     for interval in results[1:]:
@@ -102,16 +99,13 @@ def merge_intervals(file1, file2, out):
     # 读取两个输入文件中的区间
     intervals1 = read_intervals(file1)
     intervals2 = read_intervals(file2)
-
     # 将区间按照序列号和起始位置进行排序
     intervals1.sort()
     intervals2.sort()
-
     # 检查输入文件是否为空文件
     if not (intervals1 and intervals2):
         click.echo('输入文件为空！')
         return
-
     # 合并区间并写入结果
     results = merge_sorted_intervals(intervals1, intervals2)
     write_intervals(results, out)
