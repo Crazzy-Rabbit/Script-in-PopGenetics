@@ -1,0 +1,32 @@
+1、转换格式：
+使用EIGENSOFT中内置的convertf 文件转化为smartpca的输入文件
+convertf -p transfer.conf
+
+需要一个config file，将文件的输入输出写进去。
+##config file
+genotypename:    myplink_test.ped
+snpname:         myplink_test.map # or example.map, either works
+indivname:       myplink_test.ped # or example.ped, either works
+outputformat:    EIGENSTRAT
+genotypeoutname: example.eigenstratgeno
+snpoutname:      example.snp
+indivoutname:    example.ind
+familynames:    NO
+
+产生三个pca所需的输入文件 example.eigenstrat example.snp example.ind
+
+
+
+2、smartpca做PCA
+smartpca -p runningpca.conf
+
+##config file
+genotypename: example.geno
+snpname: example.snp
+indivname: example.ind
+evecoutname: example.pca.evec
+evaloutname: example.eval
+altnormstyle: NO
+numoutevec: 10
+numoutlieriter: 5
+outliersigmathresh: 6.0
