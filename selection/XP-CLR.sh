@@ -11,7 +11,7 @@ function usage() {
       echo "-r|--ref     ref sample list per row per ID"
       echo "-t|--tag     tag sample list per row per ID"
       echo "-w|--win     winsize for xpclr, default 50000"
-      echo "-s|--step    step size for xpclr, default 25000"
+      echo "-s|--step    step size for xpclr, default 50000"
       echo "-o|--out     输出文件前缀"
       exit 1;
 }
@@ -20,7 +20,7 @@ vcf=""
 ref=""
 tag=""
 win="50000"
-step="25000"
+step="50000"
 out=""
 
 while [[ $# -gt 0 ]]
