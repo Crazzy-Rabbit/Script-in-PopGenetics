@@ -44,7 +44,7 @@ do
   esac
 done
 
-if [ -z $vcf ] || [ -z $pop1 ] || [ -z $pop2 ] || [ -z $out]; then
+if [ -z $vcf ] || [ -z $pop1 ] || [ -z $pop2 ] || [ -z $out ]; then
     echo "Option --vcf and --pop1 and --pop2 and --out not specified" >&2
     usage
 fi
