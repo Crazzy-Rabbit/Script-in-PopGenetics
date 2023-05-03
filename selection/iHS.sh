@@ -27,15 +27,15 @@ function usage() {
  do 
    case "$1" in 
      -v|--vcf )
-       vcf=$2 ; shift2 ;;
+       vcf=$2 ; shift 2 ;;
      -n|--ne )
-       ne=$2 ; shift2 ;;
+       ne=$2 ; shift 2 ;;
      -w|--win )
-       win=$2 ; shift2 ;;
+       win=$2 ; shift 2 ;;
      -T|--thread )
-       thread=$2 ; shift2 ;;
+       thread=$2 ; shift 2 ;;
      -o|--out )
-       out=$2 ; shift2 ;;
+       out=$2 ; shift 2 ;;
      *) echo "输入参数不对哦！"
         usage
         shift
