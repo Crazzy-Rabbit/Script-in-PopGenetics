@@ -6,9 +6,9 @@ function usage() {
       echo "-v|--vcf       vcf file"
       echo "-1|--pop1      群体1 txt文本文件前缀，一行一个ID"
       echo "-2|--pop2      群体2 txt文本文件前缀，一行一个ID"
-      echo "-w|--win       窗口大小"
-      echo "-s|--step      步长大小"
-      echo "-n|--navr      窗口内SNP数小于它则删除窗口，默认为20"
+      echo "-w|--win       窗口大小，默认50000"
+      echo "-s|--step      步长大小，默认50000"
+      echo "-n|--navr      窗口内SNP数小于它则删除窗口，默认20"
       echo "-o|--out       输出文件前缀"
       exit 1;
 }
@@ -17,7 +17,7 @@ vcf=""
 pop1=""
 pop2=""
 win="50000"
-step="25000"
+step="50000"
 navr="20"
 out=""
 
