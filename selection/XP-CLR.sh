@@ -27,17 +27,17 @@ while [[ $# -gt 0 ]]
 do
   case "$1" in
     -v|--vcf )
-        vcf=$2 ; shift2 ;;
+        vcf=$2 ; shift 2 ;;
     -r|--ref )
-        ref=$2 ; shift2 ;;
+        ref=$2 ; shift 2 ;;
     -t|--tag )
-        tag=$2 ; shift2 ;;
+        tag=$2 ; shift 2 ;;
     -w|--win )
-        win=$2 ; shift2 ;;
+        win=$2 ; shift 2 ;;
     -s|--step )
-        step=$2 ; shift2 ;;
+        step=$2 ; shift 2 ;;
     -o|--out )
-        out=$2 ; shift2 ;;
+        out=$2 ; shift 2 ;;
     *) echo "输入参数不对哦!" ;
         usage
         shift
@@ -59,7 +59,7 @@ do
 $vcftools --vcf ../$vcf \
           --recode --recode-INFO-all \
           --chr ${k} \
-          --out ${out}.chr${k}
+          --out ./${out}.chr${k}
           
 # calculate map distance                
 $vcftools --vcf ${out}.chr${k}.recode.vcf \
@@ -71,10 +71,10 @@ done
 for k in {1..29};
 do
 # xpclr
-xpclr --out chr${k} --format vcf \
+xpclr --out ./chr${k} --format vcf \
       --input ${out}.chr${k}.recode.vcf \
-      --samplesA $ref \
-      --samplesB $tag \
+      --samplesA ../$ref \
+      --samplesB ../$tag \
       --map chr${k}.MT.map.distance \
       --chr ${k} \
       --gdistkey None --phased \
