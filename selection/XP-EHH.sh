@@ -33,19 +33,19 @@ while [[ $# -gt 0 ]];
 do
   case "$1" in
     -v|--vcf )
-        vcf=$2 ; shift2 ;;
+        vcf=$2 ; shift 2 ;;
     -n|--ne )
-        ne=$2 ; shift2 ;;
+        ne=$2 ; shift 2 ;;
     -r|--ref )
-        ref=$2 ; shift2 ;;
+        ref=$2 ; shift 2 ;;
     -t|--tag )
-        tag=$2 ; shift2 ;;
+        tag=$2 ; shift 2 ;;
     -w|--win )
-        win=$2 ; shift2 ;;
+        win=$2 ; shift 2 ;;
     -T|--thread )
-        thread=$2 ; shift2 ;;
+        thread=$2 ; shift 2 ;;
     -o|--output )
-        output=$2 ; shift2 ;;
+        output=$2 ; shift 2 ;;
     *) echo "输入参数不对哦!" >&2
        usage
        shift
