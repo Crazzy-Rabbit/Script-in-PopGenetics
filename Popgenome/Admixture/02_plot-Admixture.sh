@@ -1,3 +1,11 @@
+
+
+# 生成filemap文件
+ls *.Q | awk '{print "r1u"NR+1"\t"NR+1"\t"$0}' > filemap.txt
+
+
+
+# 运行pong
 pong -m pong_filemap.txt -i nd2pop.txt -n  pop_order.txt -l color.txt
 
 
