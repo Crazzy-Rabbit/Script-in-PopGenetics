@@ -22,6 +22,7 @@ function usage() {
  ne=""
  win="50000"
  thread="10"
+ chr=""
  out=""
  
  while [[ $# -gt 0 ]]
