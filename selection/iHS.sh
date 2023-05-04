@@ -13,6 +13,7 @@ function usage() {
       echo "-n|--ne      ne in beagle"
       echo "-w|--win     winsize in iHS, default 50000"
       echo "-T|--thread  thread for selscan, default 10"
+      echo "-c|--chr     最大染色体号，决定vcf文件分成多少个染色体文件"
       echo "-o|--out     输出文件前缀"
       exit 1;
  }
@@ -34,6 +35,8 @@ function usage() {
        win=$2 ; shift 2 ;;
      -T|--thread )
        thread=$2 ; shift 2 ;;
+     -c|--chr )
+       chr=$2 ; shift 2 ;;
      -o|--out )
        out=$2 ; shift 2 ;;
      *) echo "输入参数不对哦！"
@@ -57,7 +60,7 @@ java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
 mkdir iHS.progress
 cd iHS.progress
 
-for i in {1..29};
+for ((i=1; i<=$chr; i++));
 do 
 # calculate map distance
 $vcftools --gzvcf ../${out}.beagle.vcf.gz \
@@ -71,7 +74,7 @@ $vcftools --vcf ${out}.chr${i}.recode.vcf \
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${i}.MT.map.distance
 done 
 
-for i in {1..29};
+for ((i=1; i<=$chr; i++));
 do
 # iHS
 $selscan --ihs --vcf ${out}.chr${i}.recode.vcf \
