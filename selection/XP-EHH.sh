@@ -17,6 +17,7 @@ function usage() {
       echo "-t|--tag      tag sample per row per ID"
       echo "-w|--win      winsize in xpehh, default 50000"
       echo "-T|--thread   threads, default 10"
+      echo "-c|--chr      最大染色体号，决定你的vcf文件分多少个染色体文件"
       echo "-o|--output   输出文件前缀"
       exit 1;
 }
@@ -27,6 +28,7 @@ ref=""
 tag=""
 win="50000"
 thread="10"
+chr=""
 output=""
 
 while [[ $# -gt 0 ]];
@@ -44,6 +46,8 @@ do
         win=$2 ; shift 2 ;;
     -T|--thread )
         thread=$2 ; shift 2 ;;
+    -c|--chr )
+        chr=$2 ; shift 2 ;;
     -o|--output )
         output=$2 ; shift 2 ;;
     *) echo "输入参数不对哦!" >&2
@@ -71,44 +75,44 @@ $bcftools view -S $tag  ${output}.beagle.vcf.gz  -Ov > tag.beagle.vcf
 mkdir XP-EHH.progress
 cd XP-EHH.progress
 
-for i in {1..29};
+for ((k=1; k<=$chr; k++));
 do 
 # splite chr for ref and tag
 $vcftools --vcf ../ref.beagle.vcf \
           --recode --recode-INFO-all \
-          --chr ${i} \
-          --out ref.chr${i}
+          --chr ${k} \
+          --out ref.chr${k}
 $vcftools --vcf ../tag.beagle.vcf \
           --recode --recode-INFO-all \
-          --chr ${i} \
-          --out tag.chr${i}
+          --chr ${k} \
+          --out tag.chr${k}
           
 # calculate map distance                
-$vcftools --vcf ref.chr${i}.recode.vcf \
+$vcftools --vcf ref.chr${k}.recode.vcf \
           --plink \
-          --out chr${i}.MT
-awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${i}.MT.map.distance
+          --out chr${k}.MT
+awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
 done
 
-for i in {1..29};
+for ((k=1; k<=$chr; k++));
 do
 # XP-EHH
-$selscan --xpehh --vcf tag.chr${i}.recode.vcf \
-                 --vcf-ref ref.chr${i}.recode.vcf \
-                 --map chr${i}.MT.map.distance \
+$selscan --xpehh --vcf tag.chr${k}.recode.vcf \
+                 --vcf-ref ref.chr${k}.recode.vcf \
+                 --map chr${k}.MT.map.distance \
                  --threads $thread \
-                 --out  chr${i}.ref_tag
+                 --out  chr${k}.ref_tag
 
 # chr
-awk  '{print '${i}',$2,$3,$4,$5,$6,$7,$8}'  chr${i}.ref_tag.xpehh.out > Chr${i}.ref_tag.xpehh.out
-sed -i 's/ /\t/g' Chr${i}.ref_tag.xpehh.out            
+awk  '{print '${k}',$2,$3,$4,$5,$6,$7,$8}'  chr${k}.ref_tag.xpehh.out > Chr${k}.ref_tag.xpehh.out
+sed -i 's/ /\t/g' Chr${k}.ref_tag.xpehh.out            
 
 # add win and norm
-$norm --xpehh --files  Chr${i}.ref_tag.xpehh.out \
+$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out \
               --bp-win --winsize $win
               
 # merge    
-awk  '{print '${i}',$1,$2,$4,$5,$8,$9}'   Chr${i}.${output}.nochr > Chr${i}.${output}
+awk  '{print '${k}',$1,$2,$4,$5,$8,$9}'   Chr${k}.${output}.nochr > Chr${k}.${output}
 done
 
 cat ./*.${output} > ../${output}.xpehh
