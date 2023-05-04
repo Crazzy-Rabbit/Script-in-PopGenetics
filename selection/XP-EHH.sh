@@ -112,9 +112,9 @@ $norm --xpehh --files  Chr${k}.ref_tag.xpehh.out \
               --bp-win --winsize $win
               
 # merge    
-awk  '{print '${k}',$1,$2,$4,$5,$8,$9}'   Chr${k}.${output}.nochr > Chr${k}.${output}
+awk  '{print '${k}',$1,$2,$4,$5,$8,$9}'   Chr${k}.ref_tag.xpehh.out.norm.50kb.windows > Chr${k}.ref_tag.xpehh.norm.tiqu
 done
 
-cat ./*.${output} > ../${output}.xpehh
+cat ./*.norm.tiqu > ../${output}.xpehh
 }
 main
