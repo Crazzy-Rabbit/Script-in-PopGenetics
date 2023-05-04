@@ -12,6 +12,7 @@ function usage() {
       echo "-t|--tag     tag sample list per row per ID"
       echo "-w|--win     winsize for xpclr, default 50000"
       echo "-s|--step    step size for xpclr, default 50000"
+      echo "-c|--chr     最大的染色体号，这个决定你vcf文件分成几个（很最重要！！）"
       echo "-o|--out     输出文件前缀"
       exit 1;
 }
@@ -21,6 +22,7 @@ ref=""
 tag=""
 win="50000"
 step="50000"
+chr=""
 out=""
 
 while [[ $# -gt 0 ]]
@@ -36,6 +38,8 @@ do
         win=$2 ; shift 2 ;;
     -s|--step )
         step=$2 ; shift 2 ;;
+    -c|--chr )
+        chr=$2 ; shift 2 ;;
     -o|--out )
         out=$2 ; shift 2 ;;
     *) echo "输入参数不对哦!" ;
@@ -54,7 +58,7 @@ function main {
 mkdir XP-CLR.progress
 cd XP-CLR.progress
 
-for k in {1..29};
+for ((k=1; k<=$chr; k++));
 do
 $vcftools --vcf ../$vcf \
           --recode --recode-INFO-all \
@@ -68,7 +72,7 @@ $vcftools --vcf ${out}.chr${k}.recode.vcf \
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
 done 
 
-for k in {1..29};
+for ((k=1; k<=$chr; k++));
 do
 # xpclr
 xpclr --out ./chr${k} --format vcf \
