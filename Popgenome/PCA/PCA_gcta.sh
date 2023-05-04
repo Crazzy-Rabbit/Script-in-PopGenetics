@@ -20,13 +20,13 @@ while [[ $# -gt 0 ]]
 do 
   case "$1" in
     -b|--bfile )
-      bfile=$2 ; shift2 ;;
+      bfile=$2 ; shift 2 ;;
     -a|--autosome )
-      autosome=$2 ; shift2 ;;
+      autosome=$2 ; shift 2 ;;
     -p|--pca )
-      pca=$2 ; shift2 ;;
+      pca=$2 ; shift 2 ;;
     -o|--out )
-      out=$2 ; shift2 ;;
+      out=$2 ; shift 2 ;;
     *) echo "没有这个参数！" >&2
       usage
       shift
