@@ -2,7 +2,7 @@
 # PCA
 gcta="/home/software/gcta_1.92.3beta3/gcta64"
 function usage() {
-    echo "Usage:"
+    echo "Usage: bash $0 --bfile <bfile> --autosome <chrosome> --pca <pc> --out <outperfix>"
     echo "required options"
       echo "-b|--bfile     bfile文件前缀"
       echo "-a|--autosome  常染色体数量，默认为 29"
