@@ -86,7 +86,7 @@ xpclr --out ./chr${k} --format vcf \
       --step $step
 
 # merge
-awk  '{print $2,$3,$4,$12,$13}'   Chr${k} > Chr${k}.${out}
+awk  '{print $2,$3,$4,$12,$13}'   chr${k} > Chr${k}.${out}
 done
 
 cat ./*.${out} > ../${out}.xpclr
