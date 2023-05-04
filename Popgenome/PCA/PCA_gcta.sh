@@ -47,7 +47,7 @@ $gcta --bfile $bfile \
                                        
 ## PCA
 $gcta --grm ${out}.gcta \
-      -pca $pca \
+      --pca $pca \
       --out ${out}.gcta.out
 }
 main
