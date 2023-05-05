@@ -1,0 +1,60 @@
+delly call -g /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna BC-448.sorted.addhead.markdup.bam > BC-448.cnv.vcf
+
+
+Delly
+主要检测sv。
+·deletions
+·tandem duplications
+·inversions
+·translocations
+joint call or 分开
+specificity > sensitivity : call separately
+sensitivity > specificity : joint call
+cnv
+#分开
+delly -t DUP -o sample1.out -g ref.fa sample1.bam
+delly -t DUP -o sample2.out -g ref.fa sample2.bam
+#...
+delly -t DUP -o sample6.out -g ref.fa sample6.bam
+# and then merge the output vcfs
+
+
+# joint call
+delly -t DUP -o allSamples.out -g ref.fa sample1.bam sample2.bam sample3.bam sample4.bam sample5.
+
+Delly v0.7.8 可以一次性call 所有类型的SVs；低版本的需要通过-t指定SV类型
+输入文件
+
+1、bam文件：Bam files need to be sorted, indexed and ideally duplicate marked. If multiple libraries are present for a single sample these need to be merged in a single bam file with unique ReadGroup tags.
+2、.excl: a file include information of telomere and centromere regions and also all unplaced contigs, those regions will be removed from calling.
+
+有群体时，建议将所有个体的.bcf文件合并后，再进行genotyping。
+
+#install
+git clone --recursive https://github.com/dellytools/delly.git
+cd delly/
+make all
+#也可以直接下载编译后的二进制文件，直接使用，不需安装 https://github.com/dellytools/delly/releases/
+#Running
+DB="/root/cc/DB"
+i="SXY"
+samtools index $i.recal.bam （建索引）
+~/cc/biosoft/delly/delly_v0.7.8_linux_x86_64bit call -g $DB/hg19_chr.fa -x exc1.excl -o delly_out/$i.exc1.bcf $i.recal.bam
+#bcftools view $i.target.bcf >$i.target.vcf （bcf转vcf格式）
+#Merge SV sites into a unified site list
+delly merge -o sites.bcf s1.bcf s2.bcf ... sN.bcf
+#Genotype this merged SV site list across all samples. This can be run in parallel for each sample.
+delly call -g $DB/target-ref.fa -v sites.bcf -o s1.geno.bcf  s1.bam
+#Merge all genotyped samples to get a single VCF/BCF using bcftools merge
+bcftools merge -m id -O b -o merged.bcf s1.geno.bcf s2.geno.bcf ... sN.geno.bcf
+#Apply the germline SV filter which requires at least 20 unrelated samples
+delly filter -f germline -o germline.bcf merged.bcf
+bcftools view germline.bcf >germline.vcf
+脚本记录：
+/GS01/project/wudd_group/wudd2t4/project_lzx/software/delly_v0.8.3_linux_x86_64bit call -g /GS01/project/wudd_group/wudd2t4/project_lzx/sheep/GCF_002742125.1_Oar_rambouillet_v1.0_genomic.fna -o SRR11657523.bcf SRR11657523.sorted.addhead.markdup.bam
+
+插入（Insertion, INS）
+缺失（Deletion, DEL）
+反转（Inversion, INV）
+染色体内部易位（Intra-chromosomal Translocation, ITX）
+染色体间易位（Inter-chromosomal Translocation, CTX)
