@@ -1,0 +1,45 @@
+基于long soft clips的CNV断点计算方法 
+每个样品分别进行matchclips2计算：
+很快，结果也挺准确的
+/home/software/matchclips2/matchclips -t 4 -f /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna -b BC-448.sorted.addhead.markdup.bam -o CNV.BC-448.txt
+
+ls *bam|cut -d"." -f 1 | sort -u | while read id; do /home/software/matchclips2/matchclips -t 4 -f /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna -b ${id}.sorted.addhead.markdup.bam -o ${id}.cnv.txt; done
+结果文件：
+1、CHROM  
+2、起始位置  
+3、中止位置 
+4、DEL或DUP  
+For DEL, the 5' break point is BEGIN and 3' is END,
+For DUP, the 5' break point is END and 3' is BEGIN.、
+5、区域长度：3' break point - 5' break point
+6、UN，碱基数量This number tells how many bases are repeated at the two break points
+7、RD:n1;n2;n3:s
+合并结果：
+#保证当前目录没有其他txt文件的情况下
+find -name '*txt' -exec basename {} \; > cnvf.txt
+#进行合并
+/home/software/matchclips2/cnvtable -L 10000 -cnvf cnvf.txt -O 0.5 -o overlap.txt
+
+cnvf.txt为含有上一步结果文件名称的txt文件，一列一个
+-cnv  STR  file names separated by white spaces
+-i    STR  IDs for the files separated by white spaces 
+-cnvf STR  a file with list of file names and(or) ids
+-l   INT  minimum length to include, INT=3 
+-L  INT  maximum length to include, INT=10000000 
+-t   STR  only process STR type of CNVs
+-R  STR  subset cnvs in region STR
+-chr 1-22XY are treated as chr[1-22XY]
+-O  FLOAT  minimum reciprocal overlap ratio [0.0, 1.0], FLOAT=0.5
+-o  STR  outputfile, STR=STDOUT
+
+
+matchclips2.sh：
+touch matchclips2.sh
+bash matchclips2
+
+##运行
+ls *bam|cut -d"." -f 1 | sort -u | while read id; do /home/software/matchclips2/matchclips -t 4 -f /home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna -b ${id}.sorted.addhead.markdup.bam -o ${id}.cnv.txt; done
+#保证当前目录没有其他txt文件的情况下
+find -name '*txt' -exec basename {} \; > cnvf.txt
+#进行合并
+/home/software/matchclips2/cnvtable -L 10000 -cnvf cnvf.txt -O 0.5 -o overlap.txt
