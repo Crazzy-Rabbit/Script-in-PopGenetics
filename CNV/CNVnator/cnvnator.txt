@@ -34,3 +34,7 @@ cnvnator -root SAMN05788539.root -partition 100
 #第四列为标准化参数normalized_RD
 #第5-8列为e-value值，其中第五列越小，说明结果越准确
 #第九列q0质量值
+
+6.转为vcf格式
+/home/software/CNVnator_v0.4.1/src/cnvnator2VCF.pl cnv.call.txt > cnv.vcf
+
