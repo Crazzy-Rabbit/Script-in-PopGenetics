@@ -1,0 +1,18 @@
+路径：
+/home/sll/software/SURVIVOR/Debug/SURVIVOR
+
+
+
+1、生成vcf文件的list文件
+
+ls *vcf > sample_files
+
+2、SURVIVOR合并两种软件鉴定的CNV结果
+/home/sll/software/SURVIVOR/Debug/SURVIVOR merge sample_files 1000 2 1 1 0 30 sample_merged.vcf
+
+
+1000表示允许合并的SV间的距离最大为1000bp;
+2表示仅输出2个工具均鉴定出的SV;
+1表示仅输出2个工具鉴定出的同类型的SV;
+1表示仅输出2个工具鉴定出的同方向的SV;
+30表示仅考虑长度在30bp以上的SV
