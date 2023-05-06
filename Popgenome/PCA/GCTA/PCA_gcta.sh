@@ -2,6 +2,7 @@
 # PCA
 gcta="/home/software/gcta_1.92.3beta3/gcta64"
 function usage() {
+    echo "GCTA软件做PCA分析，输入文件为bed、bim、fam文件前缀，数字染色体"
     echo "Usage: bash $0 --bfile <bfile> --autosome <chrosome> --pca <pc> --out <outperfix>"
     echo "required options"
       echo "-b|--bfile     bfile文件前缀"
