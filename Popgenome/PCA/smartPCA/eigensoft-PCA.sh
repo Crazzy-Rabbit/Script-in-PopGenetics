@@ -1,3 +1,8 @@
+#! /bin/bash
+
+convertf="/home/sll/miniconda3/bin/convertf"
+smartpca="/home/sll/miniconda3/bin/smartpca"
+
 function usage() {
     echo "用eigensoft软件中的smartpca做pca分析，输入文件为map、ped文件前缀"
     echo "用法  bash $0 --file <plink> --pca <pca> --out <outprefix>"
@@ -44,7 +49,7 @@ indivoutname:    $out.ind
 familynames:    NO
 EOF
 
-convertf -p transfer.conf
+$convertf -p transfer.conf
 
 # PCA
 cat > runningpca.conf <<EOF
@@ -57,6 +62,6 @@ altnormstyle: NO
 numoutevec: $pca
 EOF
 
-smartpca -p runningpca.conf
+$smartpca -p runningpca.conf
 }
 main
