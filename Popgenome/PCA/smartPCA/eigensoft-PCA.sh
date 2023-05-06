@@ -1,5 +1,6 @@
 function usage() {
-    echo "用法  bash $0 "
+    echo "用eigensoft软件中的smartpca做pca分析，输入文件为map、ped文件前缀"
+    echo "用法  bash $0 --file <plink> --pca <pca> --out <outprefix>"
     echo "required options!"
       echo "-F|--file     plink格式map、ped文件的前缀"
       echo "-p|--pca      pc数，默认为3"
