@@ -59,6 +59,8 @@ indivname: $out.ind
 evecoutname: $out.pca.evec
 evaloutname: $out.eval
 altnormstyle: NO
+numoutlieriter:  0
+nsnpldregress:   0
 numoutevec: $pca
 EOF
 
