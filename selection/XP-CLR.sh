@@ -60,30 +60,16 @@ cd XP-CLR.progress
 
 for ((k=1; k<=$chr; k++));
 do
-$vcftools --vcf ../$vcf \
-          --recode --recode-INFO-all \
-          --chr ${k} \
-          --out ./${out}.chr${k}
-          
-# calculate map distance                
-$vcftools --vcf ${out}.chr${k}.recode.vcf \
-          --plink \
-          --out chr${k}.MT
+$vcftools --vcf ../$vcf --recode --recode-INFO-all  --chr ${k} --out ./${out}.chr${k}        
+#calculate map distance                
+$vcftools --vcf ${out}.chr${k}.recode.vcf --plink --out chr${k}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
 done 
 
 for ((k=1; k<=$chr; k++));
 do
 # xpclr
-xpclr --out ./chr${k} --format vcf \
-      --input ${out}.chr${k}.recode.vcf \
-      --samplesA ../$ref \
-      --samplesB ../$tag \
-      --map chr${k}.MT.map.distance \
-      --chr ${k} \
-      --gdistkey None --phased \
-      --size $win \
-      --step $step
+xpclr --out ./chr${k} --format vcf --input ${out}.chr${k}.recode.vcf --samplesA ../$ref --samplesB ../$tag --map chr${k}.MT.map.distance --chr ${k} --gdistkey None --phased --size $win --step $step
 
 # merge
 awk  '{print $2,$3,$4,$12,$13}'   chr${k} > Chr${k}.${out}
