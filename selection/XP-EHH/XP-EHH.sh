@@ -63,12 +63,9 @@ fi
 
 function main() {      
 # beagle
-java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
-                                   gt=${vcf} \
-                                   out=${output}.beagle \
-                                   ne=${ne}
+java -jar -Xmn12G -Xms24G -Xmx48G  $beagle gt=${vcf} out=${output}.beagle ne=${ne}
 
-# extract sample
+#extract sample
 $bcftools view -S $ref  ${output}.beagle.vcf.gz  -Ov > ref.beagle.vcf
 $bcftools view -S $tag  ${output}.beagle.vcf.gz  -Ov > tag.beagle.vcf
 
@@ -77,44 +74,21 @@ cd XP-EHH.progress
 
 for ((k=1; k<=$chr; k++));
 do 
-# splite chr for ref and tag
-$vcftools --vcf ../ref.beagle.vcf \
-          --recode --recode-INFO-all \
-          --chr ${k} \
-          --out ref.chr${k}
-$vcftools --vcf ../tag.beagle.vcf \
-          --recode --recode-INFO-all \
-          --chr ${k} \
-          --out tag.chr${k}
-          
-# calculate map distance                
-$vcftools --vcf ref.chr${k}.recode.vcf \
-          --plink \
-          --out chr${k}.MT
+#splite chr for ref and tag
+$vcftools --vcf ../ref.beagle.vcf --recode --recode-INFO-all --chr ${k} --out ref.chr${k}
+$vcftools --vcf ../tag.beagle.vcf --recode --recode-INFO-all --chr ${k} --out tag.chr${k}        
+#calculate map distance                
+$vcftools --vcf ref.chr${k}.recode.vcf --plink --out chr${k}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
 done
 
 for ((k=1; k<=$chr; k++));
 do
-# XP-EHH
-$selscan --xpehh --vcf tag.chr${k}.recode.vcf \
-                 --vcf-ref ref.chr${k}.recode.vcf \
-                 --map chr${k}.MT.map.distance \
-                 --threads $thread \
-                 --out  chr${k}.ref_tag
-
-# chr
-awk  '{print '${k}',$2,$3,$4,$5,$6,$7,$8}'  chr${k}.ref_tag.xpehh.out > Chr${k}.ref_tag.xpehh.out
-sed -i 's/ /\t/g' Chr${k}.ref_tag.xpehh.out            
-
-# add win and norm
-$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out \
-              --bp-win --winsize $win
-              
-# merge    
-awk  '{print '${k}',$1,$2,$4,$5,$8,$9}'   Chr${k}.ref_tag.xpehh.out.norm.50kb.windows > Chr${k}.ref_tag.xpehh.norm.tiqu
+#XP-EHH
+$selscan --xpehh --vcf tag.chr${k}.recode.vcf --vcf-ref ref.chr${k}.recode.vcf --map chr${k}.MT.map.distance --threads $thread --out  chr${k}.ref_tag          
+#norm
+$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win              
 done
-
-cat ./*.norm.tiqu > ../${output}.xpehh
+# 输出文件为.100bins.norm格式的文件，用perl脚本加窗口步长。暂时先这样，之后再加循环
 }
 main
