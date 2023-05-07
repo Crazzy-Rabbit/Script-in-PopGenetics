@@ -6,13 +6,11 @@
 library('qqman')
 data1 <- read.table("FST.csv",header = T,sep = ',') 
 color_set <- c("#801e91","#344fa8","#f7cb34","#a8a8aa","#ffe4c7")
-
 par(cex=0.9,font=2)       # 调整整个图的大小比例
- par(cex.lab=1.5)   # 调整坐标轴标题大小
+par(cex.lab=1.5)   # 调整坐标轴标题大小
 par(cex.axis=1)    # 调整坐标轴刻度线大小
 manhattan(data1,col=color_set, logp  = F,ylab='Fst',ylim=c(0,0.8),
           genomewideline=-log10(5e-800),suggestiveline = -log10(1e-800) )
-
 abline(lty = 1 , h =0.255368, col = "red",lwd = 3)
 #444444
 ##logp一般为F,若为T则y轴取值为-logp值  
@@ -35,17 +33,11 @@ abline(lty = 1 , h =0.255368, col = "red",lwd = 3)
 library(CMplot)
 data1 <- read.table("IHS.csv",header = T,sep = ',') 
 color_set <- c("#801e91","#344fa8","#f7cb34","#a8a8aa","#ffe4c7")
-CMplot(data1, plot.type="m", LOG10=F,
-       
-       chr.den.col=NULL, col = color_set,
-       
-       threshold = 0.186813, threshold.col = "red", threshold.lwd= 2, threshold.lty =1,
-       
-       amplify = FALSE, file.output=T, height=5, width = 10,
-       
-       ylab = "iHS",
-       ###ylab = expression(paste(italic('F'),st)),
-       
+CMplot(data1, plot.type="m", LOG10=F,   
+       chr.den.col=NULL, col = color_set,       
+       threshold = 0.186813, threshold.col = "red", threshold.lwd= 2, threshold.lty =1,     
+       amplify = FALSE, file.output=T, height=5, width = 10,     
+       ylab = "iHS", ###ylab = expression(paste(italic('F'),st)),  
        pch =".", cex =4, dpi = 600, file = "jpg",memo = "IHS")
 
 
