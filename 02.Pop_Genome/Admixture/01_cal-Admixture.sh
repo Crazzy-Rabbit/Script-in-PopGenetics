@@ -4,4 +4,5 @@ done
 
 
 # CV error最小的为最佳K值
+# -s 设置随机数进行自举
 grep -h CV log*.out
