@@ -54,40 +54,22 @@ fi
 
 function main() {
 # 过滤geno和maf
-plink --allow-extra-chr --chr-set $chr \
-      -bfile $bfile \
-      --geno $geno --maf $maf \
-      --make-bed --out QC.${bfile}
+plink --allow-extra-chr --chr-set $chr -bfile $bfile --geno $geno --maf $maf --make-bed --out QC.${bfile}
 
 # 过滤LD
 # 转为map、ped格式
-plink --allow-extra-chr --chr-set $chr \
-      -bfile QC.$bfile \
-      --recode \
-      --out QC.${bfile}
+plink --allow-extra-chr --chr-set $chr -bfile QC.$bfile --recode --out QC.${bfile}
 # 填充map文件第二列，
 awk -F '\t' '{print $1"\t"$1":"$4"\t"$3"\t"$4}' QC.${bfile}.map > QC.${bfile}.correction.map
-
 # 删除原来的map文件, 将生成的map文件改为原来的map文件名称
 rm QC.${bfile}.map
-
 mv QC.${bfile}.correction.map QC.${bfile}.map
-
 #转为二进制格式
-plink --allow-extra-chr --chr-set $chr \
-      --file QC.${bfile} \
-      --make-bed \
-      --out QC.${bfile}
-#进行LD过滤
-plink --allow-extra-chr --chr-set $chr \
-      -bfile QC.${bfile}  \
-      --indep-pairwise $win $step $rr \
-      --out QC.ld.${bfile}-502502
+plink --allow-extra-chr --chr-set $chr --file QC.${bfile} --make-bed --out QC.${bfile}
 
-plink --allow-extra-chr --chr-set $chr \
-      -bfile QC.${bfile} \
-      --extract QC.ld.${bfile}-502502.prune.in \
-      --make-bed \
-      --out QC.ld.${bfile}-502502
+#进行LD过滤
+plink --allow-extra-chr --chr-set $chr -bfile QC.${bfile}  --indep-pairwise $win $step $rr --out QC.ld.${bfile}-502502
+
+plink --allow-extra-chr --chr-set $chr -bfile QC.${bfile} --extract QC.ld.${bfile}-502502.prune.in --make-bed --out QC.ld.${bfile}-502502
 }
 main
