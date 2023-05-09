@@ -17,7 +17,7 @@ Created on  05 09 16:17:41  2023
 Del_genotypeCNVR.txt，Del_genotypeCNVR.txt，Both_genotypeCNVR.txt 
 2、chat.rectchr，用于Rectchr绘制拷贝数图谱
 3、cal_VST.txt，用于计算VST
-ps: 写这个脚本真是要了命了
+ps: 写这个脚本真是要了命了（我是新手，哭了）
 """
 
 import pandas as pd
