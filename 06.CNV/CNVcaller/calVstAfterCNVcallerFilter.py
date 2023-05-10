@@ -33,7 +33,9 @@ pop2 = pd.read_csv("mergeCNVR", sep="\t", dtype=float,
 
 # 这个文件用于后面的注释和画曼哈顿图等
 chat = pd.read_csv("mergeCNVR", sep="\t",
-                   usecols=['chr', 'start', 'end'])
+                   usecols=['chr', 'start', 'end'],
+                   dtype{'chr': int,
+                        'start': int, 'end': int})
 
 # 计算各群体方差
 pop1_sd = pop1.var(numeric_only=True, axis=1)
