@@ -41,7 +41,7 @@ df['lenth'] = df['end'] - df['start']
 # 进行过滤
 # 所有类型轮廓系数 > 0.6
 # 缺失型：0.05<del<0.95且dup<=0.01 且 lenth <= 50000
-Del = df.query('silhouette_score > 0.6 and 0.05 < del_freq < 0.95 and dup_freq <= 0.01 and lenth < 50000')
+Del = df.query('silhouette_score > 0.6 and 0.05 < del_freq < 0.95 and dup_freq <= 0.01 and lenth <= 50000')
 Del['Type'] = 'Del'
 if not Del.empty:
     Del.to_csv(f'Del_genotypeCNVR.txt', sep='\t', index=False)
@@ -57,7 +57,7 @@ else:
     print("No rows meet the criteria.")
 
 # Both型： 0.05<dup<0.95 且 0.05<del<0.95 且 lenth < =50000
-Both = df.query('silhouette_score > 0.6 and 0.05 < dup_freq < 0.95 and 0.05 < del_freq < 0.95 and lenth < 50000')
+Both = df.query('silhouette_score > 0.6 and 0.05 < dup_freq < 0.95 and 0.05 < del_freq < 0.95 and lenth <= 50000')
 Both['Type'] = 'Both'
 if not Both.empty:
     Both.to_csv(f'Both_genotypeCNVR.txt', sep='\t', index=False)
