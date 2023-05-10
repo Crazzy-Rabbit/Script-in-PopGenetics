@@ -68,5 +68,5 @@ else:
 rectchr = pd.concat([Del, Dup, Both], axis=0)
 rectchr[['chr', 'start', 'end', 'lenth', 'Type']].to_csv(f'chat.rectchr', sep='\t', index=False)
 
-# 输出结果用于计算VST
-rectchr[['chr', 'start', 'end', 'average', 'sd']].to_csv(f'cal_VST.txt', sep='\t', index=False)
+# 输出结果用于在mergeCNVR文件提取计算VST及vcf文件提取下游分析的文件
+rectchr[['chr', 'start', 'end']].to_csv(f'Get_Region.txt', sep='\t', index=False)
