@@ -20,7 +20,7 @@ def tochat(infile):
                     dtype{'chr': str, 'start': ind, 'end': int})
     return df
 def target(poplist, infile):
-    target_df =infile.filter(items=['chr', 'start', 'end',
+    target_df = infile.filter(items=['chr', 'start', 'end',
                                      'number', 'gap', 'repeat', 'gc', 'kmer',
                                      'average', 'sd'] + poplist[0].tolist())
     return target_df
