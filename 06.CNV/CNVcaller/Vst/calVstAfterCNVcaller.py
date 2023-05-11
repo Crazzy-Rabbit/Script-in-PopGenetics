@@ -11,14 +11,17 @@ import pandas as pd
 def load_pop(list):
     pop = pd.read_csv(list, header=None)
     return pop
+
 def load_data(infile):
     df = pd.read_csv(infile, sep='\t')
     return df
+
 def tochat(infile):
     df = pd.read_csv(infile, sep='\t',
                     usecols=['chr', 'start', 'end'],
                     dtype{'chr': str, 'start': ind, 'end': int})
     return df
+
 def target(poplist, infile):
     target_df = infile.filter(items=['chr', 'start', 'end',
                                      'number', 'gap', 'repeat', 'gc', 'kmer',
