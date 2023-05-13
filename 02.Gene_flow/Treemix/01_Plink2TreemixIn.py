@@ -27,7 +27,7 @@ def convert(pop, bed):
 @click.option('-s', '--sample', type=str, help='样本文件，三列 群体ID 样本ID 群体ID', required=True)
 @click.option('-b', '--bed', type=str, help='plink格式bed文件前缀', required=True)
 @click.option('-o', '--output', type=str, help='输出文件前缀', required=True)
-def main(sample, bed, plink2treemix, output):
+def main(sample, bed, output):
     """
     将plink格式文件转换为treemix软件的输入文件
 
