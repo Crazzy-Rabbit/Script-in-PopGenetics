@@ -38,7 +38,6 @@ def main(sample, bed, plink2treemix, output):
                   header=False, sep='\t')
 
     with open('plink2treemix.in.sh', 'w') as Shell:
-        Shell = open(f'plink2treemix.in.sh', 'w')
         Shell.write('#! /bin/bash\n')
         Shell.write(f'plink --bfile {bed} --allow-extra-chr --chr-set 29 --freq --within {sample}\n')
         Shell.write(f'gzip plink.frq.strat\n')
