@@ -16,6 +16,7 @@ function usage() {
       echo "-r|--ref      ref sample per row per ID"
       echo "-t|--tag      tag sample per row per ID"
       echo "-w|--win      winsize in xpehh, default 50000"
+      echo "-s|--step     stepsize in xpehh, defult 25000"
       echo "-T|--thread   threads, default 10"
       echo "-c|--chr      最大染色体号，决定你的vcf文件分多少个染色体文件"
       echo "-o|--output   输出文件前缀"
@@ -27,6 +28,7 @@ ne=""
 ref=""
 tag=""
 win="50000"
+step="25000"
 thread="10"
 chr=""
 output=""
@@ -44,6 +46,8 @@ do
         tag=$2 ; shift 2 ;;
     -w|--win )
         win=$2 ; shift 2 ;;
+    -s|--step )
+        step=$2 ; shift 2 ;;
     -T|--thread )
         thread=$2 ; shift 2 ;;
     -c|--chr )
@@ -87,8 +91,10 @@ do
 #XP-EHH
 $selscan --xpehh --vcf tag.chr${k}.recode.vcf --vcf-ref ref.chr${k}.recode.vcf --map chr${k}.MT.map.distance --threads $thread --out  chr${k}.ref_tag          
 #norm
-$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win              
+$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win
+#加窗口步长
+python XPEHH_Win_step.py --file Chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
 done
-# 输出文件为.100bins.norm格式的文件，用perl脚本加窗口步长。暂时先这样，之后再加循环
+cat {1..29}.XPEHH > ../${output}.XPEHH
 }
 main
