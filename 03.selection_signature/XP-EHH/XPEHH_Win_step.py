@@ -51,11 +51,11 @@ def main(file, chr, window, step):
 
     if chr == 1:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "navr", "avg_normxpehh"]].to_csv(f'{chr}.xpehh', sep='\t',
+                   "navr", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
                                                     index=False)
     else:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "navr", "avg_normxpehh"]].to_csv(f'{chr}.xpehh', sep='\t',
+                   "navr", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
                                                     index=False, header=False)
 
 if __name__ == '__main__':
