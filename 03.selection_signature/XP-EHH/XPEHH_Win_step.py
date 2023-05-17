@@ -9,7 +9,8 @@ import pandas as pd
 import click
 
 def load_data(file):
-    data = pd.read_csv(file, delimiter="\t|\s+", engine='python')
+    data = pd.read_csv(file, delimiter="\t|\s+", 
+                       engine='python')
     return data
 
 def results(data, step_size, window_size):
@@ -31,7 +32,8 @@ def results(data, step_size, window_size):
         avg_normxpehh = round(sum(normxpehh_vals) / len(normxpehh_vals), 4)
         nvar = len(normxpehh_vals)
         # 将结果加到results列表中
-        result.append([BIN_START, BIN_END, avg_normxpehh, nvar])
+        result.append([BIN_START, BIN_END, 
+                       avg_normxpehh, nvar])
     return result
 
 @click.command()
@@ -46,7 +48,8 @@ def main(file, chr, window, step):
     out = results(data, step_size, window_size)
 
     # 创建一个 DataFrame 对象来保存结果，并使用 to_csv 方法将其写入文件中
-    result_df = pd.DataFrame(out, columns=["BIN_START", "BIN_END", "avg_normxpehh", "navr"])
+    result_df = pd.DataFrame(out, columns=["BIN_START", "BIN_END", 
+                                           "avg_normxpehh", "navr"])
     result_df['CHROM'] = chr
 
     if chr == 1:
