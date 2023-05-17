@@ -22,7 +22,8 @@ ps: 写这个脚本真是要了命了（我是新手，哭了）
 
 import pandas as pd
 
-df = pd.read_csv("genotypeCNVR.tsv", usecols=['chr', 'start', 'end', 'silhouette_score','average', 'sd',
+df = pd.read_csv("genotypeCNVR.tsv", usecols=['chr', 'start', 'end', 
+                                              'silhouette_score','average', 'sd',
                                               'dd', 'Ad', 'AA', 'AB', 'BB', 'BC', 'M'],
                 sep='\t',
                 dtype={'chr': str, 'start': int, 'end': int,
@@ -66,7 +67,8 @@ else:
 
 # 合并三种类型的拷贝数变异，结果用于画图
 rectchr = pd.concat([Del, Dup, Both], axis=0)
-rectchr[['chr', 'start', 'end', 'lenth', 'Type']].to_csv(f'chat.rectchr', sep='\t', index=False)
+rectchr[['chr', 'start', 'end', 
+         'lenth', 'Type']].to_csv(f'chat.rectchr', sep='\t', index=False)
 
 # 输出结果用于在mergeCNVR文件提取计算VST及vcf文件提取下游分析的文件
 rectchr[['chr', 'start', 'end']].to_csv(f'Get_Region.txt', sep='\t', index=False)
