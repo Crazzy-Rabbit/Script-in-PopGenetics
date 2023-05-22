@@ -3,7 +3,7 @@ function usage() {
     echo "Usage: bash $0 --vcf <vcf> --outgroup <Outgroup> --output <output> --boot <bootstrap>--thread <Threads>"
     echo "required options"
       echo "-v|--vcf       vcf文件"
-      echo "-O|--outgroup  外群名称，或是外群那个个体ID"
+      echo "-O|--outgroup  外群名称，或是外群那个个体ID,若不设置，则无外群"
       echo "-o|--output    输出文件前缀"
       echo "-b|--boot      bootstrap次数，默认为100次"
       echo "-T|--thread    线程数，默认为20，吃CPU"
@@ -36,7 +36,7 @@ do
    esac
 done
 
-if [ -z $vcf ] || [ -z $outgroup ] || [ -z $output ]; then 
+if [ -z $vcf ] || [ -z $output ]; then 
     echo "Option --vcf and --outgroup and --output not specified" >&2
     usage
 fi
@@ -44,7 +44,12 @@ fi
 function main() {
 # 1、转为phy格式：
 python /home/sll/software/vcf2phylip.py --input $vcf --output-prefix $output
+
 # 2、建树：
-raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -p 23 -x 123 -# $boot -s ${output}.min4.phy -n $output -T $thread -o $outgroup
+
+if [[ -z $outgroup ]]; then
+  raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -p 23 -x 123 -# $boot -s ${output}.min4.phy -n $output -T $thread -o $outgroup
+else
+  raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -p 23 -x 123 -# $boot -s ${output}.min4.phy -T $thread -o $outgroup
 }
 main
