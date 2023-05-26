@@ -1,14 +1,15 @@
 #! /bin/bash
 
 Rscript="/home/sll/miniconda3/envs/python3.7/lib/R/bin/Rscript"
-if [ $# -ne 2 ]; then
+if [ $# -ne 3 ]; then
   echo "Error! need args"
-  echo "command: bash $0 <vcf vcf文件> <chr 最大染色体号>"
+  echo "command: bash $0 <vcf vcf文件> <chr 最大染色体号> <Lauto 常染色体总长度>"
   exit 1
 fi
 
 vcf=$1
 chr=$2
+Lauto=$3
 
 mkdir chr
 cd chr
@@ -31,3 +32,5 @@ write.table(aa, "IDIV_LROH.txt", col.names=F, row.names=F, quote=F, sep="\t")
 EOF
 
 Rscirpt stat_Froh.r
+
+awk -v L=$Lauto '{print $1"\t"$4"\t"$4/L}' IDIV_LROH.txt > Froh.txt
