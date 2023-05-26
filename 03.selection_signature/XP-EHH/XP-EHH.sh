@@ -95,6 +95,6 @@ $norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win
 #加窗口步长
 python XPEHH_Win_step.py --file Chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
 done
-cat {1..29}.XPEHH > ../${output}.XPEHH
+cat {1.."$chr"}.XPEHH > ../${output}.XPEHH
 }
 main
