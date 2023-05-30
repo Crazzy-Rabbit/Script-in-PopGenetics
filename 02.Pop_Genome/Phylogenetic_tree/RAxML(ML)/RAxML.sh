@@ -1,4 +1,7 @@
 #! /bin/bash
+
+vcf2phylippy="/home/sll/software/vcf2phylip.py"
+
 function usage() {
     echo "Usage: bash $0 --vcf <vcf> --outgroup <Outgroup> --output <output> --boot <bootstrap>--thread <Threads>"
     echo "required options"
@@ -44,7 +47,7 @@ fi
 if [[ -z $outgroup ]]; then
 function main() {
   # 1、转为phy格式：
-  python /home/sll/software/vcf2phylip.py --input $vcf --output-prefix $output
+  python $vcf2phylippy --input $vcf --output-prefix $output
 
   # 2、建树：
   raxmlHPC-PTHREADS-SSE3 -f a -m GTRGAMMA -p 23 -x 123 -# $boot -s ${output}.min4.phy -n $output -T $thread
