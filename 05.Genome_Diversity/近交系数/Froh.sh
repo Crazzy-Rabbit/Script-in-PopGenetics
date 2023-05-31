@@ -22,6 +22,7 @@ done
 awk 'FNR > 1 || NR == 1' *.LROH > ../all.chr.LROH
 cd ..
 
+touch stat_Froh.r
 cat stat_Froh.r <<EOF
 a = read.table("all.chr.LROH", header=TRUE)
 cha = a[,3]-a[,2]
@@ -31,6 +32,6 @@ aa = data.frame(jishu, zc)
 write.table(aa, "IDIV_LROH.txt", col.names=F, row.names=F, quote=F, sep="\t")
 EOF
 
-Rscirpt stat_Froh.r
+Rscript stat_Froh.r
 
 awk -v L=$Lauto '{print $1"\t"$4"\t"$4/L}' IDIV_LROH.txt > Froh.txt
