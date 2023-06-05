@@ -22,8 +22,8 @@ done
 awk 'FNR > 1 || NR == 1' *.LROH > ../all.chr.LROH
 cd ..
 
-touch stat_Froh.r
-cat stat_Froh.r <<EOF
+
+cat > stat_Froh.r <<EOF
 a = read.table("all.chr.LROH", header=TRUE)
 cha = a[,3]-a[,2]
 jishu = aggregate(cha, by=list(a[,8]), length)
