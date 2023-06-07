@@ -22,13 +22,10 @@ def main(input, out):
 
     intervals.sort()
     non_overlapping = [intervals[0]]
-
     for interval in intervals[1:]:
         last_interval = non_overlapping[-1]
-        # 判断是否是重叠区间，若不是，则添加到non_overlapping
         if (interval[0] != last_interval[0]) or (interval[1] > last_interval[2]):
             non_overlapping.append(interval)
-        # 若为重叠区间，则判断区间的最大值为哪个
         else:
             last_interval = (last_interval[0], last_interval[1], max(last_interval[2], interval[2]))
             non_overlapping[-1] = last_interval
