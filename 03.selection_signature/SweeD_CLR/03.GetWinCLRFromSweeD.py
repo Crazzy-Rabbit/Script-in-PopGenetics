@@ -53,7 +53,7 @@ def CalculateWindow(List):
 @click.command()
 @click.option('-i','--input',type=click.File('r'),help='The input file',required=True)
 @click.option('-w','--window',help='Slide Window Size',type=int,default=50000)
-@click.option('-s','--step',help='Step Size',type=int,default=10000)
+@click.option('-s','--step',help='Step Size',type=int,default=50000)
 @click.option('-o','--output',type=click.File('w'),help='The output file',required=True)
 def main(input,window,step,output):
     output.write('CHR\tSTART\tEND\tSnpNum\tCLR\n')
