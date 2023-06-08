@@ -86,10 +86,11 @@ def main(file, out):
     ps: 写这个脚本真是要了命了（我是新手，哭了）
     """
     df = load_data(file)
-
-    Del = Del_filter(df)
-    Dup = Dup_filter(df)
-    Both = Both_filter(df)
+    df_freq = cal_freq(df)
+    
+    Del = Del_filter(df_freq)
+    Dup = Dup_filter(df_freq)
+    Both = Both_filter(df_freq)
 
     # 合并三种类型的拷贝数变异，结果用于画图
     rectchr = pd.concat([Del, Dup, Both], axis=0)
