@@ -1,18 +1,14 @@
 #!/bin/bash
 
 # XP-EHH
-# beagle and get sample
-beagle="/home/software/beagle.25Nov19.28d.jar"
-bcftools="/home/sll/miniconda3/bin/bcftools"
 vcftools="/home/sll/miniconda3/bin/vcftools"
 selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
 function usage() {
-    echo "Usage: bash $0 --vcf <vcf> --ne <ne> --ref <ref> --tag <tag> --win <winsize> --thread <thread> --output <outprefix>"
+    echo "Usage: bash $0 --vcf <vcf> --ref <ref> --tag <tag> --win <winsize> --thread <thread> --output <outprefix>"
     echo "required options"
       echo "-v|--vcf      vcf file"
-      echo "-n|--ne       ne was ne number in beagle"
       echo "-r|--ref      ref sample per row per ID"
       echo "-t|--tag      tag sample per row per ID"
       echo "-w|--win      winsize in xpehh, default 50000"
@@ -24,7 +20,6 @@ function usage() {
 }
 
 vcf=""
-ne=""
 ref=""
 tag=""
 win="50000"
@@ -38,8 +33,6 @@ do
   case "$1" in
     -v|--vcf )
         vcf=$2 ; shift 2 ;;
-    -n|--ne )
-        ne=$2 ; shift 2 ;;
     -r|--ref )
         ref=$2 ; shift 2 ;;
     -t|--tag )
@@ -66,21 +59,19 @@ if [ -z $vcf ] || [ -z $ne ] || [ -z $ref ] || [ -z $tag ] || [ -z $output ]; th
 fi
 
 function main() {      
-# beagle
-java -jar -Xmn12G -Xms24G -Xmx48G  $beagle gt=${vcf} out=${output}.beagle ne=${ne}
-
-#extract sample
-$bcftools view -S $ref  ${output}.beagle.vcf.gz  -Ov > ref.beagle.vcf
-$bcftools view -S $tag  ${output}.beagle.vcf.gz  -Ov > tag.beagle.vcf
 
 mkdir XP-EHH.progress
-cd XP-EHH.progress
 
+#extract sample
+$vcftools --gzvcf $vcf --keep $ref --recode --recode-INFO-all --out ./XP-EHH.progress/01.ref
+$vcftools --gzvcf $vcf --keep $tag --recode --recode-INFO-all --out ./XP-EHH.progress/01.tag
+
+cd XP-EHH.progress
 for ((k=1; k<=$chr; k++));
 do 
 #splite chr for ref and tag
-$vcftools --vcf ../ref.beagle.vcf --recode --recode-INFO-all --chr ${k} --out ref.chr${k}
-$vcftools --vcf ../tag.beagle.vcf --recode --recode-INFO-all --chr ${k} --out tag.chr${k}        
+$vcftools --vcf 01.ref.recode.vcf --recode --recode-INFO-all --chr ${k} --out ref.chr${k}
+$vcftools --vcf 01.tag.recode.vcf --recode --recode-INFO-all --chr ${k} --out tag.chr${k}        
 #calculate map distance                
 $vcftools --vcf ref.chr${k}.recode.vcf --plink --out chr${k}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
@@ -91,9 +82,9 @@ do
 #XP-EHH
 $selscan --xpehh --vcf tag.chr${k}.recode.vcf --vcf-ref ref.chr${k}.recode.vcf --map chr${k}.MT.map.distance --threads $thread --out  chr${k}.ref_tag          
 #norm
-$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win
+$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win 
 #加窗口步长
-python XPEHH_Win_step.py --file Chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
+python ../XPEHH_Win_step.py --file Chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
 done
 cat {1.."$chr"}.XPEHH > ../${output}.XPEHH
 }
