@@ -134,21 +134,38 @@ for (fid in plot.lab){
 ##=========================================
 ## barplot admixture and structure
 library(RColorBrewer)
-my.colours <- c(brewer.pal(8, "Dark2"),"#0b09c3","#f2640a","#08b052","#c00505","#0bc5ee","#7030a2","#ffff01","#c55911")   
+my.colours <- c(brewer.pal(8, "Dark2"),
+                "#0b09c3","#f2640a","#08b052",
+                "#c00505","#0bc5ee","#7030a2",
+                "#ffff01","#c55911")   
 #brewer.pal(8, "Dark2")
 
 max.k <- length(plot.data)
 n <- dim(plot.data[[1]])[1]
 
-png(file=paste(header, "admix.plot.png", sep = "."), res=400, width = 2400, height = 1200)
-par(mfrow = c(max.k, 1), mar=c(0.1,1,0.2,0), oma=c(4,0,0.1,0), mgp=c(0,0.1,0),xaxs="i",cex.lab=0.8, cex.axis=0.8)
+png(file=paste(header, "admix.plot.png", sep = "."),res=400, width = 2000, height = 1200)
+par(mfrow = c(max.k, 1), mar=c(0,0.7,0,0),oma=c(3.5,0,0.1,0.1), mgp=c(0,0.2,0),xaxs="i",cex.lab=0.6,  font.lab=2, cex.axis=0.8)
 par(las=2)
 
+# define black line locate in where
+plot.at1 <- c()
+start <- 0
+for (fid in plot.lab){
+  xlen <- length(which(plot.xlab$fid == fid))
+  gap <- start + floor(xlen)
+  plot.at1 <- c(plot.at1, gap)
+  start <- start + nline + xlen
+}
 # plot  k
 for (i in 1:max.k){
      barplot(t(as.matrix(plot.data[[i]])), names.arg = rep(c(""), n), 
              col = my.colours, border = NA, space = 0,axes = F, 
-             ylab = paste("K=", i+1),xaxt="n", yaxt="n")
+             ylab = paste("K=",i+1),xaxt="n", yaxt="n",font=2)
+# plot black line for each pop
+    for (i in 1:(length(plot.at1)-1)) {
+    x <- plot.at1[i]
+    abline(v = x, lwd =0.5,  col = "black") 
+  }
 }
-axis(side = 1, at = plot.at, labels = plot.lab, tick = F, font=1.5, cex.axis = 0.8)
+axis(side = 1, at = plot.at, labels = plot.lab, tick = F, font=2, cex.axis = 0.6)
 dev.off()
