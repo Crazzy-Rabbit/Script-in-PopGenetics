@@ -53,8 +53,8 @@ do
    esac
 done
 
-if [ -z $vcf ] || [ -z $ne ] || [ -z $ref ] || [ -z $tag ] || [ -z $output ]; then 
-    echo "检查一下这几个参数输了没 --vcf --ne --ref --tag --output !" >&2
+if [ -z $vcf ] || [ -z $ref ] || [ -z $tag ] || [ -z $output ]; then 
+    echo "检查一下这几个参数输了没 --vcf --ref --tag --output !" >&2
     usage
 fi
 
