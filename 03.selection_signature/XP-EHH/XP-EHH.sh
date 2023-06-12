@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 # XP-EHH
 vcftools="/home/sll/miniconda3/bin/vcftools"
