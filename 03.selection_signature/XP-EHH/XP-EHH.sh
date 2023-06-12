@@ -82,9 +82,9 @@ do
 #XP-EHH
 $selscan --xpehh --vcf tag.chr${k}.recode.vcf --vcf-ref ref.chr${k}.recode.vcf --map chr${k}.MT.map.distance --threads $thread --out  chr${k}.ref_tag          
 #norm
-$norm --xpehh --files  Chr${k}.ref_tag.xpehh.out --bp-win --winsize $win 
+$norm --xpehh --files  chr${k}.ref_tag.xpehh.out --bp-win --winsize $win 
 #加窗口步长
-python ../XPEHH_Win_step.py --file Chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
+python ../XPEHH_Win_step.py --file chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
 done
 cat {1.."$chr"}.XPEHH > ../${output}.XPEHH
 }
