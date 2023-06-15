@@ -29,8 +29,11 @@ def results(data, step_size, window_size):
                 normxpehh_vals.append(row['normxpehh'])
 
         # 计算 normxpehh 的平均值并保留4位小数, 统计区间SNP数量
-        avg_normxpehh = round(sum(normxpehh_vals) / len(normxpehh_vals), 4)
-        nvar = len(normxpehh_vals)
+        avg_normxpehh = 0
+        nvar = 0   # 初始化 nvar 变量为 0
+        if len(normxpehh_vals) > 0:
+            avg_normxpehh = round(sum(normxpehh_vals) / len(normxpehh_vals), 4)
+            nvar = len(normxpehh_vals)
         # 将结果加到results列表中
         result.append([BIN_START, BIN_END, 
                        avg_normxpehh, nvar])
@@ -39,8 +42,8 @@ def results(data, step_size, window_size):
 @click.command()
 @click.option('-f','--file', help='xpehh.out.norm文件，norm后的位点文件，不是区间文件！！', required=True)
 @click.option('-c','--chr', help='染色体号，因为是分染色体做的', required=True)
-@click.option('-w','--window', help='窗口大小', required=True)
-@click.option('-s','--step', help='步长大小', required=True)
+@click.option('-w','--window', help='窗口大小', type=int, default=50000)
+@click.option('-s','--step', help='步长大小', type=int, default=50000)
 def main(file, chr, window, step):
     data = load_data(file)
     window_size = window
@@ -49,16 +52,16 @@ def main(file, chr, window, step):
 
     # 创建一个 DataFrame 对象来保存结果，并使用 to_csv 方法将其写入文件中
     result_df = pd.DataFrame(out, columns=["BIN_START", "BIN_END", 
-                                           "avg_normxpehh", "navr"])
-    result_df['CHROM'] = chr
+                                           "avg_normxpehh", "nvar"])
+    result_df.loc[:, 'CHROM'] = chr
 
-    if chr == 1:
+    if chr == 1
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "navr", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
+                   "nvar", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
                                                     index=False)
     else:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "navr", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
+                   "nvar", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
                                                     index=False, header=False)
 
 if __name__ == '__main__':
