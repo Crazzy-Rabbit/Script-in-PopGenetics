@@ -53,10 +53,7 @@ if [ -z $vcf ] || [ -z $ne ] || [ -z $out ]; then
 fi
 
 function main() {
-java -jar -Xmn12G -Xms24G -Xmx48G  $beagle \
-                                   gt=${vcf} \
-                                   out=${out}.beagle \
-                                   ne=${ne}
+java -jar -Xmn12G -Xms24G -Xmx48G  $beagle gt=${vcf} out=${out}.beagle ne=${ne}
 
 mkdir iHS.progress
 cd iHS.progress
@@ -64,13 +61,8 @@ cd iHS.progress
 for ((i=1; i<=$chr; i++));
 do 
 # calculate map distance
-$vcftools --gzvcf ../${out}.beagle.vcf.gz \
-          --recode --recode-INFO-all \
-          --chr ${i} \
-          --out ${out}.chr${i}
-$vcftools --vcf ${out}.chr${i}.recode.vcf \
-          --plink \
-          --out chr${i}.MT
+$vcftools --gzvcf ../${out}.beagle.vcf.gz --recode --recode-INFO-all --chr ${i} -out ${out}.chr${i}
+$vcftools --vcf ${out}.chr${i}.recode.vcf --plink --out chr${i}.MT
           
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${i}.MT.map.distance
 done 
@@ -78,18 +70,9 @@ done
 for ((i=1; i<=$chr; i++));
 do
 # iHS
-$selscan --ihs --vcf ${out}.chr${i}.recode.vcf \
-               --map chr${i}.MT.map.distance \
-               --threads $thread \
-               --out  chr${i}.iHS
-
-# chr
-awk  '{print '${i}',$2,$3,$4,$5,$6}'  chr${i}.iHS.ihs.out > Chr${i}.ihs.out
-sed -i 's/ /\t/g' Chr${i}.ihs.out
-
+$selscan --ihs --vcf ${out}.chr${i}.recode.vcf --map chr${i}.MT.map.distance --threads $thread --out  chr${i}.iHS
 # add win and norm 
-$norm --ihs --files  Chr${i}.ihs.out  \
-            --bp-win --winsize $win
+$norm --ihs --files  Chr${i}.ihs.out  --bp-win --winsize $win
 
 # extract result and merge
 awk '{print '${i}',$1,$2,$4}' Chr${i}.norm.${out} > Chr${i}.chart.${out}
