@@ -159,10 +159,8 @@ for (fid in plot.lab){
 ##=========================================
 ## barplot admixture and structure
 library(RColorBrewer)
-my.colours <- c(brewer.pal(8, "Dark2"),
-                "#0b09c3","#f2640a","#08b052",
-                "#c00505","#0bc5ee","#7030a2",
-                "#ffff01","#c55911")   
+my.colours <- c("#873186", "#6BB93F","#E20593", "#18A2CA","#FFB6C1","#DBB71D", "#F37020","#3364BC", 
+                brewer.pal(8,"Dark2"),"#0b09c3","#f2640a","#08b052","#c00505","#0bc5ee","#7030a2","#ffff01","#c55911")   
 #brewer.pal(8, "Dark2")
 
 max.k <- length(plot.data)
@@ -187,10 +185,12 @@ for (i in 1:max.k){
              col = my.colours, border = NA, space = 0,axes = F, 
              ylab = paste("K=",i+1),xaxt="n", yaxt="n")
 # plot black line for each pop
-    for (i in 1:(length(plot.at1)-1)) {
-    x <- plot.at1[i]
-    abline(v = x, lwd =0.5,  col = "black") 
+    for (i in 0:(length(plot.at1))) {
+        x <- plot.at1[i]
+        abline(v=0, lwd=1,  col="black")
+        abline(v=x, lwd=0.7, col="black") 
   }
+        abline(h=0, lwd=0.7, col="black")     
 }
 axis(side = 1, at = plot.at, labels = plot.lab, tick = F, font=2, cex.axis = 0.6)
 dev.off()
