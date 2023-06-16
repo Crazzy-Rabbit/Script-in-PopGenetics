@@ -69,7 +69,7 @@ $selscan --ihs --vcf ${vcf}.chr${i}.recode.vcf --map chr${i}.MT.map.distance --t
 # add win and norm 
 $norm --ihs --files  Chr${i}.ihs.out  --bp-win --winsize $win
 # add win and step
-python ../ihs_window.py --file Chr${i}.ihs.out.100bins.norm --chr $i --window $win --step $step
+python ../iHS_Win_step.py --file Chr${i}.ihs.out.100bins.norm --chr $i --window $win --step $step
 done
 
 cat {1.."$chr"}.iHS > ../${output}.XPEHH
