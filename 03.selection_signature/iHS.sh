@@ -1,17 +1,16 @@
-#!/bin/bash
+#! /bin/bash
 # iHS
-beagle="/home/software/beagle.25Nov19.28d.jar"
 vcftools="/home/sll/miniconda3/bin/vcftools"
 selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
 function usage() {
     echo "从beagle 一直到最后标准化合并染色体，然后排序的过程"
-    echo "Usage: bash $0 --vcf <vcf> --ne <ne> --win <winsize> --thread <thread> --out <outprefix>"
+    echo "Usage: bash $0 --vcf <vcf> --win <winsize> --step <stepsize> --thread <thread> --out <outprefix>"
     echo "required options"
-      echo "-v|--vcf     vcf file"
-      echo "-n|--ne      ne in beagle"
+      echo "-v|--vcf     bgvcf file after beagle"
       echo "-w|--win     winsize in iHS, default 50000"
+      echo "-s|--step    step in iHS, default 50000"
       echo "-T|--thread  thread for selscan, default 10"
       echo "-c|--chr     最大染色体号，决定vcf文件分成多少个染色体文件"
       echo "-o|--out     输出文件前缀"
@@ -19,8 +18,8 @@ function usage() {
  }
  
  vcf=""
- ne=""
  win="50000"
+ step="50000"
  thread="10"
  chr=""
  out=""
@@ -30,10 +29,10 @@ function usage() {
    case "$1" in 
      -v|--vcf )
        vcf=$2 ; shift 2 ;;
-     -n|--ne )
-       ne=$2 ; shift 2 ;;
      -w|--win )
        win=$2 ; shift 2 ;;
+     -s|--step )
+       step=$2 ; shift 2 ;;
      -T|--thread )
        thread=$2 ; shift 2 ;;
      -c|--chr )
@@ -47,41 +46,32 @@ function usage() {
     esac
 done
 
-if [ -z $vcf ] || [ -z $ne ] || [ -z $out ]; then 
-    echo "检查这些参数是否指定 --vcf --ne --out ！" >&2
+if [ -z $vcf ] || [ -z $out ]; then 
+    echo "检查这些参数是否指定 --vcf --out ！" >&2
     usage
 fi
 
 function main() {
-java -jar -Xmn12G -Xms24G -Xmx48G  $beagle gt=${vcf} out=${out}.beagle ne=${ne}
-
 mkdir iHS.progress
-cd iHS.progress
-
 for ((i=1; i<=$chr; i++));
 do 
 # calculate map distance
-$vcftools --gzvcf ../${out}.beagle.vcf.gz --recode --recode-INFO-all --chr ${i} -out ${out}.chr${i}
-$vcftools --vcf ${out}.chr${i}.recode.vcf --plink --out chr${i}.MT
-          
-awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${i}.MT.map > chr${i}.MT.map.distance
+$vcftools --gzvcf $vcf --recode --recode-INFO-all --chr ${i} -out ./iHS.progress/${vcf}.chr${i}
+$vcftools --vcf ./iHS.progress/${vcf}.chr${i}.recode.vcf --plink --out ./iHS.progress/chr${i}.MT          
+awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' ./iHS.progress/chr${i}.MT.map > ./iHS.progress/chr${i}.MT.map.distance
 done 
 
+cd iHS.progress
 for ((i=1; i<=$chr; i++));
 do
 # iHS
-$selscan --ihs --vcf ${out}.chr${i}.recode.vcf --map chr${i}.MT.map.distance --threads $thread --out  chr${i}.iHS
+$selscan --ihs --vcf ${vcf}.chr${i}.recode.vcf --map chr${i}.MT.map.distance --threads $thread --out  Chr${i}
 # add win and norm 
 $norm --ihs --files  Chr${i}.ihs.out  --bp-win --winsize $win
-
-# extract result and merge
-awk '{print '${i}',$1,$2,$4}' Chr${i}.norm.${out} > Chr${i}.chart.${out}
+# add win and step
+python ../ihs_window.py --file Chr${i}.ihs.out.100bins.norm --chr $i --window $win --step $step
 done
 
-cat ./*.chart.${out} > ../${out}.ihs
-
-# sort 
-cd ..
-sort -k 4n,4  ${out}.ihs > ${out}.ihs.sort
+cat {1.."$chr"}.iHS > ../${output}.XPEHH
 }
 main
