@@ -55,7 +55,7 @@ def main(file, chr, window, step):
                                            "avg_normxpehh", "nvar"])
     result_df.loc[:, 'CHROM'] = chr
 
-    if chr == 1
+    if chr == 1:
         result_df[["CHROM", "BIN_START", "BIN_END",
                    "nvar", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
                                                     index=False)
