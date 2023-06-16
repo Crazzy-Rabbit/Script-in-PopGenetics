@@ -8,6 +8,7 @@ xpclr="/home/sll/miniconda3/bin/xpclr"
 
 function usage() {
     echo "Usage: bash $0 --vcf <vcf> --ref <ref> --tag <tag> --win <winsize> --step <step> --out <outprefix>"
+    echo "所有文件请都别加路径，放到你的工作目录运行"
     echo "required options"
       echo "-v|--vcf     vcf file"
       echo "-r|--ref     ref sample list per row per ID"
@@ -58,21 +59,19 @@ fi
         
 function main {
 mkdir XP-CLR.progress
-cd XP-CLR.progress
-
 for ((k=1; k<=$chr; k++));
 do
-$vcftools --vcf ../$vcf --recode --recode-INFO-all  --chr ${k} --out ./${out}.chr${k}        
+$vcftools --vcf $vcf --recode --recode-INFO-all  --chr ${k} --out ./XP-CLR.progress/${out}.chr${k}        
 #calculate map distance                
-$vcftools --vcf ${out}.chr${k}.recode.vcf --plink --out chr${k}.MT
-awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
+$vcftools --vcf ./XP-CLR.progress/${out}.chr${k}.recode.vcf --plink --out ./XP-CLR.progress/chr${k}.MT
+awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' ./XP-CLR.progress/chr${k}.MT.map > ./XP-CLR.progress/chr${k}.MT.map.distance
 done 
 
+cd XP-CLR.progress
 for ((k=1; k<=$chr; k++));
 do
 # xpclr
 xpclr --out ./chr${k} --format vcf --input ${out}.chr${k}.recode.vcf --samplesA ../$ref --samplesB ../$tag --map chr${k}.MT.map.distance --chr ${k} --gdistkey None --phased --size $win --step $step
-
 # merge
 awk  '{print $2,$3,$4,$12,$13}'   chr${k} > Chr${k}.${out}
 done
