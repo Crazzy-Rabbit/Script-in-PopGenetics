@@ -10,7 +10,7 @@ import click
 
 def load_data(file):
     data = pd.read_csv(file, delimiter="\t|\s+",
-                       engine='python')
+                       header=None, engine='python')
     data.columns = ['CHROM', 'pos', 'freq', 'ihh1', 'ihh0',
                     'unstrandizediHS', 'normiHS', 'score']
     return data
