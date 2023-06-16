@@ -1,5 +1,7 @@
-#!/bin/bash
-# XP-CLR
+#! /bin/bash
+# @Author: Lulu Shi
+# @Mails: crazzy_rabbit@163.com
+# Calculate xpclr 
 
 vcftools="/home/sll/miniconda3/bin/vcftools"
 xpclr="/home/sll/miniconda3/bin/xpclr"
