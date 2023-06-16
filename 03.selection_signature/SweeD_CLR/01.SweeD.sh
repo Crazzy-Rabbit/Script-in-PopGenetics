@@ -1,4 +1,7 @@
-#!/bin/bash
+#! /bin/bash
+# @Author: Lulu Shi
+# @Mails: crazzy_rabbit@163.com
+
 if [ $# -ne 3 ]; then
  echo "error.. need args"
  echo "command: bash $0 <VCF> <Pop> <winsize>"
