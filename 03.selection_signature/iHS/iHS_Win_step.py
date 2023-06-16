@@ -8,7 +8,6 @@ Created on  06 16 10:37:57  2023
 import pandas as pd
 import click
 
-
 def load_data(file):
     data = pd.read_csv(file, delimiter="\t|\s+",
                        engine='python')
