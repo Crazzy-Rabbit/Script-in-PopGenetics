@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #! /usr/bin/env python
+
 """
 Created on  04 27 16:55:07  2023
 @Author : Lulu Shi
@@ -7,7 +8,6 @@ Created on  04 27 16:55:07  2023
 """
 import csv
 import click
-
 
 def read_intervals(file):
     """
@@ -64,7 +64,6 @@ def merge_sorted_intervals(intervals1, intervals2):
             non_overlapping[-1] = last_interval
     return non_overlapping
 
-
 def write_intervals(intervals, file_path):
     """
     将区间写入到指定文件中。每一行为一个区间（格式：chrom start end）
@@ -73,7 +72,6 @@ def write_intervals(intervals, file_path):
         writer = csv.writer(out_file, delimiter='\t')
         for interval in intervals:
             writer.writerow(interval)
-
 
 @click.command()
 @click.option('--file1', '-f1', type=click.File('r'), required=True,
@@ -99,7 +97,6 @@ def merge_intervals(file1, file2, out):
 
     results = merge_sorted_intervals(intervals1, intervals2)
     write_intervals(results, out)
-
 
 if __name__ == '__main__':
     merge_intervals()
