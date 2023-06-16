@@ -1,5 +1,8 @@
 #! /bin/bash
-# iHS
+# @Author: Lulu Shi
+# @Mails: crazzy_rabbit@163.com
+# calculate norm iHS using win and step 
+
 vcftools="/home/sll/miniconda3/bin/vcftools"
 selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
