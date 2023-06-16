@@ -19,10 +19,9 @@ def results(data, step_size, window_size):
 
     for BIN_START in range(1, chromosome_length, step_size):
         BIN_END = BIN_START - 1 + window_size
-        # 判断当前区间是否超出染色体范围
         if BIN_START + window_size > chromosome_length:
             break
-        # 提取窗口内所有行的 normxpehh 统计值
+
         normxpehh_vals = []
         for _, row in data[(data['pos'] >= BIN_START) & (data['pos'] < BIN_END)].iterrows():
             if not pd.isna(row['pos']):
@@ -30,11 +29,10 @@ def results(data, step_size, window_size):
 
         # 计算 normxpehh 的平均值并保留4位小数, 统计区间SNP数量
         avg_normxpehh = 0
-        nvar = 0   # 初始化 nvar 变量为 0
+        nvar = 0
         if len(normxpehh_vals) > 0:
             avg_normxpehh = round(sum(normxpehh_vals) / len(normxpehh_vals), 4)
             nvar = len(normxpehh_vals)
-        # 将结果加到results列表中
         result.append([BIN_START, BIN_END, 
                        avg_normxpehh, nvar])
     return result
