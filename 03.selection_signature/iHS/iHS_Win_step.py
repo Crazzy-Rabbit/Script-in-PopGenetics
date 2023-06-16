@@ -9,10 +9,10 @@ import pandas as pd
 import click
 
 def load_data(file):
-    data = pd.read_csv(file, delimiter="\t|\s+",
+    data = pd.read_csv(file, usecols=[1, 5, 6], 
+                       delimiter="\t|\s+",
                        header=None, engine='python')
-    data.columns = ['CHROM', 'pos', 'freq', 'ihh1', 'ihh0',
-                    'unstrandizediHS', 'normiHS', 'score']
+    data.columns = ['pos', 'unstrandizediHS', 'normiHS']
     return data
 
 def results(data, step_size, window_size):
