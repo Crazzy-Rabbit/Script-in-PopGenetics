@@ -1,5 +1,7 @@
 #! /bin/bash
-
+# @Author: Lulu Shi
+# @Mails: crazzy_rabbit@163.com
+# calculate ln_piratio for 2 pop
 function usage() {
     echo "Usage: bash $0 --vcf <vcf> --pop1 <pop1> --pop2 <pop2> --win <winsize> --step <step> --navr <navrs> --out <outprefix>"
     echo "required options"
