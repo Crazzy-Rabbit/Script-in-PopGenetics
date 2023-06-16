@@ -1,4 +1,7 @@
 #! /bin/bash
+# @Author: Lulu Shi
+# @Mails: crazzy_rabbit@163.com
+# calculate norm xpehh using win and step
 
 # XP-EHH
 vcftools="/home/sll/miniconda3/bin/vcftools"
