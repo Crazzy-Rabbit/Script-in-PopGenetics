@@ -22,6 +22,6 @@ do
   for K in $(seq 2 $nK); 
   do
     seed=`shuf -i 1-100 -n 1`
-    /home/software/admixture_linux-1.3.0/admixture -s $seed --cv $bed $K -j4 | tee ${curr_dir}/log${K}.out
+    /home/software/admixture_linux-1.3.0/admixture -s $seed --cv $bed $K -j20 | tee ${curr_dir}/log${K}.out
   done;
 done
