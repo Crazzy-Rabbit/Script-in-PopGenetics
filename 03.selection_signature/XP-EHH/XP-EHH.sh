@@ -65,28 +65,28 @@ function main() {
 
 mkdir XP-EHH.progress
 
-#extract sample
+# extract sample
 $vcftools --gzvcf $vcf --keep $ref --recode --recode-INFO-all --out ./XP-EHH.progress/01.ref
 $vcftools --gzvcf $vcf --keep $tag --recode --recode-INFO-all --out ./XP-EHH.progress/01.tag
 
 cd XP-EHH.progress
 for ((k=1; k<=$chr; k++));
 do 
-#splite chr for ref and tag
+# splite chr for ref and tag
 $vcftools --vcf 01.ref.recode.vcf --recode --recode-INFO-all --chr ${k} --out ref.chr${k}
 $vcftools --vcf 01.tag.recode.vcf --recode --recode-INFO-all --chr ${k} --out tag.chr${k}        
-#calculate map distance                
+# calculate map distance                
 $vcftools --vcf ref.chr${k}.recode.vcf --plink --out chr${k}.MT
 awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
 done
 
 for ((k=1; k<=$chr; k++));
 do
-#XP-EHH
+# XP-EHH
 $selscan --xpehh --vcf tag.chr${k}.recode.vcf --vcf-ref ref.chr${k}.recode.vcf --map chr${k}.MT.map.distance --threads $thread --out  chr${k}.ref_tag          
-#norm
+# norm
 $norm --xpehh --files  chr${k}.ref_tag.xpehh.out --bp-win --winsize $win 
-#加窗口步长
+# add win and step
 python ../XPEHH_Win_step.py --file chr${k}.ref_tag.xpehh.out.norm --chr $k --window $win --step $step
 done
 cat {1.."$chr"}.XPEHH > ../${output}.XPEHH
