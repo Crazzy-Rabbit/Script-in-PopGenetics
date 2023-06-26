@@ -21,7 +21,7 @@ out=$5
 # Check if the input file is vcf file, to geno and maf
 if [[ "${file##*.}" = "vcf" ]]; then
   plink --allow-extra-chr --chr-set $chr -vcf $file --double-id --geno $geno --maf $maf --make-bed --out $out
-else;
+else
   plink --allow-extra-chr --chr-set $chr -bfile $file --geno $geno --maf $maf --make-bed --out $out
 fi
 
