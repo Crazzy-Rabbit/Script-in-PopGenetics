@@ -11,6 +11,8 @@ if [[ $# -ne 5 ]]; then
     echo "error need args!"
     echo "input file can vcf or bim (all full name)"
     echo "Usage: bash $0 <file> <chr> <geno> <maf> <out>"
+    exit 1
+fi
 
 file=$1
 chr=$2
