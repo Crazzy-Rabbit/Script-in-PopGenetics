@@ -1,0 +1,35 @@
+### 第一种方式
+# 1、使用cnvnator进行callCNV
+cnvnator -root SAMN05788539.root -tree SAMN05788539.sorted.addhead.markdup.bam
+
+cnvnator -root SAMN05788539.root -d -his 100 -d /ref
+
+cnvnator -root SAMN05788539.root -stat 100
+
+cnvnator -root SAMN05788539.root -partition 100
+# 在callCNV之前的这一步结束，留存最终的这个.root文件
+
+# 2、使用lumpy定义拷贝数边界，也就是长度位置等
+
+
+# 3、lumpy定义后的群体vcf文件使用svtools的copynumber模块：使用CNVnator对lumpy定义的拷贝数进行注释
+copynumber -v ReiD-19.recode.vcf -c ReiD-19.recode.coordinarte -r ReiD-19.root -w 100 -s ReiD-19 --cnvnator /home/software/CNVnator_v0.4.1/src/cnvnator -o call_cnvnator_lumpy.vcf
+
+vcftobedpe -i call_cnvnator_lumpy.vcf -o call_cnvnator_lumpy.bedpe
+
+# 4、去掉结果文件中的其他类型SV，且将满足以下条件的CNV保留
+
+Ⅰ. TYPE=“<DEL>”，且 CN< 1.5；
+Ⅱ. TYPE=“<DUP>”，且 CN≥ 2.5。
+
+
+### 第二种方式
+## lumpy对CNVcaller结果进行矫正
+# 以CNVcaller为主，与lumpy检测后的CNV使用bedtools取交集（-f 设置CNVcaller交集区间比例为多少时保留）
+# 当CNVcaller与之交集区间比例大于设置阈值时，且交集区间CNV类型相同，则认为为潜在CNV
+# 对潜在的CNV再进行更细致的过滤，如频率和轮廓系数的过滤
+
+
+两种方式均采用了多种策略对CNV进行鉴定，我觉得第二种也挺好的，第一种更官方，但第二种应该会更加准确
+且第一种对CNV的过滤不好进行，需要另自编写脚本
+且以上lumpy软件的使用，可以用它的集合软件smoove，更加简便快捷
