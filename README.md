@@ -1,7 +1,8 @@
 # Script-in-Bio
 一些基因组分析中用到的脚本
 ```
-当然，06.CNV部分才是精华，可惜条件有限
+当然，02.Gene_flow 02.Pop_Genome 06.CNV 07.RNA部分才是精华
+可惜条件有限，老师还说我没贡献（ps: 这都是我搞得好吧）
 ```
 绘图等的脚本可以找另一个目录 `Rscript-to-anaylise-and-visualize`
 
