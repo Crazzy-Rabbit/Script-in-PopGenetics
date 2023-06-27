@@ -16,7 +16,7 @@ bash 02_02CalAbsoluteCN.sh
 ```
 ##### 04.群体水平定义CNVR边界
 ```
-03_01DeterminCNVR.sh
+bash 03_01DeterminCNVR.sh
 ```
 ##### 05.CNVR的genotype
 ```
