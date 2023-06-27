@@ -6,6 +6,7 @@
 方案1： 推荐之后使用bedtools进行交集的获取（-f参数设置重叠比例），以CNVcaller为主，LUMPY结果用于矫正
 方案2： 使用LUMPY获得CNV边界，再使用CNVnator进行CN的注释，这个流程也挺好
 ```
+lumpy推荐用它的整合流程Smoove，挺简洁的
 
 #### 二、SV的识别
 ```
