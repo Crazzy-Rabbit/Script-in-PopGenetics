@@ -8,13 +8,17 @@ bash 01_DupfiletoCNVCaller.sh
 ```
 ##### 02.计算窗口文件
 ```
-bash 02_01Cal-winfile.sh
+bash 02_01CalWinFile.sh
 ```
 ##### 03.计算每个个体绝对拷贝数
 ```
-bash 02_02Cal_absoluteCN.sh
+bash 02_02CalAbsoluteCN.sh
 ```
-##### 04.群体水平定义CNVR边界，并进行genotype的确定
+##### 04.群体水平定义CNVR边界
 ```
-bash 03_CNVR2Genotype.sh
+03_01DeterminCNVR.sh
+```
+##### 05.CNVR的genotype
+```
+bash 03_02GenotypeCNVR.sh
 ```
