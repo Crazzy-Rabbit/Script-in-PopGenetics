@@ -2,9 +2,9 @@
 #### svtyper软件版本应在0.7.0以上，否则会报错没有这个参数--max_ci_dist
 #### bcftools的版本不要太老，至少1.10以上
 ```
-使用前将gsort mosdepth lumpy lumpy_filter svtyper svtools等软件放入环境变量
-gsort mosdepth 可用export PATH=/home/sll/software:$PATH
-lumpy lumpy_filter svtyper svtools 可用 export PATH=/home/sll/miniconda3/envs/python2.7/bin:$PATH
+将gsort mosdepth lumpy lumpy_filter svtyper svtools等软件放入环境变量
+gsort mosdepth: export PATH=/home/sll/software:$PATH
+lumpy lumpy_filter svtyper svtools:  export PATH=/home/sll/miniconda3/envs/python2.7/bin:$PATH
 ```
 ##### 01.对每个个体进行call SV
 ```
