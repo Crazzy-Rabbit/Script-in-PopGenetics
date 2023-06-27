@@ -14,7 +14,7 @@ bash 02_01Cal-winfile.sh
 ```
 bash 02_02Cal_absoluteCN.sh
 ```
-##### 04.群体水平对CNVR进行genotype的确定
+##### 04.群体水平定义CNVR边界，并进行genotype的确定
 ```
 bash 03_CNVR2Genotype.sh
 ```
