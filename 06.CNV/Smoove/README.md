@@ -28,7 +28,7 @@ export PATH=/home/sll/miniconda3/envs/python2.7/bin:$PATH
 ##### 01.对每个个体进行call SV
 ```
 /home/sll/software/smoove
-smoove call --outdir results-smoove/ --name $sample --fasta $reference_fasta -p 1 --genotype /path/to/$sample.bam
+smoove call --outdir results-smoove/ --name $sample --fasta $reference -p 1 --genotype /path/to/$sample.bam
 ```
 
 ##### 02.合并所有个体的联合位点
