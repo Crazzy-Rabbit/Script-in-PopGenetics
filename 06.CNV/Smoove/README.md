@@ -7,9 +7,9 @@ samtools index input.bam
 ```
 环境变量
 ```
-将gsort mosdepth lumpy lumpy_filter svtyper svtools等软件放入环境变量
+将gsort mosdepth duphold lumpy lumpy_filter svtyper svtools等软件放入环境变量
 
-gsort mosdepth: export PATH=/home/sll/software:$PATH
+gsort mosdepth duphold: export PATH=/home/sll/software:$PATH
 lumpy lumpy_filter svtyper svtools:  export PATH=/home/sll/miniconda3/envs/python2.7/bin:$PATH
 
 当然也可以改你的主目录下的.bash_profile文件, $HOME代表你的主目录路径，保存后另打开窗口生效
