@@ -1,7 +1,7 @@
 ### LUMPY的整合流程，比LUNPY步骤更加简洁，推荐，但是软件的准备非常麻烦，须有一定的linux基础
-#### 1. svtyper软件版本应在0.7.0以上，低版本没有--max_ci_dist参数
-#### 2. bcftools的版本不要太老，至少1.10以上（1.3绝壁报错），因为低版本的index没有--thread参数
-#### 3. bam文件的.bam.bai索引文件需要提供，否则报错
+#### 1. `svtyper`软件版本应在0.7.0以上，低版本没有`--max_ci_dist`参数
+#### 2. `bcftools`的版本不要太老，至少1.10以上（1.3绝壁报错），因为低版本的index没有`--thread`参数
+#### 3. bam文件的`.bam.bai`索引文件需要提供，否则报错
 ```
 将gsort mosdepth lumpy lumpy_filter svtyper svtools等软件放入环境变量
 gsort mosdepth: export PATH=/home/sll/software:$PATH
