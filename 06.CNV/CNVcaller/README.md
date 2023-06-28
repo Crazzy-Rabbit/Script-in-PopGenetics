@@ -5,6 +5,8 @@
 ##### 01.使用参考基因组生成dup.link窗口文件
 ```
 bash 01_DupfiletoCNVCaller.sh
+
+# 窗口大小推荐： >10x使用400-1000，<10x使用1000
 ```
 ##### 02.计算窗口文件
 ```
@@ -13,12 +15,14 @@ bash 02_01CalWinFile.sh
 ##### 03.计算每个个体绝对拷贝数
 ```
 bash 02_02CalAbsoluteCN.sh
+
+# 这一步我用了while循环，一个一个call完
 ```
-##### 04.群体水平定义CNVR边界
+##### 04.群体水平定义CNVR的边界
 ```
 bash 03_01DeterminCNVR.sh
 ```
-##### 05.CNVR的genotype
+##### 05.使用混合高斯模型确定CNVR的genotype
 ```
 bash 03_02GenotypeCNVR.sh
 ```
