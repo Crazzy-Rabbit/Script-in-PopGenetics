@@ -5,6 +5,15 @@
 ```
 samtools index input.bam
 ```
+##### `SVtools`的问题：有些python包需要old版本(python2.7),否则在`merge`时会出错
+在安装`svtools`之前，先安装以下包的版本
+```
+pip install statsmodels==0.9.0
+pip install cachetools==0.3.1
+
+
+然后 pip install svtools
+```
 ##### 环境变量
 
 将`gsort` `mosdepth` `duphold` `lumpy` `lumpy_filter` `svtyper` `svtools`等软件放入环境变量
