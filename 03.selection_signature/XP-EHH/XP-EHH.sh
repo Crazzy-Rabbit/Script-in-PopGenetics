@@ -15,7 +15,7 @@ function usage() {
       echo "-r|--ref      ref sample per row per ID"
       echo "-t|--tag      tag sample per row per ID"
       echo "-w|--win      winsize in xpehh, default 50000"
-      echo "-s|--step     stepsize in xpehh, defult 25000"
+      echo "-s|--step     stepsize in xpehh, defult 50000"
       echo "-T|--thread   threads, default 10"
       echo "-c|--chr      最大染色体号，决定你的vcf文件分多少个染色体文件"
       echo "-o|--output   输出文件前缀"
@@ -77,7 +77,7 @@ $vcftools --vcf 01.ref.recode.vcf --recode --recode-INFO-all --chr ${k} --out re
 $vcftools --vcf 01.tag.recode.vcf --recode --recode-INFO-all --chr ${k} --out tag.chr${k}        
 # calculate map distance                
 $vcftools --vcf ref.chr${k}.recode.vcf --plink --out chr${k}.MT
-awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
+awk 'BEGIN{OFS=" "} {print $1,".",$4,$4}' chr${k}.MT.map > chr${k}.MT.map.distance
 done
 
 for ((k=1; k<=$chr; k++));
