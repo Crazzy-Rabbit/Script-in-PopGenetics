@@ -21,7 +21,6 @@ java -jar sprime.jar gt=$phased.vcf.gz outgroup=$outgroup_ID map=$chr.map out=$o
 ##### 02.Reconstructe Intro Allele
 ```
 python 01.ReconstructeIntroAllele.py -f $out -v $phased.vcf -S sample.list -o new.intro
-
 ```
 输出文件格式
 ```
