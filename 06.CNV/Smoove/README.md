@@ -73,5 +73,7 @@ done
 ```
 ##### 04.合并所有个体VCF
 ```
-smoove paste --name $cohort results-genotyped/*.vcf.gz
+smoove paste --name $cohort ~/results-genotyped/*.vcf.gz
+
+需指定*.vcf.gz文件的绝对路径
 ```
