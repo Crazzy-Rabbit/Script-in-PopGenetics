@@ -11,7 +11,6 @@ samtools index input.bam
 pip install statsmodels==0.9.0
 pip install cachetools==0.3.1
 
-
 然后 pip install svtools
 ```
 ##### 环境变量
@@ -43,8 +42,8 @@ smoove call --outdir results-smoove/ --name $sample --fasta $reference -p 1 --ge
 ```
 #! /bin/bash
 ## genotype for each sample
-reference=/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
-smoove=/home/sll/software/smoove
+reference="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"
+smoove="/home/sll/software/smoove"
 
 ls *markdup.bam|cut -d"." -f 1 | sort -u | while read sample;
 do
@@ -64,8 +63,8 @@ smoove genotype -d -x -p 1 --name $sample-joint --outdir results-genotped/ --fas
 ```
 #! /bin/bash
 ## genotype for each sample
-reference=/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
-smoove=/home/sll/software/smoove
+reference="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"
+smoove="/home/sll/software/smoove"
 
 ls *markdup.bam|cut -d"." -f 1 | sort -u | while read sample;
 do
