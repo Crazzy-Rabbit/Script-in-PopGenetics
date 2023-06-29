@@ -39,7 +39,17 @@ export PATH=/home/sll/miniconda3/envs/python2.7/bin:$PATH
 /home/sll/software/smoove
 smoove call --outdir results-smoove/ --name $sample --fasta $reference -p 1 --genotype /path/to/$sample.bam
 ```
+###### 01_00.循环脚本
+```
+#! /bin/bash
+## genotype for each sample
+reference=/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
 
+ls *markdup.bam|cut -d"." -f 1 | sort -u | while read id;
+do
+smoove call --outdir results-smoove/ --name $id --fasta $reference -p 1 --genotype $id.sorted.addhead.markdup.bam
+done
+```
 ##### 02.合并所有个体的联合位点
 ```
 smoove merge --name merged -f $reference --outdir ./ results-smoove/*.genotyped.vcf.gz
@@ -47,6 +57,18 @@ smoove merge --name merged -f $reference --outdir ./ results-smoove/*.genotyped.
 ##### 03.对这些为位点的每个个体call genetype
 ```
 smoove genotype -d -x -p 1 --name $sample-joint --outdir results-genotped/ --fasta $reference --vcf merged.sites.vcf.gz /path/to/$sample.bam
+```
+
+###### 03_00.循环脚本
+```
+#! /bin/bash
+## genotype for each sample
+reference=/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna
+
+ls *markdup.bam|cut -d"." -f 1 | sort -u | while read id;
+do
+smoove genotype -d -x -p 1 --name $id-joint --outdir results-genotped/ --fasta $reference --vcf merged.sites.vcf.gz $id.sorted.addhead.markdup.bam
+done
 ```
 ##### 04.合并所有个体VCF
 ```
