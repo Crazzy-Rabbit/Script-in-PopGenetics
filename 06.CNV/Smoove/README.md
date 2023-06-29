@@ -75,5 +75,5 @@ done
 ```
 smoove paste --name $cohort ~/results-genotyped/*.vcf.gz
 
-需指定*.vcf.gz文件的绝对路径
+## 需指定*.vcf.gz文件的绝对路径
 ```
