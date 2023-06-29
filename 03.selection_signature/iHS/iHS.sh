@@ -61,7 +61,7 @@ do
 # calculate map distance
 $vcftools --gzvcf $vcf --recode --recode-INFO-all --chr ${i} -out ./iHS.progress/${vcf}.chr${i}
 $vcftools --vcf ./iHS.progress/${vcf}.chr${i}.recode.vcf --plink --out ./iHS.progress/chr${i}.MT          
-awk 'BEGIN{OFS=" "} {print 1,".",$4/1000000,$4}' ./iHS.progress/chr${i}.MT.map > ./iHS.progress/chr${i}.MT.map.distance
+awk 'BEGIN{OFS=" "} {print $1,".",$4,$4}' ./iHS.progress/chr${i}.MT.map > ./iHS.progress/chr${i}.MT.map.distance
 done 
 
 cd iHS.progress
