@@ -1,15 +1,15 @@
-#### CNVcaller的循环流程
+#### `CNVcaller`的循环流程
 ##### 请注意，其中提供的文件等建议均提供绝对路径
 ##### 01 和 02 步的 win 大小需一致
-##### 01 的link文件和 02的窗口文件可以一直用，若物种不变
-##### 01.使用参考基因组生成dup.link窗口文件
+##### 01 的`link`文件和 02的窗口文件可以一直用，若物种不变
+##### 01.使用参考基因组生成`dup.link`窗口文件
 ```
 bash 01_DupfiletoCNVCaller.sh
 
 # 窗口大小推荐： >10x使用400-1000，<10x使用1000
 ```
 ##### 02.计算窗口文件
-02_01CalWinFile.sh
+`02_01CalWinFile.sh`
 ```
 #! /bin/bash
 ## author: Shill
@@ -21,7 +21,7 @@ winsize=1000
 perl $CNVReferenceDB $genomicfa -w $winsize
 ```
 ##### 03.计算每个个体绝对拷贝数
-02_02CalAbsoluteCN.sh
+`02_02CalAbsoluteCN.sh`
 ```
 #! /bin/bash
 ## cal absolute copy number
@@ -34,7 +34,7 @@ do
 done 
 ```
 ##### 04.群体水平定义CNVR的边界
-bash 03_01DeterminCNVR.sh
+`bash 03_01DeterminCNVR.sh`
 ```
 #! /bin/bash
 ## determin the CNVR 
@@ -52,7 +52,7 @@ bash $CNVDiscoverysh -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 3 -r 0.5 
 # -r （两个非重叠窗口K间的最小泊松相关系数）0.5 样本量在30个以内； 0.4 样本量在30-50； 0.3 样本量在50-100； 0.2 样本量在100-200
 ```
 ##### 05.使用混合高斯模型确定CNVR的genotype
-bash 03_02GenotypeCNVR.sh
+`bash 03_02GenotypeCNVR.sh`
 ```
 #! /bin/bash
 ## genotype for CNVR
