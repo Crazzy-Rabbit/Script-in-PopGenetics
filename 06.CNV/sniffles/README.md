@@ -1,4 +1,5 @@
 #### sniffles: SV calling for a population 
+需用`SURVIVOR`进行合并
 ##### 1.Obtain calls for each of the samples
 ```
 ~/sniffles -m my_sample.bam -v my_sample.vcf
