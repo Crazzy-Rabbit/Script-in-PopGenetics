@@ -8,7 +8,6 @@ selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
 function usage() {
-    echo "从beagle 一直到最后标准化合并染色体，然后排序的过程"
     echo "Usage: bash $0 --vcf <vcf> --win <winsize> --step <stepsize> --thread <thread> --out <outprefix>"
     echo "required options"
       echo "-v|--vcf     bgvcf file after beagle"
@@ -75,6 +74,6 @@ $norm --ihs --files  Chr${i}.ihs.out  --bp-win --winsize $win
 python ../iHS_Win_step.py --file Chr${i}.ihs.out.100bins.norm --chr $i --window $win --step $step
 done
 
-cat {1.."$chr"}.iHS > ../${output}.XPEHH
+cat {1.."$chr"}.iHS > ../${output}.iHS
 }
 main
