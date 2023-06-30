@@ -13,6 +13,7 @@ def load_data(file):
                        delimiter="\t|\s+",
                        header=None, engine='python')
     data.columns = ['pos', 'unstrandizediHS', 'normiHS']
+    data['normiHS'] = data['normiHS'].abs()
     return data
 
 def results(data, step_size, window_size):
@@ -28,7 +29,7 @@ def results(data, step_size, window_size):
             if not pd.isna(row['pos']):
                 normiHS_vals.append(row['normiHS'])
 
-        # 计算该区间内norm iHS的平均值， 统计区间SNP数量
+        # 计算该区间内norm iHS绝对值的平均值， 统计区间SNP数量
         avg_normiHS = 0
         nvar = 0
         if len(normiHS_vals) > 0:
