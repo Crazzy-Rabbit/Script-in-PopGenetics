@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python3
+#! /usr/bin/env python3
 '''
 Created on Wed Sep 26 16:04:45 CST 2018
 @Mail: minnglee@163.com
