@@ -33,13 +33,13 @@ python 01.ReconstructeIntroAllele.py -f $out -v $phased.vcf -S sample.list -o ne
 ```
 python 02.StatIndividualSegment.py -i new.intro -o ind_segment
 ```
-##### 04.Stat Introgression Length
+##### 03.Stat Introgression Length
 ```
 python 03.StatIntrogressionLen.py -i ind_segment -n number -o int_len
 
 # -n 指定连续的渗入片段包含的渗入SNP数量。default 50 
 ```
-##### 04.Stat Introgression By Window
+##### 03.Stat Introgression By Window
 ```
 python 04.StatIntrogressionByWindow.py -i ind_segment -w 100000 -s 10000 -o int_lenByWin
 ```
@@ -49,7 +49,7 @@ python 04.StatIntrogressionByWindow.py -i ind_segment -w 100000 -s 10000 -o int_
     4       0       100000  0               0|0     0|0     0|0     0|0     0|0
     4       10000   110000  40              30|0     0|0     0|0     0|0     0|0
 ```
-##### 05.Identity Intro Window
+##### 04.Identity Intro Window
 ```
 python 05.IdentityIntroWindow.py -i int_lenByWin -n 10 -r 0.8 -o int_win
 
