@@ -4,8 +4,12 @@
 bwa mem -t 4 -M -R '@RG\tID:$sample\tLB:$group\tPL:ILLUMINA\tSM:$sample' $reference.fa $fastq1 $fastq2 | samtools view -b -S -o $sample.bam
 java -jar picard.jar SortSam I=$sample.bam O=$sample.sort.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=LENIENT
 java -jar picard.jar MarkDuplicates I=$sample.sort.bam O=$sample.dup.bam ASSUME_SORT_ORDER=coordinate METRICS_FILE=$sample.dup.txt VALIDATION_STRINGENCY=LENIENT
+java -jar picard.jar SetNmMdAndUqTags I=$sample.dup.bam O=$sample.dup.sort.fix.bam CREATE_INDEX=true R=$reference.fa VALIDATION_STRINGENCY=LENIENT
 
-# bwa 中 -R 参数添加头文件信息， 若比对时未加这一参数则可用：
+# SetNmMdAndUqTags 设置SAM/BAM文件中的 NM(比对质量)、MD(碱基差异)和 UQ(唯一比对性) 标签,后续过滤可能用得上
+# NM(比对质量) > 20 的用于后续 SNP calling
+# bwa 中 -R 参数添加头文件信息，
+若比对时未加这一参数则可用：
 java -jar picard.jar AddOrReplaceReadGroups I=input.bam O=output.bam RGID=$sample RGLB=$sample RGPL=illumina RGPU=$samplePU RGSM=$sample
 ```
 ##### 02.variants calling using GATK4+
