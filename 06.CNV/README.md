@@ -29,6 +29,7 @@ Sniffles对DEL类型的检测更为精确，因此对CNV的检测也可用此软
 LUMPY过滤第6列的QUAL为0的结果
 其他软件过滤掉标记为IMPRECISE和LowQual的结果
 ```
+且SV的检测最好加上基于 Assembly 的方法，如`Assemblytics`软件
 ###### 这里多软件鉴定结果就可以用`SUIVIVOR`进行合并了，当然也可以使用`svimmer`来合并，后者估计效果比较好
 ```
 svimmer --threads 10 all.vcf.list NC. NC. NC. NC. <......> # 染色体名称
