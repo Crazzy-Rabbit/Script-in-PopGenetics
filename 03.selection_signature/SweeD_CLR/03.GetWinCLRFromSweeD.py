@@ -59,7 +59,7 @@ def main(input,window,step,output):
     output.write('CHR\tSTART\tEND\tSnpNum\tCLR\n')
     CLRDict,ChrSet = LoadCLR(input)
     for CHR in ChrSet:
-        start,end = 0,window
+        start,end = 1,window
         Index = 0
         NotEnd = True
         while NotEnd :
