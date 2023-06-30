@@ -9,6 +9,7 @@ java -jar picard.jar MarkDuplicates I=$sample.sort.bam O=$sample.dup.bam ASSUME_
 java -jar picard.jar AddOrReplaceReadGroups I=input.bam O=output.bam RGID=$sample RGLB=$sample RGPL=illumina RGPU=$samplePU RGSM=$sample
 ```
 ##### 02.variants calling using GATK4+
+GATK4版本之后就不用对INDEL区域进行重比对了，方便
 ```
 ~/gatk-4.1.4.0/gatk HaplotypeCaller -R $reference.fa  -L $chr -ERC GVCF -I $bam -o $chr.gvcf.gz
 ~/gatk-4.1.4.0/gatk CombineGVCFs -R $reference.fa  --variant $chr.list -o $chr.gvcf.gz
