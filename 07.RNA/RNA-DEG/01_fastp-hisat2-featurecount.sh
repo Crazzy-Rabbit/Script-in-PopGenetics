@@ -31,31 +31,21 @@ sample=${arr[0]}
 $fastq-dump --gzip --split-3 $sample
 
 # 2 QC use fastp
-$fsatp -i ${sample}_1.fastq.gz -I ${sample}_2.fastq.gz \
-       -g -q -n 15 -l 150 -u 50 \
-       -o ${sample}_1.filter.fastq.gz -O ${sample}_2.filter.fastq.gz \
-       -h ${sample}.fastp.html
+$fsatp -i ${sample}_1.fastq.gz -I ${sample}_2.fastq.gz -g -q -n 15 -l 150 -u 50 -o ${sample}_1.filter.fastq.gz -O ${sample}_2.filter.fastq.gz -h ${sample}.fastp.html
 
 # 3 reads mapping  ----hisat2
-$hisat2 -p 8 -x $genomefa \
-        -1 ${sample}_1.filter.fastq.gz -2 ${sample}_2.filter.fastq.gz \
-        -S hismap.sam/${sample}.hismap.sam
+$hisat2 -p 8 -x $genomefa -1 ${sample}_1.filter.fastq.gz -2 ${sample}_2.filter.fastq.gz -S hismap.sam/${sample}.hismap.sam
        
 # 4 sam to bam and sorted and index for *sort.bam file
 cd ./hismap.sam
-$samtools view -S ${sample}.hismap.sam -b > ${sample}.hismap.bam
-$samtools sort -@ 8 ${sample}.hismap.bam -o ${sample}_sort.bam
-$samtools index ${sample}_sort.bam ${sample}_sort.bam.index
+$samtools view -S ${sample}.hismap.sam -b | samtools sort -@ 8 -o ${sample}_sort.bam | samtools index - ${sample}_sort.bam.index
 cd ..
 done
 
 cd ./hismap.sam
 # 5 featurecount count the reads number
-$featureCounts -p -t -g gene_id -M -T 8\
-              -a $genomegtf
-              -o ../all.featurecounts.txt
-              ./*_sort.bam
- cd ..
+$featureCounts -p -t -g gene_id -M -T 8 -a $genomegt -o ../all.featurecounts.txt ./*_sort.bam
+cd ..
 # 6 multiqc 
 $multiqc all.featurecounts.txt.summary -o  all.counts.summary
 
