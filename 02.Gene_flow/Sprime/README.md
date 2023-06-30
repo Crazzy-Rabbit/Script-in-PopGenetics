@@ -33,15 +33,6 @@ python 01.ReconstructeIntroAllele.py -f $out -v $phased.vcf -S sample.list -o ne
 ```
 python 02.StatIndividualSegment.py -i new.intro -o ind_segment
 ```
-输出文件格式
-```
-    #Chr    Pos     Segment A1      A14     A23     A25     A6      A7      A8      AJ1     AL1
-    1       132729  23      N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N
-    1       134001  23      N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N
-    #Chr    Pos     Segment A1      A14     A23     A25     A6      A7      A8      AJ1     AL1
-    2       132729  23      N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N
-    2       134001  23      N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N     N|N
-```
 ##### 04.Stat Introgression Length
 ```
 python 03.StatIntrogressionLen.py -i ind_segment -n number -o int_len
