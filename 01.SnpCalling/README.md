@@ -1,4 +1,12 @@
-### GATK及ANGSD进行SNP calling
+## GATK及ANGSD进行SNP calling
+## 二代测序 reads 的比对
+二代测序 reads 的比对分两步：
+```
+用 bwa 将 reads 比对到参考基因组
+用 picard 去除 PCR 造成的重复 reads
+最终得到比对后的 CRAM 文件，这是一种BAM的压缩格式，在 samtools 给的基准测试中，CRAM 大小约为 BAM 的一半。
+```
+`bwa` 软件实现了三种比对算法 `BWA-backtrack`, `BWA-SW` 和 `BWA-MEM`。第一种算法适用于长度在 100bp 以下的 reads，后两种算法适用于70bp至数M的长 reads。BWA-MEM 是最新的算法，70bp以上的 reads 用 BWA-MEM 就好，70b p以下的用 BWA-backtrack。
 ##### 01. read alignment, sort, and remove PCR duplication
 ```
 bwa mem -t 4 -M -R '@RG\tID:$sample\tLB:$group\tPL:ILLUMINA\tSM:$sample' $reference.fa $fastq1 $fastq2 | samtools view -b -S -o $sample.bam
