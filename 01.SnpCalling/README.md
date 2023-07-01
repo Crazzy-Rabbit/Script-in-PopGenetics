@@ -6,7 +6,7 @@
 最终得到比对后的 CRAM 文件，这是一种BAM的压缩格式，在 samtools 给的基准测试中，CRAM 大小约为 BAM 的一半。
 ```
 `bwa` 软件实现了三种比对算法 `BWA-backtrack`, `BWA-SW` 和 `BWA-MEM`。第一种算法适用于长度在 100bp 以下的 reads，后两种算法适用于70bp至数M的长 reads。BWA-MEM 是最新的算法，70bp以上的 reads 用 BWA-MEM 就好，70b p以下的用 BWA-backtrack。
-##### 01. read alignment, sort, and remove PCR duplication
+#### 01. read alignment, sort, and remove PCR duplication
 ```
 bwa mem -t 4 -M -R '@RG\tID:$sample\tLB:$group\tPL:ILLUMINA\tSM:$sample' $reference.fa $fastq1 $fastq2 | samtools view -b -S -o $sample.bam
 java -jar picard.jar SortSam I=$sample.bam O=$sample.sort.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=LENIENT
@@ -20,7 +20,7 @@ java -jar picard.jar SetNmMdAndUqTags I=$sample.dup.bam O=$sample.dup.sort.fix.b
 java -jar picard.jar AddOrReplaceReadGroups I=input.bam O=output.bam RGID=$sample RGLB=$sample RGPL=illumina RGPU=$samplePU RGSM=$sample
 ```
 ## GATK及ANGSD进行SNP calling
-##### 02.variants calling using GATK4+
+#### 02.variants calling using GATK4+
 GATK4版本之后就不用对INDEL区域进行重比对了，方便
 ```
 ~/gatk-4.1.4.0/gatk HaplotypeCaller -R $reference.fa  -L $chr -ERC GVCF -I $bam -o $chr.gvcf.gz
@@ -30,7 +30,7 @@ GATK4版本之后就不用对INDEL区域进行重比对了，方便
 # -L 分染色体call，占用空间少, CombineGVCFs时指定$chr.list即可
 # --includeNonVariantSite 保留非变异位点
 ```
-##### 02.variants calling using GATK4+（hard filter）
+#### 02.variants calling using GATK4+（hard filter）
 SNP
 ```
 ~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type SNP -o Pop.SNP.vcf.gz
@@ -58,7 +58,10 @@ vcftools --gzvcf $vcf --minQ 30 --min-alleles 2 --max-alleles 2 --max-missing 0.
 --remove-snps   去除SNP
 --max-missing 0.9 缺失率 < 10% 的位点留下
 ```
-##### 03.variants calling using ANGSD
+整个硬过滤及质量控制流程`HardFilterSnpIndel.sh`
+
+`GATK`最常用的是硬过滤，因为简单直接，但还有机器学习的方法`VQSR`那个更加适用于自己的数据
+#### 03.variants calling using ANGSD
 ```
 angsd -bam $bam.list -only_proper_pairs 1 -uniqueOnly 1 -remove_bads 1 \
                      -minQ 20 -minMapQ 30 -C 50 -ref $reference.fa -r $chr \
