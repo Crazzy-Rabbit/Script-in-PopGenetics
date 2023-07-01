@@ -1,4 +1,3 @@
-## GATK及ANGSD进行SNP calling
 ## 二代测序 reads 的比对
 二代测序 reads 的比对分两步：
 ```
@@ -20,6 +19,7 @@ java -jar picard.jar SetNmMdAndUqTags I=$sample.dup.bam O=$sample.dup.sort.fix.b
 若比对时未加这一参数则可用：
 java -jar picard.jar AddOrReplaceReadGroups I=input.bam O=output.bam RGID=$sample RGLB=$sample RGPL=illumina RGPU=$samplePU RGSM=$sample
 ```
+## GATK及ANGSD进行SNP calling
 ##### 02.variants calling using GATK4+
 GATK4版本之后就不用对INDEL区域进行重比对了，方便
 ```
