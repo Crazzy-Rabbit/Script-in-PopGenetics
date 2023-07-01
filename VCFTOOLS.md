@@ -7,7 +7,7 @@ vcftools --vcf input_data.vcf --recode-bcf --recode-INFO-all --out converted_out
 ##### 2.compare twe files
 比较两个vcf共享的位点、个体
 ```
-vcftools --vcf input_data.vcf --diff other_data.vcf --out compare
+vcftools --vcf input_data.vcf --diff other_data.vcf --diff-site --out compare
 
 后面的一个参数可指定 --diff, --gzdiff, or --diff-bcf
 ```
