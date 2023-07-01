@@ -30,6 +30,7 @@ GATK4版本之后就不用对INDEL区域进行重比对了，方便
 # -L 分染色体call，占用空间少, CombineGVCFs时指定$chr.list即可
 # --includeNonVariantSite 保留非变异位点
 ```
+`call`完之后可根据质量值`QUAL >= 20`筛除一部分低质量位点
 ##### 02.variants calling using GATK4+（hard filter）
 SNP
 ```
