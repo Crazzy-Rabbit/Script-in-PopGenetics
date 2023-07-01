@@ -36,3 +36,7 @@ vcftools --vcf input_data.vcf --plink --chr 1 --out output_in_plink
 ```
 vcftools --vcf input_data.vcf --TsTv-summary 
 ```
+##### 7.提取样本
+```
+vcftools --gzvcf $vcf --keep $sample --recode --recode-INFO-all --out $sample
+```
