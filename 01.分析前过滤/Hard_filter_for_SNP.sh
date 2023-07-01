@@ -1,62 +1,32 @@
 #! /bin/bash
+## 精准而优雅
 #################### Hard filter for SNP ######################
 
 # Set up the file name, software
 GATK="/home/software/gatk-4.1.4.0/gatk"                #change as you want
-bcftools="/home/sll/miniconda3/bin/bcftools"           #change as you want
+vcftools="/home/sll/miniconda3/bin/bcftools"           #change as you want
+reference="/home/sll/genome"
 
-function usage() {
-    echo "Usage: bash $0 --vcf <vcf.gz file> --out <outprefix>"
-    echo "对SNP进行硬过滤及去除多等位基因"
-    echo "最后会输出.snps.filter.pass.2allell.vcf文件"
-    echo "required options"
-      echo "-v|--vcf         做完基因分型的vcf.gz文件"
-      echo "-o|--out         输出文件前缀"
-      exit 1;
-}
-
-while [[ $# -gt 0 ]]
-do
-  case "$1" in
-    -v|--vcf )
-        vcf=$2 ; shift2 ;;
-    -o|--out )
-        out=$2 ; shift2 ;;
-    *) echo "输入的参数不对的喔！" >&2
-       usage
-       shift
-       ;;
-  esac
-done
-
-if [ -z $vcf ] || [ -z $out ]; then 
-    echo "关键参数没输喔！" >&2
-    usage
+if [[ $# -ne 2 ]]; then 
+    echo "Usage: bash $0  <vcf.gz file>  <outprefix>"
+    echo "输出文件前缀推荐和输入文件一样吧"
+    echo "对SNP和INDEL进行硬过滤及SNP去除多等位基因，输出过滤后的SNP及INDEL文件"
+    exit 1
 fi
 
-function main() {
-## get SNP
-$GATK SelectVariants  --select-type  SNP  \
-                      -V $vcf  \
-                      -O ${out}.snps.vcf.gz
+vcf=$1
+out=$2
 
-## filter SNP
-$GATK VariantFiltration -V ${out}.snps.vcf.gz \
-                        --filter-expression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || SOR > 3.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0" \
-                        --filter-name "SNP_FILTER" \
-                        -O ${out}.snps.filter.vcf.gz
+## get SNP and INDEL
+$GATK SelectVariants -R $reference --select-type  SNP  -V $vcf  -O ${out}.snps.vcf.gz
+$GATK SelectVariants -R $reference --select-type  INDEL  -V $vcf  -O ${out}.indel.vcf.gz
+## filter SNP and INDEL
+$GATK VariantFiltration -R $reference -V ${out}.snps.vcf.gz --filter-expression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || SOR > 3.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0" --filter-name "SNP_FILTER" -O ${out}.snps.HDflt.vcf.gz
+$GATK VariantFiltration -R $reference -V ${out}.snps.vcf.gz --filter-expression "QD < 2.0 || FS > 200.0 || SOR > 10.0 || MQRankSum < -12.5 || ReadPosRankSum < -20" --filter-name "INDEL_FILTER" -O ${out}.indel.HDflt.vcf.gz
+## get pass for SNP and INDEL
+$GATK MergeVcfs -I ${out}.snps.HDflt.vcf.gz -I ${out}.indel.HDflt.vcf.gz -O ${out}.SNP.INDEL.HDflt.vcf.gz
+$GATK SelectVariants -R $reference.fa -V ${out}.SNP.INDEL.HDflt.vcf.gz -O ${out}.SNP.INDEL.HDflt.pass.vcf.gz -select "vc.isNotFiltered()"
 
-# index
-$bcftools index -t ${out}.snps.filter.vcf.gz
-
-## get pass 
-$GATK  SelectVariants -V ${out}.snps.filter.vcf.gz \
-                      -O ${out}.snps.filter.pass.vcf.gz \
-                      -select "vc.isNotFiltered()"
-
-# delect muitl allells
-$bcftools view -m 2 -M 2 \
-               --type "snps"  ${out}.snps.filter.pass.vcf.gz \
-               -Ov -o ${out}.snps.filter.pass.2allell.vcf
-}
-main
+## get SNP and indel
+$vcftools --gzvcf ${out}.SNP.INDEL.HDflt.pass.vcf.gz --minQ 30 --min-alleles 2 --max-alleles 2 --remove-indels --recode --recode-INFO-all --out ${out}.SNP.HDflt.pass
+$vcftools --gzvcf ${out}.SNP.INDEL.HDflt.pass.vcf.gz --minQ 30 --remove-snps --recode --recode-INFO-all --out ${out}.INDEL.HDflt.pass
