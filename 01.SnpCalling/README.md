@@ -30,24 +30,34 @@ GATK4版本之后就不用对INDEL区域进行重比对了，方便
 # -L 分染色体call，占用空间少, CombineGVCFs时指定$chr.list即可
 # --includeNonVariantSite 保留非变异位点
 ```
-`call`完之后可根据质量值`QUAL >= 20`筛除一部分低质量位点
 ##### 02.variants calling using GATK4+（hard filter）
 SNP
 ```
-~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz -select-type SNP -o Pop.SNP.vcf.gz
-~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.SNP.vcf.gz  --filterExpression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"  --filterName "my_snp_filter" -o Pop.HDflt.SNP.vcf.gz
+~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type SNP -o Pop.SNP.vcf.gz
+~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.SNP.vcf.gz  --filter-expression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"  --filter-name "my_snp_filter" -o Pop.HDflt.SNP.vcf.gz
 ```
 INDEL
 ```
-~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz -selectType INDEL -o Pop.INDEL.vcf.gz
-~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.INDEL.vcf.gz --filterExpression "QD < 2.0 || FS > 200.0 || ReadPosRankSum < -20.0" --filterName "my_indel_filter" -o Pop.HDflt.INDEL.vcf.gz
+~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type INDEL -o Pop.INDEL.vcf.gz
+~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.INDEL.vcf.gz --filter-expression "QD < 2.0 || FS > 200.0 || SOR > 10.0 || MQRankSum < -12.5 || ReadPosRankSum < -20" --filter-name "my_indel_filter" -o Pop.HDflt.INDEL.vcf.gz
 ```
 merge and get PASS site
 ```
 ~/gatk-4.1.4.0/gatk MergeVcfs -I Pop.HDflt.SNP.vcf.gz -I Pop.HDflt.INDEL.vcf.gz -O Pop.HDflt.SNP.INDEL.genotype.vcf
 ~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V Pop.HDflt.SNP.INDEL.genotype.vcf -O Pop.HDflt.SNP.INDEL.genotype.pass.vcf -select "vc.isNotFiltered()"
 ```
+`call`完之后可根据质量值`QUAL >= 30`去除低质量位点
+```
+vcftools --gzvcf $vcf --minQ 30 --min-alleles 2 --max-alleles 2 --max-missing 0.9 --non-ref-ac 2 --remove-indels --recode --recode-INFO-all --out $filter
 
+--minQ 30 保留QUAL >= 30
+--min-alleles 2 保留双等位基因
+--max-alleles 2 保留双等位基因
+--non-ref-ac 2  保留非参考等位基因多余2个个体的位点
+--remove-indels 去除INDEL
+--remove-snps   去除SNP
+--max-missing 0.9 缺失率 < 10% 的位点留下
+```
 ##### 03.variants calling using ANGSD
 ```
 angsd -bam $bam.list -only_proper_pairs 1 -uniqueOnly 1 -remove_bads 1 \
