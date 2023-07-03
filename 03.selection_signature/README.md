@@ -1,5 +1,6 @@
 一般而言，计算`Tajima's D`、`FST`、`pi`等我们都用`vcftools`，但由于这些方法基于频谱信息（frequency spectrum），因此会受到测序深度不均、数据缺失、`SNP calling`过程中`genotype`的不确定性等的影响(NGS数据的基本问题)
 
+因此，多了解了解多种方法，不要固步自封，多种方式结合才是王道
 ###### 注：目前用的所有的`SNP calling`的方式都是基于`genotype likelihood`(GL)的
 ```
 depth 低于 20X 的数据，对genotype calling都会有些偏差，产生原因主要是genotype calling的方法
