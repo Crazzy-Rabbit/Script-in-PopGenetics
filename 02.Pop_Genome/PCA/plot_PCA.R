@@ -20,6 +20,8 @@ p = ggplot(data  = a ,
   scale_color_manual(values=c("#66a61e", "#66a61e","#66a61e","#66a61e","#66a61e",
                                 "#7470b3", "#e7288a","#e728e7","#e7288a","#e7288a","#e7288a",
                                 "#b35107","#b35107")) +   
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "black") +
   theme_classic()+ # 去除灰色背景及网格线
   theme(panel.border = element_rect(fill=NA,color="black", size=0.5, linetype ="solid")) #添加边框
 
