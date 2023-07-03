@@ -31,7 +31,7 @@ This estimate is used as a prior for calculating site specific posterior probabi
 
 -anc chimpHg19.fa   参考基因组fa文件
 ```
-##### 01_01.0btain the maximum likelihood estimate of the SFS using the `realSFS` program
+##### 01_01.Obtain the maximum likelihood estimate of the SFS using the `realSFS` program
 `unfolded spectrum` 祖先等位基因型已知
 ```
 ./misc/realSFS out.saf.idx -P 24 > out.sfs
