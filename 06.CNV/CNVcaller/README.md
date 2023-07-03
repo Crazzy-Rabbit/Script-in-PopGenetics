@@ -33,6 +33,20 @@ do
     bash $IndividualProcess -b `pwd`/${id}.sorted.addhead.markdup.bam -h $id -d $Winlink -s none;
 done 
 ```
+如果你的bam文件有.1什么的带.的SRR号，那么用下面脚本
+```
+#! /bin/bash
+## cal absolute copy number
+IndividualProcess="/home/sll/miniconda3/CNVcaller/Individual.Process.sh"               #change as you want
+Winlink="/home/sll/genome-cattle/CNVCaller-Duplink/ARS_UCD1.2_1000_link"               #dup file that you have created use blasr, change as you want
+sample_list="sample_list.txt"                                                          #per row per ID
+
+cat $sample_list | while read -r sample;
+do
+    echo $sample
+    bash $IndividualProcess -b `pwd`/${sample}.sorted.addhead.markdup.bam -h $sample -d $Winlink -s none;
+done
+```
 ##### 04.群体水平定义CNVR的边界
 `bash 03_01DeterminCNVR.sh`
 ```
