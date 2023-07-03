@@ -62,6 +62,7 @@ vcftools --gzvcf $vcf --minQ 30 --min-alleles 2 --max-alleles 2 --max-missing 0.
 
 `GATK`最常用的是硬过滤，因为简单直接，但还有机器学习的方法`VQSR`那个更加适用于自己的数据
 #### 03.variants calling using ANGSD
+个人感觉还是`GATK`为主，这个就用来 call 出 SNP 之后与`GATK`结果取交集，让`SNP calling`结果更准确
 ```
 angsd -bam $bam.list -only_proper_pairs 1 -uniqueOnly 1 -remove_bads 1 \
                      -minQ 20 -minMapQ 30 -C 50 -ref $reference.fa -r $chr \
@@ -73,5 +74,17 @@ angsd -bam $bam.list -only_proper_pairs 1 -uniqueOnly 1 -skipTriallelic 1 -remov
                      -doCounts 1 -dosnpstat 1 -SNP_pval 1
 
 # 第一步是call SNP，及计算多个参数
-# 第二步是多个过滤参数，保证SNP的准确性
+# 第二步是多个过滤参数及估计genotype likelihood（GL），保证SNP的准确性
+# -SNP_pval 1     SNP的p_value，可用于过滤
+# -doMajorMinor 1 最终文件无 ref alt 而是 major minor 形式
+# -doMaf 1        1: Frequency (fixed major and minor)
+# -GL 1           1: SAMtools
+                  2: GATK
+                  3: SOAPsnp
+                  4: SYK
+# -doGeno         进行genotype calling，
+                  1：print out major minor
+                  2: print the called genotype as -1,0,1,2 (count of minor)
+                  4: print the called genotype as AA, AC, AG, ...
+                  8: print all 3 posts (major,major),(major,minor),(minor,minor)
 ```
