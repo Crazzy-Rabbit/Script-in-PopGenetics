@@ -22,7 +22,7 @@ This estimate is used as a prior for calculating site specific posterior probabi
 基于经验贝叶斯方法，对任何规模的基因组都可行
 这种方式的偏差是最小的
 ```
-# 计算选择信号的脚本
+### 计算选择信号的脚本
 ##### XP-EHH 中提供了计算win 和step的脚本，非常人性化
 ##### SweeD_CLR 中提共的脚本我们不用自己准备grid文件了
 ##### iHS 同样提供了计算win 和step的脚本
