@@ -32,7 +32,7 @@ def target(poplist, infile):
 @click.option('--file', help='GetCleanCNV.py的结果文件')
 @click.option('--pop1', help='属于群体1的个体ID，一行一个ID')
 @click.option('--pop2', help='属于群体2的个体ID，一行一个ID')
-@click.option('out', help='输出文件前缀')
+@click.option('--out', help='输出文件前缀')
 
 def main(file, pop1, pop2, out):
     pop1list = load_pop(pop1)
