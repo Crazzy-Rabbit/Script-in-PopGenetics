@@ -32,7 +32,8 @@ abline(lty = 1 , h =0.255368, col = "red",lwd = 3)
 
 library(CMplot)
 data1 <- read.table("IHS.csv",header = T,sep = ',') 
-color_set <- c("#801e91","#344fa8","#f7cb34","#a8a8aa","#ffe4c7")
+color_set <- c('#1B2C62', '#4695BC')
+# "#801e91","#344fa8","#f7cb34","#a8a8aa","#ffe4c7"
 CMplot(data1, plot.type="m", LOG10=F,   
        chr.den.col=NULL, col = color_set,       
        threshold = 0.186813, threshold.col = "red", threshold.lwd= 2, threshold.lty =1,     
