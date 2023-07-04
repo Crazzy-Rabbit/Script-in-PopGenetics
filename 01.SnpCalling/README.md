@@ -63,7 +63,7 @@ vcftools --gzvcf $vcf --minQ 30 --min-alleles 2 --max-alleles 2 --max-missing 0.
 
 `GATK`最常用的是硬过滤，因为简单直接，但还有机器学习的方法`VQSR`那个更加适用于自己的数据
 #### 03.variants calling using ANGSD
-个人感觉还是`GATK`为主，这个就用来 call 出 SNP 之后与`GATK`结果取交集，让`SNP calling`结果更准确
+这个就用来 call 出 SNP 之后与`GATK`结果取共同鉴定出的SNP，让`SNP calling`结果更准确,然后他输出的是基因型的似然值(GL)，而不是确定的基因型，但下游的大多分析都是基于`genotype`的，因此，还是将交集部分利用`GATK`进行`genotype calling`
 ```
 angsd -bam $bam.list -only_proper_pairs 1 -uniqueOnly 1 -remove_bads 1 \
                      -minQ 20 -minMapQ 30 -C 50 -ref $reference.fa -r $chr \
