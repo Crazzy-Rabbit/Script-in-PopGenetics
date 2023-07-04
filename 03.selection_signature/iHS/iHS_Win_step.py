@@ -40,23 +40,23 @@ def results(data, step_size, window_size):
 
 @click.command()
 @click.option('-f','--file', help='ihs.out.100bins.norm文件，norm后的位点文件', required=True)
-@click.option('-c','--chr',help='染色体号，千万别合一起做', type=int, required=True)
+@click.option('-c','--chromosome',help='染色体号，千万别合一起做', type=int, required=True)
 @click.option('-w','--window', help='窗口大小', type=int, default=50000)
 @click.option('-s','--step', help='步长大小', type=int, default=50000)
-def main(file, chr, window, step):
+def main(file, chromosome, window, step):
     data = load_data(file)
     out = results(data, step, window)
     result_df = pd.DataFrame(out, columns=["BIN_START", "BIN_END",
                                            "avg_normiHS", "nvar"])
-    result_df.loc[:, "CHROM"] = chr
+    result_df.loc[:, "CHROM"] = chromosome
 
-    if chr == 1:
+    if chromosome == 1:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "nvar", "avg_normiHS"]].to_csv(f'{chr}.iHS', sep='\t',
+                   "nvar", "avg_normiHS"]].to_csv(f'{chromosome}.iHS', sep='\t',
                                                   index=False)
     else:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "nvar", "avg_normiHS"]].to_csv(f'{chr}.iHS', sep='\t',
+                   "nvar", "avg_normiHS"]].to_csv(f'{chromosome}.iHS', sep='\t',
                                                   index=False, header=False)
 
 if __name__ == '__main__':
