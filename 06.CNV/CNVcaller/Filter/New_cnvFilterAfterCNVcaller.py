@@ -71,20 +71,7 @@ def Both_filter(df):
 @click.option('-f','--file', type=str, help='CNVcaller结果文件中的genotypeCNVR.tsv文件', required=True)
 @click.option('-o','--out', type=str, help='输出文件前缀', required=True)
 def main(file, out):
-    """
-    对CNVcaller结果进行过滤，条件为：
-    1、所有类型： 轮廓系数（silhouette_score） > 0.6
-    2、缺失型：0.05<del<0.95且dup<=0.01 且 lenth <= 50000
-    3、重复型： 0.05<dup<0.95且del<=0.01 且lenth <= 500000
-    4、Both型： 0.05<dup<0.95 且 0.05<del<0.95 且 lenth < =50000
 
-    运行结束会输出5个文件：
-    1、三个类型的CNVR文件
-    Del_genotypeCNVR.txt，Del_genotypeCNVR.txt，Both_genotypeCNVR.txt
-    2、.chat.rectchr，用于Rectchr绘制拷贝数图谱
-    3、.Get_Region.txt，用于计算VST
-    ps: 写这个脚本真是要了命了（我是新手，哭了）
-    """
     df = load_data(file)
     df_freq = cal_freq(df)
     
