@@ -39,10 +39,10 @@ def results(data, step_size, window_size):
 
 @click.command()
 @click.option('-f','--file', help='xpehh.out.norm文件，norm后的位点文件，不是区间文件！！', required=True)
-@click.option('-c','--chr', help='染色体号，因为是分染色体做的', required=True)
+@click.option('-c','--chromosome', help='染色体号，因为是分染色体做的', required=True)
 @click.option('-w','--window', help='窗口大小', type=int, default=50000)
 @click.option('-s','--step', help='步长大小', type=int, default=50000)
-def main(file, chr, window, step):
+def main(file, chromosome, window, step):
     data = load_data(file)
     window_size = window
     step_size = step
@@ -51,15 +51,15 @@ def main(file, chr, window, step):
     # 创建一个 DataFrame 对象来保存结果，并使用 to_csv 方法将其写入文件中
     result_df = pd.DataFrame(out, columns=["BIN_START", "BIN_END", 
                                            "avg_normxpehh", "nvar"])
-    result_df.loc[:, 'CHROM'] = chr
+    result_df.loc[:, 'CHROM'] = chromosome
 
-    if chr == 1:
+    if chromosome == 1:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "nvar", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
+                   "nvar", "avg_normxpehh"]].to_csv(f'{chromosome}.XPEHH', sep='\t',
                                                     index=False)
     else:
         result_df[["CHROM", "BIN_START", "BIN_END",
-                   "nvar", "avg_normxpehh"]].to_csv(f'{chr}.XPEHH', sep='\t',
+                   "nvar", "avg_normxpehh"]].to_csv(f'{chromosome}.XPEHH', sep='\t',
                                                     index=False, header=False)
 
 if __name__ == '__main__':
