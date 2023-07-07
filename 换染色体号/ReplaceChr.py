@@ -26,6 +26,7 @@ def load_vcf(vcf, out):
 def main(infile, chrlist, out):
     """
     changechr for file, chrlist has 2 col NC and number-chr
+    
     Automatic recognition of vcf file chromosome form and conversion to another
     """
     Chrfiles = load_vcf(infile, out)
