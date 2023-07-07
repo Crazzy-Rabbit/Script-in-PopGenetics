@@ -8,12 +8,26 @@ Created on  07 07 10:52:08  2023
 import click
 # 换染色体号的脚本
 
-def load_vcf(vcf, out):
+def load_vcf(vcf, chrlist, out):
     Chrfiles = []
     for line in vcf:
         line = line.strip()
-        if line.startswith('#'):
+        if line.startswith('#') and not line.startswith('##contig'):
             out.write(line + '\n')
+        elif line.startswith('##contig'):
+            contig = line.strip().split('=')
+            contigchr = contig[2].strip().split(',')
+            chrlist.seek(0) # 将文件指针重置到文件开头
+            for chrchange in chrlist:
+                chrchange = chrchange.strip().split()
+                if contigchr[0] == chrchange[0]:
+                    contigchr[0] = chrchange[1]
+                    out.write('='.join(contig[:2]) + '=' + ','.join(contigchr) + '=' + contig[3] + '\n')
+                elif contigchr[0] == chrchange[1]:
+                    contigchr[0] = chrchange[0]
+                    out.write('='.join(contig[:2]) + '=' + ','.join(contigchr) + '=' + contig[3] + '\n')
+                else:
+                    continue
         elif not line.startswith('#'):
             Chrfiles.append(line.split())
 
@@ -29,7 +43,7 @@ def main(infile, chrlist, out):
     
     Automatic recognition of vcf file chromosome form and conversion to another
     """
-    Chrfiles = load_vcf(infile, out)
+    Chrfiles = load_vcf(infile, chrlist,  out)
     chrlist.seek(0)  # 将文件指针重置到文件开头
     for chrchange in chrlist:
         chrchange = chrchange.strip().split()
