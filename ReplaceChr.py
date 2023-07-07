@@ -6,7 +6,7 @@ Created on  07 07 10:52:08  2023
 @Mails: crazzy_rabbit@163.com
 """
 import click
-
+# 换染色体号的脚本
 
 def load_vcf(vcf, out):
     Chrfiles = []
