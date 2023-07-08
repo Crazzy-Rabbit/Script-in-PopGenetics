@@ -48,3 +48,7 @@ awk 'BEGIN{OFS="\t";FS="\t"}{print int($1+0.5);}' file
 将第一列为1-9及XY的转为chr$1的形式，将为M开头的转为chrM形式
 awk 'BEGIN{OFS=FS="\t"}{if($1~/^[0-9XY]/) $1="chr"$1; else if($1~/M.*/) gsub(/M.*/, "chrM", $1); print $0}' ens.bed 
 ```
+为每一行增加行号，使其变为唯一
+```
+awk 'BEGIN{OFS="\t";FS="\t"}NR!=1{$4=$4"_"NR;print $0}' file
+```
