@@ -73,5 +73,7 @@ bash $CNVDiscoverysh -l `pwd`/list.txt -e `pwd`/exclude_list -f 0.1 -h 3 -r 0.5 
 Genotypepy="/home/sll/miniconda3/CNVcaller/Genotype.py"
 python="/home/sll/miniconda3/bin/python3.9"
 
-$python $Genotypepy --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 8
+$python $Genotypepy --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 1
+
+# --nproc 进程数，一个占据200%的CPU，这边建议设置1就够了，服务器够大可考虑加多
 ```
