@@ -67,6 +67,8 @@ done
 ##### 02.合并所有个体的联合位点
 ```
 smoove merge --name merged -f $reference --outdir ./ results-smoove/*.genotyped.vcf.gz
+
+# 若有多个文件夹，则可提供多个results-smoove/*.genotyped.vcf.gz路径，之间用空格分开即可
 ```
 ##### 03.对这些为位点的每个个体call genetype
 ```
