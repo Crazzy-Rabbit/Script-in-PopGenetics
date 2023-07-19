@@ -106,3 +106,7 @@ smoove paste --name $cohort ~/results-genotyped/*.vcf.gz
 
 ## 需指定*.vcf.gz文件的绝对路径
 ```
+##### 最后使用`GetCnvrFromSmooveResult.py`脚本提取`DEL`和`DUP`的位置信息
+```
+python GetCnvrFromSmooveResult.py --vcffile smoove.out.vcf --outfile smoove.pos.vcf
+```
