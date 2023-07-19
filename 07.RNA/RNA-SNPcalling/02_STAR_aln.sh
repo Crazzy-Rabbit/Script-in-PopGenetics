@@ -8,26 +8,12 @@ mkdir -p starmap.bam/index
   # 1. 2 pass模式进行比对
 ls *filter.fastq.gz | cut -d '_' -f 1 | sort -u | while read id;
 do 
-  STAR --runThreadN 10 --genomeDir $genomeDir \
-                       --readFilesIn $id_1.filter.fastq.gz $id_2.filter.fastq.gz \
-                       --readFilesCommand gunzip -c \
-                       --outFileNamePrefix ./starmap.bam/$id
-done
-
-
-  STAR --runThreadN 20 --runMode genomeGenerate \
-                       --genomeDir ./starmap.bam/index \
-                       --genomeFastaFiles $fa \
-                       --sjdbGTFfile $gtf \
-                       --sjdbFileChrStartEnd ./starmap.bam/*.out.tab \
-                       --sjdbOverhang 149
-
-
-ls *filter.fastq.gz | cut -d '_' -f 1 | sort -u | while read id;
-do
-  STAR --runThreadN 10 --genomeDir ./starmap.bam/index \
-                       --readFilesIn $id_1.filter.fastq.gz $id_2.filter.fastq.gz \
-                       --readFilesCommand gunzip -c \
-                       --outFileNamePrefix ./starmap.bam/2_pass/$id_2pass
-
+  STAR --twopassMode Basic \
+       --runThreadN 10 --genomeDir $genomeDir \
+       --readFilesCommand zcat \
+       --alignSJstitchMismatchNmax 5 -1 5 5 \
+       --sjdbOverhang 149 \
+       --readFilesIn $id_1.filter.fastq.gz $id_2.filter.fastq.gz \
+       --outSAMtype SAM \
+       --outFileNamePrefix ./starmap.bam/$id_2pass
 done
