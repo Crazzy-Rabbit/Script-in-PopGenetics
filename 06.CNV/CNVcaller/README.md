@@ -76,4 +76,7 @@ python="/home/sll/miniconda3/bin/python3.9"
 $python $Genotypepy --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 1
 
 # --nproc 进程数，一个占据200%的CPU，这边建议设置1就够了，服务器够大可考虑加多
+# --merge 为了得到更多的双等位 CNVR 用于后续分析，可以使用--merge 选项。使用后，会
+增加一个后缀为 _merge.vcf 的 输 出 文 件 ， 类 似 <outprefix>.vcf 文 件 ， 区 别 在 于
+<outprefix>_merge.vcf 中把所有重复算作一种变异类型，这样就可以进行PCA这些了
 ```
