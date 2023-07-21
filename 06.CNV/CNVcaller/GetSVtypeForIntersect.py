@@ -23,8 +23,9 @@ logging.info(f"The command is:\n\tpython3 {' '.join(sys.argv)}")
 def main(vcffile, tsvfile, out):
     """
     CNVcaller结束后的vcf文件中提取svtype，用于矫正， 然后输出以下结果文件
+    
     #CHROM  START   END     SVTYPE
-    NC_006853.1       1001    15500   <DUP>
+    NC_006853.1     1001    15500   <DUP>
     NC_037328.1     1001    26000   <DEL>
     NC_037328.1     27001   30000   <DUP>
     """
