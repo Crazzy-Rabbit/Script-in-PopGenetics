@@ -80,3 +80,10 @@ $python $Genotypepy --cnvfile mergeCNVR --outprefix genotypeCNVR --nproc 1
 增加一个后缀为 _merge.vcf 的 输 出 文 件 ， 类 似 <outprefix>.vcf 文 件 ， 区 别 在 于
 <outprefix>_merge.vcf 中把所有重复算作一种变异类型，这样就可以进行PCA这些了
 ```
+
+##### `GetSVtypeForIntersect.py`脚本提取`SVtype`，方便使用`smoove`结果进行矫正
+```
+python3 GetSVtypeForIntersect.py --vcffile genotypeCNVR.vcf --out CNVcaller_svtype.txt
+```
+
+### 矫正完毕后的`CNVR`再进行`Filter`，以及计算`Vst`
