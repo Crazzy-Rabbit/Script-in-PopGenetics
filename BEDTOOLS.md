@@ -11,7 +11,7 @@ The `intersect` command is the workhorse of the bedtools suite. It compares two 
 -wo 输出overlap区间，只要有overlap就输出， 和不输入参数一样
 -f  对于A文件，最小overlap的区间的比例，大于他保留，例如0.3
 -F  对于B文件，最小overlap的区间的比例，大于他保留
--r  两个文件reciprocal的overlap比例，拷贝数矫正用这个
+-r  两个文件reciprocal的overlap比例，拷贝数矫正用这个， 需要和-f联用，-f指定比例
 ```
 ##### 02. merge option
 Many datasets of genomic features have many individual features that overlap one another (e.g. aligments from a ChiP seq experiment). It is often useful to just cobine the overlapping into a single, contiguous interval. The bedtools merge command will do this for you.
