@@ -20,7 +20,7 @@ logging.info(f"The command is:\n\tpython3 {' '.join(sys.argv)}")
 @click.option('--vcffile', type=click.File('r'), help='CNVcaller 结束后的vcf文件', required=True)
 # @click.option('--tsvfile', type=str, help='CNVcaller 结束后的tsv文件', required=True)
 @click.option('--out', type=click.File('w'), help='输出文件名', required=True)
-def main(vcffile, tsvfile, out):
+def main(vcffile, out):
     """
     CNVcaller结束后的vcf文件中提取svtype，用于矫正， 然后输出以下结果文件
     
@@ -37,7 +37,7 @@ def main(vcffile, tsvfile, out):
             continue
         else:
             colnum = line.strip().split('\t')
-            info = colnum[7].split(':')
+            info = colnum[7].split(';')
             svtype = info[1].split('=')[1]
 
         Chr = colnum[0]
