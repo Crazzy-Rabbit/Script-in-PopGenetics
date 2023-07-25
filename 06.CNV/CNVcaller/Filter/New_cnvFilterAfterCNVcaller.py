@@ -30,37 +30,36 @@ def cal_freq(df):
     return df
 
 # 进行过滤
-# 所有类型轮廓系数 > 0.6
-def Del_filter(df):
-    # 缺失型：0.05<del<0.95且dup<=0.01 且 lenth <= 50000
-    Del = df.query('silhouette_score > 0.6 and 0.05 < del_freq < 0.95 and dup_freq <= 0.01 and lenth <= 50000')
-    Del['Type'] = 'Del'
+def Del_filter(df, out):
+    # 缺失型：轮廓系数 > 0.25, 0.05<del<0.95且dup<=0.01 且 lenth <= 50000
+    Del = df.query('silhouette_score > 0.25 and 0.05 < del_freq < 0.95 and dup_freq <= 0.01 and lenth <= 50000')
+    Del.loc[:, 'Type'] = 'Del'
     if not Del.empty:
-        Del.to_csv(f'Del_genotypeCNVR.txt',
+        Del.to_csv(f'{out}.Del_genotypeCNVR.txt',
                    sep='\t', index=False)
     else:
         print("No rows meet the criteria.")
 
     return Del
 
-def Dup_filter(df):
-    # 重复型： 0.05<dup<0.95且del<=0.01 且lenth <= 500000
-    Dup = df.query('silhouette_score > 0.6 and 0.05 < dup_freq < 0.95 and del_freq <= 0.01 and lenth <= 500000')
-    Dup['Type'] = 'Dup'
+def Dup_filter(df, out):
+    # 重复型：轮廓系数 > 0.25, 0.05<dup<0.95且del<=0.01 且lenth <= 500000
+    Dup = df.query('silhouette_score > 0.25 and 0.05 < dup_freq < 0.95 and del_freq <= 0.01 and lenth <= 500000')
+    Dup.loc[:, 'Type'] = 'Dup'
     if not Dup.empty:
-        Dup.to_csv(f'Dup_genotypeCNVR.txt',
+        Dup.to_csv(f'{out}.Dup_genotypeCNVR.txt',
                    sep='\t', index=False)
     else:
         print("No rows meet the criteria.")
 
     return Dup
 
-def Both_filter(df):
-    # Both型： 0.05<dup<0.95 且 0.05<del<0.95 且 lenth < =50000
-    Both = df.query('silhouette_score > 0.6 and 0.05 < dup_freq < 0.95 and 0.05 < del_freq < 0.95 and lenth <= 50000')
-    Both['Type'] = 'Both'
+def Both_filter(df, out):
+    # Both型：轮廓系数 < 0.75,  0.05<dup<0.95 且 0.05<del<0.95 且 lenth < =50000
+    Both = df.query('silhouette_score < 0.75 and 0.05 < dup_freq < 0.95 and 0.05 < del_freq < 0.95 and lenth <= 50000')
+    Both.loc[:, 'Type'] = 'Both'
     if not Both.empty:
-        Both.to_csv(f'Both_genotypeCNVR.txt',
+        Both.to_csv(f'{out}.Both_genotypeCNVR.txt',
                     sep='\t', index=False)
     else:
         print("No rows meet the criteria.")
@@ -71,13 +70,25 @@ def Both_filter(df):
 @click.option('-f','--file', type=str, help='CNVcaller结果文件中的genotypeCNVR.tsv文件', required=True)
 @click.option('-o','--out', type=str, help='输出文件前缀', required=True)
 def main(file, out):
+    """
+    对CNVcaller结果进行过滤，条件为：
+    2、缺失型：轮廓系数 > 0.25, 0.05<del<0.95且dup<=0.01 且 lenth <= 50000
+    3、重复型： 轮廓系数 > 0.25, 0.05<dup<0.95且del<=0.01 且lenth <= 500000
+    4、Both型： 轮廓系数 < 0.75, 0.05<dup<0.95 且 0.05<del<0.95 且 lenth < =50000
 
+    运行结束会输出5个文件：
+    1、三个类型的CNVR文件
+    Del_genotypeCNVR.txt，Del_genotypeCNVR.txt，Both_genotypeCNVR.txt
+    2、.chat.rectchr，用于Rectchr绘制拷贝数图谱
+    3、.Get_Region.txt，用于计算VST
+    ps: 写这个脚本真是要了命了（我是新手，哭了）
+    """
     df = load_data(file)
     df_freq = cal_freq(df)
     
-    Del = Del_filter(df_freq)
-    Dup = Dup_filter(df_freq)
-    Both = Both_filter(df_freq)
+    Del = Del_filter(df_freq, out)
+    Dup = Dup_filter(df_freq, out)
+    Both = Both_filter(df_freq, out)
 
     # 合并三种类型的拷贝数变异，结果用于画图
     rectchr = pd.concat([Del, Dup, Both], axis=0)
