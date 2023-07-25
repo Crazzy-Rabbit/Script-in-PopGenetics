@@ -2,6 +2,13 @@
 #### 一、CNV的识别
 #### 个人推荐使用`CNVcaller`，是专门为动植物开发的群体水平识别`CNV`的软件
 ##### 若使用`LUMPY`的话，建议再加上另外一种软件识别`CNV`，最后使用`SUIVIVOR`软件对其进行合并（结果并不好，因为`SUIVIVOR`适用于`SV`检测软件结果）
+
+基于深度的算法对于长度较短的DEL或DUP时表现出较低的效率
+
+二代数据中LUMPY在调用不同大小的 DEL 方面表现出良好的表现，因此可用LUMPY来对DEL类型进行矫正，DUP类型以降低假阳性为主
+
+这篇文章：https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1720-5
+
 ```
 方案1： 推荐之后使用bedtools进行交集的获取（-f参数设置重叠比例），以CNVcaller为主，LUMPY结果用于矫正
 方案2： 使用LUMPY获得CNV边界，再使用CNVnator进行CN的注释，这个流程也挺好
