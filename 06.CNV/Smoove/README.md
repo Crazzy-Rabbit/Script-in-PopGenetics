@@ -56,7 +56,7 @@ done
 ## SV calling for each sample
 reference="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"
 smoove="/home/sll/software/smoove"
-sample_list="sample_list.txt"           # per row per ID
+sample_list="sample_list.txt"           # per row per ID，文件最后一行记得留换行符，否则会漏掉最后一个ID
 
 cat $sample_list | while read -r sample;
 do
@@ -92,7 +92,7 @@ done
 ## genotype for each sample
 reference="/home/sll/genome-cattle/ARS-UCD1.2/GCF_002263795.1_ARS-UCD1.2_genomic.fna"
 smoove="/home/sll/software/smoove"
-sample_list="sample_list.txt"
+sample_list="sample_list.txt" # 文件最后一行记得留换行符，否则会漏掉最后一个ID
 
 cat $sample_list | while read -r sample;
 do
@@ -100,7 +100,7 @@ do
     $smoove genotype -d -x -p 1 --name ${sample}-joint --outdir results-genotped/ --fasta $reference --vcf merged.sites.vcf.gz ${sample}.sorted.addhead.markdup.bam;
 done
 ```
-#### 注：这一步的循环可能会出现有的个体没有跑的情况，原因未知，推测可能是我同时做了不止一个循环
+#### 注：这一步的循环可能会出现有的个体没有跑的情况，原因是cat命令识别文件内容时，你得在最后一行加上换行符，否则，这个ID会被漏掉
 
 #### 04.合并所有个体VCF
 ```
