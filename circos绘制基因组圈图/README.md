@@ -1,4 +1,4 @@
-##### Circos是个perl包，需要很多依赖，建议用conda安装
+##### Circos是个perl包（yeah,你没听错，破包），需要很多依赖，建议用conda安装
 安装完成使用`circos -modules`检查依赖
 
 ###### 绘图
