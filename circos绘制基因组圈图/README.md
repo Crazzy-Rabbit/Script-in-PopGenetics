@@ -104,3 +104,5 @@ glyph_size   = 8
 </plots>
 <<include etc/housekeeping.conf>>
 ```
+![circos](https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/12a84247-0a28-4b11-8a43-9d212a280647)
+
