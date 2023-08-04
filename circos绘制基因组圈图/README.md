@@ -18,7 +18,7 @@ main.conf内容详解
 </image>
 
 # karyotype定义染色体名字、ID、位置信息，绘图的根本
-karyotype = file.karyotype 
+karyotype = chr.txt
 
 chromosomes_units = 1000000   # 指定距离单位u
 chromosomes_display_default = yes  # 显示所有的染色体(no的话需要自己指定)
