@@ -9,8 +9,7 @@ circos -conf main.conf
 main.conf内容详解
 ```
 <<include etc/colors_fonts_patterns.conf>>  # 导入配置文件：颜色
-
-<<include ticks.conf>>
+<<include ticks.conf>> # 这个文件记得提供
 
 # 定义输出
 <image>    
