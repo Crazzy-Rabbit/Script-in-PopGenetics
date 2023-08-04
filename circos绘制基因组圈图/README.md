@@ -28,10 +28,10 @@ chromosomes_display_default = yes  # 显示所有的染色体(no的话需要自�
 
 # 1. 第一圈：染色体，必须的部分
 <ideogram>
-
 <spacing>
+
 default = 0.005r
-# 设置圈图中染色体之间的空隙大小，我们设置为0.005r的意思是每个染色体之间的空
+# 设置圈图中染色体之间的空隙大小，我们设置为0.005r的意思是每个染色体之间的空隙
 
 </spacing>
 
@@ -51,11 +51,10 @@ label_parallel = yes
 #################################################################
 
 # 绘制散点图
-<plots>
+<plots>   # 整个绘图区域以这个开头，以</plots>结束，中间都是<plot></plot>代表一层
 
 type             = scatter
 stroke_thickness = 1
-
 <plot>
 
 file             = data.txt  # 指定绘制散点图文件
@@ -69,28 +68,17 @@ min   = 0
 r1    = 0.95r     # 定义圆环的位置
 r0    = 0.65r
 
-### 定义每一层的背景,可不要
+### 定义本层的背景,可不要
 ### 每个background 定义一个区域的背景色，这个区域由y0和y1定义。y0代表起始位置，y1代表终止位置
 <backgrounds>
 <background>
 color      = vvlgreen           
 y0         = 0.006          
-</background>
-
-<background> 
-color      = vlgrey
-y1         = 0.006
-y0         = 0.002
-</background>
-
-<background>
-color      = vvlred
-y1         = 0.002
+y1         = 0.013
 </background>
 </backgrounds>
 
-### 定义每层的y轴刻度线
-
+### 定义本层的y轴刻度线
 <axes>
 <axis>
 color      = lgreen
@@ -98,23 +86,9 @@ thickness  = 1      # 刻度线线条粗细
 spacing    = 0.05r  # 定义刻度线的间隔
 y0         = 0.006
 </axis>
-
-<axis>
-color      = dgreen
-thickness  = 2
-spacing    = 0.1r
-y0         = 0.006
-
-<axis>
-color     = lgrey
-thickness = 1
-spacing   = 0.05r
-y1        = 0.006
-y0        = 0.002
-</axis>
 </axes>
 
-### 满足condition这个条件时，执行rule语句
+### 满足condition这个条件时，执行rule语句，用来标注显著的东西咯
 <rules>
 <rule>
 condition    = var(value) > 0.006
@@ -129,7 +103,4 @@ glyph_size   = 8
 
 </plots>
 <<include etc/housekeeping.conf>>
-
-
-
 ```
