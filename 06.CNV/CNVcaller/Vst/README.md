@@ -7,3 +7,5 @@
     Vs为群体各自拷贝数方差加权群体大小
     Nt为样本量总和，Vt为总的拷贝数方差
     参考：An atlas of CNV maps in cattle, goat and sheep
+
+![image](https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/17dfe36c-acbb-4085-a057-94b2a0632bbe)
