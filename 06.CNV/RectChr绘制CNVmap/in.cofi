@@ -1,13 +1,12 @@
-
 ##################################### 全局参数 #######################################################
 
 SetParaFor = global
 
-File1  = ./chat.rectchr              ##  这个是必须输入参数，并且尽量放在最前,格式为[Chr Start End Value1 Value2 ... ValueN]
+File1  = ./09.wagyu_angus_hostein-CNVcaller_smoove_30chr.chat.rectchr              ##  这个是必须输入参数，并且尽量放在最前,格式为[Chr Start End Value1 Value2 ... ValueN]
                        ##  其中用NA表示不画，chr End End NA不画但End可以用来贝记为chr的长度
-#ValueX =              ##  多少层，类同circos多少个圈，这不设默认是N,即根据File1的格式来的，可以自己设
-#ChrSpacingRatio =0.2  ##  不同染色体chr之间的间隔比例(ChrWidth*ChrSpacingRatio)
-Main = "MarkerID"  ##  the Figtur Name   #font-size  strokewidth=1;  fill="green"
+ValueX = 1             ##  多少层，类同circos多少个圈，这不设默认是N,即根据File1的格式来的，可以自己设
+ChrSpacingRatio =1  ##  不同染色体chr之间的间隔比例(ChrWidth*ChrSpacingRatio)
+Main = "CNV map"  ##  the Figtur Name   #font-size  strokewidth=1;  fill="green"
 
 ################################ Figure ############################################################
 
@@ -17,7 +16,7 @@ Main = "MarkerID"  ##  the Figtur Name   #font-size  strokewidth=1;  fill="green
 
 
 ##############################     画布 和 图片 参数配置 #################################
-#Chromosomes_order =   ## chr的顺序和只列某些chr出来画，若没有配置，程序会按chr名自动排序 chr1,chr2,chr3
+Chromosomes_order =1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30   ## chr的顺序和只列某些chr出来画，若没有配置，程序会按chr名自动排序 chr1,chr2,chr3
 #body=1200   ##   默认是1200，主画布大小设置  另外：up/down/left/right) = (55,25,100,120);
 RotatePng   = 90  ##  对Figure进行旋转的角度
 RotateChrName  = -90  ##  旋转chr名字 text 
@@ -31,8 +30,8 @@ RotateChrName  = -90  ##  旋转chr名字 text
 
 SetParaFor = LevelALL  ##  下面是处理初始化参数 SetParaFor 参数处理,若为 LevelALL，即先为所有层设置的默认值
 #File1    =             ##  可以输入别的文件
-PType  = heatmap       ##  线，散点，直方图，热图,文本, line, scatter, histogram ， heatmap(highlights)和text
-#ShowColumn =          ##  若SetParaFor为LevelALL时，N层的ShowColumn默认为File1的第ValueN所的Column(N+3)
+# PType  = highlights       ##  线，散点，直方图，热图,文本, line, scatter, histogram ， heatmap(highlights)和text
+# ShowColumn =         ##  若SetParaFor为LevelALL时，N层的ShowColumn默认为File1的第ValueN所的Column(N+3)
                        ##  参数格式可以设为 ShowColumn=File1:4 File2:4,5
                        ##  File1:4,5 表示file1的第四和第五列用heatmap表示
 #crBG="#B8B8B8"         ##  此层(ValueX)背景色  的配色
@@ -59,21 +58,19 @@ ShiftGradienY=-400
 ##################################### 各层的参数 #######################################################
 ###   具体某层的具体配置   把 DealLevePara  设为具体正数(<=ValueX),然后可以具体修改此层要改变的部分
 
-SetParaFor=Level1 ##  下面开始处理第 1 层 参数处理
-PType  = text
-ShowColumn = File1:4 ##  默认为file0 的4列,改为5
-crBG="#FFFFFF"   # 白色，即没有背景
-ChrWidth=20  #  放text的名字 宽度长点
-Rotate=-90   # 旋转 90度  文字
-text-font-size=2   # 文字大小小点
-SizeGradienRatio=0.5
+# SetParaFor=Level1 ##  下面开始处理第 1 层 参数处理
+# PType  = highlights
+#ShowColumn = File1:5 ##  默认为file0 的4列,改为5
+#crBG="#FFFFFF"   # 白色，即没有背景
+#ChrWidth=20  #  放text的名字 宽度长点
+#Rotate=-90   # 旋转 90度  文字
+#text-font-size=2   # 文字大小小点
+#SizeGradienRatio=0.5
 #ColorBrewer=    ## 这个一设,crBegin,crMid,crEnd 即不起作用。数值 : GnYlRd; Text为：Paired 等等Set3其它ColorBrewer
 
-SetParaFor=Level2    ##  下面开始处理第 2 层 参数处理
+SetParaFor=Level1    ##  下面开始处理第 2 层 参数处理
 #File1    =            ##  可以输入别的文件 file1
 PType  = highlights    ## 上面默认 高亮/heatmap，可不设
 ShowColumn = File1:5  ##  默认为file0 的第5列,改为4
 BGWidthRatio=0.5	## 背景的宽度变小点
 Gradien=2 
-
-
