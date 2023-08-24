@@ -32,4 +32,4 @@ $GATK SelectVariants -R $reference -V ${out}.SNP.INDEL.HDflt.vcf.gz -O ${out}.SN
 
 ## get SNP and indel
 $vcftools --gzvcf ${out}.SNP.INDEL.HDflt.pass.vcf.gz --minQ 30 --min-alleles 2 --max-alleles 2 --remove-indels --recode --recode-INFO-all --out ${out}.SNP.HDflt.pass
-$vcftools --gzvcf ${out}.SNP.INDEL.HDflt.pass.vcf.gz --minQ 30 --remove-snps --recode --recode-INFO-all --out ${out}.INDEL.HDflt.pass
+$vcftools --gzvcf ${out}.SNP.INDEL.HDflt.pass.vcf.gz --minQ 30 --min-alleles 2 --max-alleles 2 --remove-snps --recode --recode-INFO-all --out ${out}.INDEL.HDflt.pass
