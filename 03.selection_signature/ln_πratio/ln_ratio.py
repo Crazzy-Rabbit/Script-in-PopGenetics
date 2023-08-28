@@ -28,16 +28,16 @@ def load_data(infile, nvars: int):
 @click.option('--outprefix', help='输出结果文件前缀')
 def main(group1, group2, nvars, outprefix):
     """
-    计算ln(Pi_group1/Pi_group2)
+    计算-ln(Pi_group1/Pi_group2)
     group1和group2是vcftools计算的滑动窗口Pi值
     """
     df1 = load_data(group1, nvars)
     df2 = load_data(group2, nvars)
     newdf = pd.merge(df1, df2, how='inner', on=['CHROM', 'BIN_START', 'BIN_END'],
                      suffixes=['_g1', '_g2'])
-    newdf['ln_ratio'] = np.log(newdf['PI_g1'].values / newdf['PI_g2'].values)
+    newdf['ln_ratio'] = -np.log(newdf['PI_g1'].values / newdf['PI_g2'].values)
     newdf[['CHROM', 'BIN_START',
-           'BIN_END', 'PI_g1', 'PI_g2', 'ln_ratio']].to_csv(f'{outprefix}.txt',
+           'BIN_END', 'ln_ratio']].to_csv(f'{outprefix}.txt',
                                           sep='\t', index=False)
 
 
