@@ -1,13 +1,16 @@
-#!usr/bin/perl
-use strict;
-die "Usage:perl $0 <genome file> <fam file> <sample number> <outprefix>\n" unless @ARGV == 4;
+#!/usr/bin/perl
+
+die "Usage:perl $0 <genome file> <fam file> <outprefix>\n" unless (@ARGV == 3);
+=pod
+This script used to change genome file to MEGA infile ! 
+=cut
 
 open (AAA,"$ARGV[0]") || die "genome file required!\n";
 open (BBB,"$ARGV[1]") || die "fam file required!\n"; 
-open (CCC,">$ARGV[3]");
-my @aa=<AAA>;
-my @bb=<BBB>;
-$sample_size = $ARGV[2]; ### sample size
+open (CCC,">$ARGV[2]");
+my @aa = <AAA>;
+my @bb = <BBB>;
+my $sample_size = scalar(@bb); ### sample size from fam file
 
 print CCC "#mega\n!Title: $sample_size pigs;\n!Format DataType=Distance DataFormat=UpperRight NTaxa=$sample_size;\n\n"; 
 
