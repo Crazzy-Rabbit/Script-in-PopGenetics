@@ -39,7 +39,7 @@ def main(sample, bed, output):
 
     with open('plink2treemix.in.sh', 'w') as Shell:
         Shell.write('#! /bin/bash\n')
-        Shell.write(f'plink --bfile {bed} --allow-extra-chr --chr-set 29 --freq --within {sample}\n')
+        Shell.write(f'plink --bfile {bed} --allow-extra-chr --chr-set 29 --set-missing-var-ids @:# --freq --within {sample}\n')
         Shell.write(f'gzip plink.frq.start\n')
         Shell.write(f'python2 /home/sll/miniconda3/bin/plink2treemix.py plink.frq.start.gz {output}.treemix.in.gz')
 
