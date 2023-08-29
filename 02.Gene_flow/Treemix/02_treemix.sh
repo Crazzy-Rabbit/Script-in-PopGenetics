@@ -1,6 +1,7 @@
 #! /bin/bash
 ######### software dir #############
 plink2treemixIN="/home/sll/script/treemix/plink2treemixIN.py"
+treemix="/home/sll/miniconda3/bin/treemix"
 ######### args number  #############
 if [[$# ne 3]]; then
     echo "err need args!"
@@ -8,8 +9,17 @@ if [[$# ne 3]]; then
     echo "Usage: bash $0 <sample_list> <bed> <outprefix>"
     exit 1
 fi
+samplelist=$1
+bedprefix=$2
+outprefix=$3
+rootpop=$4
+python $plink2treemixIN --sample $samplelist --bed $bedprefix --output $outprefix
 
 
-
-
-python $plink2treemixIN --sample 157_cattle_snp_geno01_maf005-ld502502_nchr.order.txt --bed /home/sll/20230818-sll-vcf/structure/NJtree/159_cattle_snp_geno01_maf005 --output tree
+for m in {1..5}
+do
+	for i in {1..5}
+	do
+	    $treemix -i ${outprefix}.treemix.in.gz -o sample.${m}.${i} -bootstrap 100 -root $rootpop -m ${m} -k 500 -noss
+	done
+done
