@@ -56,7 +56,7 @@ def main(ped, sample, popfile, out):
     inbreed: YES ##(做outgroup f3应删除这一行，目标群体存在近交，则加上这行)
         """
         D.write(info)
-    os.system(f'qp3pop -p D.stat.par > {out}.f3')
+    os.system(f'qp3Pop -p D.stat.par > {out}.f3')
 
 
 if __name__ == '__main__':
