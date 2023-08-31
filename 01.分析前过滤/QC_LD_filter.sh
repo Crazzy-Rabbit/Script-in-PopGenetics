@@ -22,11 +22,11 @@ out=$5
 
 # Check if the input file is vcf file, to geno and maf
 if [[ "${file##*.}" = "vcf" ]]; then
-  plink --allow-extra-chr --chr-set $chr -vcf $file --double-id --geno $geno --maf $maf --make-bed --out $out
+  plink --allow-extra-chr --chr-set $chr -vcf $file --double-id --geno $geno --maf $maf --recode vcf-iid --out $out
 else
-  plink --allow-extra-chr --chr-set $chr -bfile $file --geno $geno --maf $maf --make-bed --out $out
+  plink --allow-extra-chr --chr-set $chr -bfile $file --geno $geno --maf $maf --recode vcf-iid --out $out
 fi
 
 # LD filter
-plink --allow-extra-chr --chr-set $chr -bfile $out --set-missing-var-ids @:# --indep-pairwise 50 25 0.2 --out $out-ld502502
-plink --allow-extra-chr --chr-set $chr -bfile $out --set-missing-var-ids @:# --extract $out-ld502502.prune.in --make-bed --out $out-ld502502
+plink --allow-extra-chr --chr-set $chr -vcf $out.vcf --set-missing-var-ids @:# --indep-pairwise 50 25 0.2 --out $out-ld502502
+plink --allow-extra-chr --chr-set $chr -vcf $out.vcf --set-missing-var-ids @:# --extract $out-ld502502.prune.in --recode vcf-iid --out $out-ld502502
