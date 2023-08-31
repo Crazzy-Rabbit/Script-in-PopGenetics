@@ -190,7 +190,8 @@ for (i in 1:max.k){
         abline(v=0, lwd=1,  col="black")
         abline(v=x, lwd=0.7, col="black") 
   }
-        abline(h=0, lwd=0.7, col="black")     
+        abline(h=0, lwd=0.7, col="black")  
+        abline(h=1, lwd=1, col="black") 
 }
 axis(side = 1, at = plot.at, labels = plot.lab, tick = F, font=2, cex.axis = 0.6)
 dev.off()
