@@ -15,10 +15,10 @@ def  load_data(infile):
     return df
 
 @click.command()
-@click.option('-p','--ped', type=str, help='plink格式ped文件前缀', requird=True)
-@click.option('-s','--sample', type=str, help='样本ID文件，第一列为样品ID 第二列为群体ID', requird=True)
-@click.option('-P','--popfile', type=str, help='提供A、B、C群体的pop文件，c可为外群，3列', requird=True)
-@click.option('-o','--out', type=str, help='输出文件前缀', requird=True)
+@click.option('-p','--ped', type=str, help='plink格式ped文件前缀', required=True)
+@click.option('-s','--sample', type=str, help='样本ID文件，第一列为样品ID 第二列为群体ID', required=True)
+@click.option('-P','--popfile', type=str, help='提供A、B、C群体的pop文件，c可为外群，3列', required=True)
+@click.option('-o','--out', type=str, help='输出文件前缀', required=True)
 def main(ped, sample, popfile, out):
     """
     利用ENIGENSOFT软件的convertf模块将文件转换为Admixtools输入文件格式，再执行qpDstat
