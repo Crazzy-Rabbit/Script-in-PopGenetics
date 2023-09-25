@@ -7,22 +7,32 @@ Created on  09 25 10:38:58  2023
 
 @Mails: crazzy_rabbit@163.com
 """
-import sys
+import click
+@click.command()
+@click.option('--QTLdb',type=click.File('r'),help='QTLdb bed file download from QTL database',required=True)
+@click.option('--out',type=click.File('w'),help='Output file name',required=True)
+def main(QTLdb,out):
+    """
+    将从QTL数据库下载下来的bed格式的文件换成下列格式，并调整有些位置
+    Chr.X	741365	741369	Bovine respiratory disease susceptibility QTL (57587)
+    Chr.X	1626461	1626465	Interval to first estrus after calving QTL (30110)
+    Chr.X	1626461	1626465	Interval to first estrus after calving QTL (30331)
+    """
+    with open (QTLdb, 'r') as f:
+        for line in f:
+            if line.startswith('#'):
+                continue
+            elif line.startswith('Chr'):
+                Chr = line.strip().split("\t")[0]
+                tempStart = line.strip().split("\t")[1]
+                tempEnd = line.strip().split("\t")[2]
+                QTL = line.strip().split("\t")[3]
+                if tempStart < tempEnd:
+                    out.write(f'{Chr}\t{tempStart}\t{tempEnd}\t{QTL}\n')
+                elif tempStart > tempEnd:
+                    out.write(f'{Chr}\t{tempStart}\t{tempEnd}\t{QTL}\n')
+                else:
+                    out.write(f'{Chr}\t{tempStart}\t{tempEnd}\t{QTL}\n')
 
-QTLdb = sys.argv[1]
-out = open('QTLdb.txt', 'w')
-with open (QTLdb, 'r') as f:
-    for line in QTLdb:
-        if line.startswith("#"):
-            continue
-        if line.startswith('Chr'):
-            tempStart = line.strip().split("\t")[1]
-            tempEnd = line.strip().split("\t")[2]
-            if tempStart < tempEnd:
-                out.write(line + '\n')
-            elif tempStart > tempEnd:
-                tempStart, tempEnd = tempEnd, tempStart
-                out.write(line + '\n')
-                
-QTLdb.close()
-out.close()
+if __name__ == '__main__':
+    main()
