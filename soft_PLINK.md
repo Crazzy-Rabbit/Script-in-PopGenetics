@@ -4,6 +4,10 @@ PLINK 1.9 中一些有用的参数
 ```
 --keep-allele-order		Do not flip A1 to be the minor allele
 ```
+###### 添加SNP ID
+```
+--set-missing-var-ids @:#  将PLINK文件SNP ID位置的.替换，方便后续分析
+```
 ###### 将ATCG转换为1234形式
 ```
 --allele1234		Convert (A,C,G,T) to (1,2,3,4)
