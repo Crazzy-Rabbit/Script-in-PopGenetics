@@ -18,3 +18,8 @@ samtools view myBAMfile.sort.bam NC_007897.1 -@ 10 -O BAM -o NC_007897.1.bam
 ```
 samtools view ZL-30.sorted.addhead.markdup.bam -hb NC_037348.1:6600000-6700000 -@ 10 -O BAM -o NC_037348.1_6.6-6.7.bam
 ```
+
+##### 提取fa文件中确定位置的fa序列
+```
+samtools faidx GCF_002263795.1_ARS-UCD1.2_genomic.fna NC_037333.1:41507001-41512000 > NC_037333.1:41507001-41512000.fa
+```
