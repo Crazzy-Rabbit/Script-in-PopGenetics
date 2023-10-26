@@ -21,17 +21,18 @@ def  load_data(infile):
 @click.option('-o','--out', type=str, help='输出文件前缀', required=True)
 def main(ped, sample, popfile, out):
     """
-    利用ENIGENSOFT软件的convertf模块将文件转换为Admixtools输入文件格式，再执行qpDstat
+    利用ENIGENSOFT软件的convertf模块将文件转换为Admixtools输入文件格式，再执行qp3pop
     """
     with open('transfer.conf', 'w') as par:
-        conf_info = f"""genotypename:    {ped}.ped
-    snpname:         {ped}.map # or example.map, either works
-    indivname:       {ped}.ped # or example.ped, either works
-    outputformat:    EIGENSTRAT
-    genotypeoutname: {out}.eigenstratgeno
-    snpoutname:      {out}.snp
-    indivoutname:    {out}.ind
-    familynames:    NO
+        conf_info = f"""
+        genotypename:    {ped}.ped
+        snpname:         {ped}.map # or example.map, either works
+        indivname:       {ped}.ped # or example.ped, either works
+        outputformat:    EIGENSTRAT
+        genotypeoutname: {out}.eigenstratgeno
+        snpoutname:      {out}.snp
+        indivoutname:    {out}.ind
+        familynames:    NO
         """
         par.write(conf_info)
     os.system(f'convertf -p transfer.conf')
@@ -48,15 +49,16 @@ def main(ped, sample, popfile, out):
     snp.to_csv(f'{out}.snp', sep='\t',
                header=None, index=None)
     # 写Dstst输入文件
-    with open('D.stat.par', 'w') as D:
-        info = f"""genotypename:   {out}.eigenstratgeno
-    snpname:        {out}.snp
-    indivname:      {out}.ind
-    popfilename:    {popfile}
-    inbreed: YES ##(做outgroup f3应删除这一行，目标群体存在近交，则加上这行)
+    with open('f3.stat.par', 'w') as D:
+        info = f"""
+        genotypename:   {out}.eigenstratgeno
+        snpname:        {out}.snp
+        indivname:      {out}.ind
+        popfilename:    {popfile}
+        inbreed: YES ##(做outgroup f3应删除这一行，目标群体存在近交，则加上这行)
         """
         D.write(info)
-    os.system(f'qp3Pop -p D.stat.par > {out}.f3')
+    os.system(f'qp3Pop -p f3.stat.par > {out}.f3')
 
 
 if __name__ == '__main__':
