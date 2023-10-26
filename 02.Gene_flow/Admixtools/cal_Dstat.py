@@ -24,14 +24,15 @@ def main(ped, sample, popfile, out):
     利用ENIGENSOFT软件的convertf模块将文件转换为Admixtools输入文件格式，再执行qpDstat
     """
     with open('transfer.conf', 'w') as par:
-        conf_info = f"""genotypename:    {ped}.ped
-    snpname:         {ped}.map # or example.map, either works
-    indivname:       {ped}.ped # or example.ped, either works
-    outputformat:    EIGENSTRAT
-    genotypeoutname: {out}.eigenstratgeno
-    snpoutname:      {out}.snp
-    indivoutname:    {out}.ind
-    familynames:    NO
+        conf_info = f"""
+        genotypename:    {ped}.ped
+        snpname:         {ped}.map # or example.map, either works
+        indivname:       {ped}.ped # or example.ped, either works
+        outputformat:    EIGENSTRAT
+        genotypeoutname: {out}.eigenstratgeno
+        snpoutname:      {out}.snp
+        indivoutname:    {out}.ind
+        familynames:    NO
         """
         par.write(conf_info)
     os.system(f'convertf -p transfer.conf')
@@ -49,11 +50,12 @@ def main(ped, sample, popfile, out):
                header=None, index=None)
     # 写Dstst输入文件
     with open('D.stat.par', 'w') as D:
-        info = f"""genotypename:   {out}.eigenstratgeno
-    snpname:        {out}.snp
-    indivname:      {out}.ind
-    popfilename:    {popfile}
-    f4mode: NO  ##此选项为进行f4检验，默认是NO
+        info = f"""
+        genotypename:   {out}.eigenstratgeno
+        snpname:        {out}.snp
+        indivname:      {out}.ind
+        popfilename:    {popfile}
+        f4mode: NO  ##此选项为进行f4检验，默认是NO
         """
         D.write(info)
     os.system(f'qpDstat -p D.stat.par > {out}.Dstst')
