@@ -24,14 +24,12 @@ vcftools --vcf input_data.vcf   --keep group.txt  --window-pi 10000 --window-pi-
 --fst-window-size 指定窗口大小
 --fst-window-step 指定步长大小
 ```
-
 ##### 5.convert to PLINK
 ```
 vcftools --vcf input_data.vcf --plink --chr 1 --out output_in_plink
 
 --chr 指定染色体号，否则chr列为空，或提前将chr转为数字形式
 ```
-
 ##### 6.计算TS/TV
 ```
 vcftools --vcf input_data.vcf --TsTv-summary 
@@ -39,4 +37,8 @@ vcftools --vcf input_data.vcf --TsTv-summary
 ##### 7.提取样本
 ```
 vcftools --gzvcf $vcf --keep $sample --recode --recode-INFO-all --out $sample
+```
+##### 7.过滤多等位基因和INDEL
+```
+vcftools --vcf   test.vcf --remove-indels --min-alleles 2 --max-alleles 2 --recode --recode-INFO-all --out test.miss.snp
 ```
