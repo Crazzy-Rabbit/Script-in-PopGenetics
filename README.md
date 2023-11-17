@@ -3,7 +3,7 @@
 ```
 当然，02.Gene_flow 02.Pop_Genome 03.selection_signature 06.CNV 07.RNA部分才是精华
 
-可惜条件有限，老师还说我没贡献（ps: 这都是我搞得好吧）
+条件有限，可惜可惜
 ```
 绘图等的脚本可以找另一个目录 `Rscript-to-anaylise-and-visualize`
 
