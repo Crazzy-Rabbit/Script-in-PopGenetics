@@ -21,7 +21,9 @@ Both型： 0.05<dup<0.95 且 0.05<del<0.95 且 lenth <= 50000
 ```
 #### 二、SV的识别
 ```
-我这里只有Delly、LUMPY、Manta，但还有其他软件如Sniffles（三代专用）等
+Delly、LUMPY、Manta、GenomeSTRiP，但还有其他软件如Sniffles（三代专用）等（过时了）
+
+## 现在是泛基因组识别SV的时代
 
 Sniffles对DEL类型的检测更为精确，因此对CNV的检测也可用此软件进行矫正DEL类型（PS：若条件允许，上三代测序）
 ```
