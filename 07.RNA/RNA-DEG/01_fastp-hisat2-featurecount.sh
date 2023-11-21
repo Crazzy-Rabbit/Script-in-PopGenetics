@@ -29,7 +29,7 @@ sample=${arr[0]}
 # 1 sra to fq_1 and fq_2
 $fastq-dump --gzip --split-3 $sample
 # 2 QC use fastp
-$fsatp -i ${sample}_1.fastq.gz -I ${sample}_2.fastq.gz -g -q -n 15 -l 150 -u 50 -o ${sample}_1.filter.fastq.gz -O ${sample}_2.filter.fastq.gz -h ${sample}.fastp.html
+$fsatp -i ${sample}_1.fastq.gz -I ${sample}_2.fastq.gz -g -q 15 -n 5 -l 150 -u 50 -o ${sample}_1.filter.fastq.gz -O ${sample}_2.filter.fastq.gz -h ${sample}.fastp.html
 # 3 reads mapping  ----hisat2
 $hisat2 -p 8 -x $genomefa -1 ${sample}_1.filter.fastq.gz -2 ${sample}_2.filter.fastq.gz -S hismap.sam/${sample}.hismap.sam       
 # 4 sam to bam and sorted and index for *sort.bam file
