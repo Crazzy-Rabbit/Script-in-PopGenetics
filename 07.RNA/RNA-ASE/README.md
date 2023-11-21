@@ -1,6 +1,7 @@
 ## 1、run phaser
 ```
 python ~/software/phaser/phaser.py --vcf NA06986.vcf.gz --bam NA06986.2.M_111215_4.bam --paired_end 1 --mapq 255 --baseq 10 --sample NA06986 --blacklist hg19_hla.bed --haplo_count_blacklist hg19_haplo_count_blacklist.bed --threads 4 --o phaser_test_case
+
 #######################################################################
 –vcf NA06986.vcf.gz – VCF containing genotype calls for the sample.
 –bam NA06986.2.M_111215_4.bam – BAM containing RNA-seq reads.
@@ -37,5 +38,7 @@ totalCount – Total allelic coverage of this feature (aCount + bCount).
 log2_aFC – Effect size for the allelic imbalance reported as allelic fold change (log2(aCount/bCount)) defined in our paper.
 n_variants – Number of variants with allelic data in this feature.
 variants – List of variants with allelic data in this feature (contig_position_ref_alt).
+
+The aCount and bCount columns list the number of reads that could be uniquely mapped to each haplotype and can be used for any downstream analysis of ASE data.
 ```
 
