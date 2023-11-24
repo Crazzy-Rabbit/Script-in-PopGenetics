@@ -9,7 +9,7 @@ selscan="/home/software/selscan/bin/linux/selscan"
 norm="/home/software/selscan/bin/linux/norm"
 
 function usage() {
-    echo "Usage: bash $0 --vcf <vcf> --ref <ref> --tag <tag> --win <winsize> --thread <thread> --output <outprefix>"
+    echo "Usage: bash $0 --vcf <vcf> --ref <ref> --tag <tag> --win <winsize> --thread <thread> --chr <mchr> --output <outprefix>"
     echo "required options"
       echo "-v|--vcf      vcf file"
       echo "-r|--ref      ref sample per row per ID"
