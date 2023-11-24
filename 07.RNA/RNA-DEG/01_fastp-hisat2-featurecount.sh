@@ -43,4 +43,4 @@ cd ..
 $multiqc all.featurecounts.txt.summary -o  all.counts.summary
 
 # 7 get counts to R 
-awk -F '\t' '{print $1,$6,$7,$8,$9,$10,$11,$12}' OFS='\t' all.featurecounts.txt > all_fcount.matrix.txt
+awk -F '\t' '{printf $1; for(i=6;i<=NF;i++) printf FS $i; printf "\n"}' OFS='\t' all.featurecounts.txt > all_fcount.matrix.txt
