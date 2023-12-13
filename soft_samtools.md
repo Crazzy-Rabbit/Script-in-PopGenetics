@@ -23,3 +23,8 @@ samtools view ZL-30.sorted.addhead.markdup.bam -hb NC_037348.1:6600000-6700000 -
 ```
 samtools faidx GCF_002263795.1_ARS-UCD1.2_genomic.fna NC_037333.1:41507001-41512000 > NC_037333.1:41507001-41512000.fa
 ```
+##### 从 BAM 文件收集统计信息，并以文本格式输出，可以使用 plot-bamstats 以图形方式可视化输出。
+```
+samtools stats d0.bam > test.bam.stats
+-@ #指定线程
+```
