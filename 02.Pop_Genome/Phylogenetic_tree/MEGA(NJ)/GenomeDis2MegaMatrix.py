@@ -19,16 +19,16 @@ logging.info(f"The command line is:\n\tpython3 {' '.join(sys.argv)}")
 def tratefam(famfile, treefile):
     # trate fam file
     for line in famfile:
-        iD = line.split()[1]
-        treefile.write('#' + iD + '\n')
+        treefile.write('#' + line.strip().split()[1] + '\n')
     treefile.write('\n')
+  
 def tratedis(distancefile):
     # trate distancec file
-    dis = [line.strip().split()[11] for line in distancefile]
-    del dis[0]
+    dis = [line.strip().split()[11] for line in distancefile]; del dis[0]
     newdis = [round(1 - float(Value), 6) for Value in dis]
     newdis2 = [str(line) for line in newdis]
     return newdis2
+  
 @click.command()
 @click.option('-d','--distancefile',type=click.File('r'), help='The genome distance file', required=True)
 @click.option('-f','--famfile', type=click.File('r'), help='The fam file or id file--2 cols ', required=True)
@@ -52,5 +52,6 @@ def main(famfile, distancefile, num, treefile):
                 treefile.write(dis2[j] + '  ')
         treefile.write('\n')
         tmpn += 1; startn = endn; endn += num - (i+2)
+      
 if __name__ == '__main__':
     main()
