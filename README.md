@@ -74,6 +74,7 @@
   - 利用STAR及GATK进行[转录组SNP的calling](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-SNPcalling)
   - rMAT的[可变剪切分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-AS)，这个也是粗略的学了一下，毕竟用不上，纯属个人兴趣
 
+- 至于[GWAS]，等以后用的再学一下吧
 ### 看都看完了，顺手点个赞呗！！！
   
      
