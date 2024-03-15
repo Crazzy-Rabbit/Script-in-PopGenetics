@@ -23,27 +23,36 @@
      - [不设定bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/01_cal-Admixture.sh)
      - [bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/admixture_bootstrap.sh)
      这个的用意是设定随机数种子，然后进行自举重复，让最后的结果更合理
-     - 用于对自举重复的CV进行计算统计[CV计算](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/cal_cv.sh)
-     - 这个图我还是很满意的[可视化](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/03_plot-Admixture.R)
+     - [CV计算](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/cal_cv.sh)
+     用于对自举重复的CV进行计算统计
+     - [可视化](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/03_plot-Admixture.R)
+     这个图我还是很满意的
    - [PCA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA)
+  这里有两种进行PCA的软件，一直用的是GCTA
      - [GCTA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA/GCTA)
      - [smartPCA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA/smartPCA)
    - [Tree](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree)
+  系统发育树的话我们一般用的就是ML或者是NJ了，NJ快，ML准确
      - [ML-RAxML](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/RAxML(ML))
      - [ML-IQTREE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/iq-tree(ML))
      - [NJ-MEGA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/MEGA(NJ))
      - [NJ-VCF2Dis](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/VCF2Dis(NJ))
 - [选择信号分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature)
   - [FST]
+  这个是没有方向性的，即分析结果看不出是哪个群体受的选择信号
       - [ANGSD](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/FST%20using%20ANGSD)
       - [VCFTOOLS](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/Fst)
   - [XP-EHH](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/XP-EHH)
+  基于单倍型的方法，计算群体间选择信号，越高表示在A受选择，越低表示在B受选择，有方向
   - [XP-CLR](https://github.com/Crazzy-Rabbit/Script-in-Bio/blob/main/03.selection_signature/XP-CLR.sh)
   - [ln_πratio](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/ln_%CF%80ratio)
+  pi的衍生方法
   - [CLR](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/SweeD_CLR)
   - [iHS](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/iHS)
+  基于单倍型的方法，计算群体内选择信号
   - [曼哈顿图](https://github.com/Crazzy-Rabbit/Script-in-Bio/blob/main/03.selection_signature/plot_Manhantan.R)
 - [变异注释](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation)
+两种，从建库开始详细记录，看个人喜好
   - [ANNOVAR](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation/Annovar)
   - [snpEff](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation/snpEff)
 -[]
