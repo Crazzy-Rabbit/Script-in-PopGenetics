@@ -18,6 +18,11 @@
 ### 目录
 - [SNP-calling](https://github.com/Crazzy-Rabbit/Script-in-Bio/01.SnpCalling)
    - 包括BWA-GATK以及ANGSD
+- [CNV](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV)
+常用的方法是基于测序深度RD的策略，但是测序深度低的话会影响
+   - [CNVcaller](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/CNVcaller)基于RD
+   - [CNVnator](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/CNVnator)
+   - 
 - [群体遗传结构分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome)
    - [ADMIXTURE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture)
      - [不设定bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/01_cal-Admixture.sh)
@@ -55,6 +60,12 @@
 两种，从建库开始详细记录，看个人喜好
   - [ANNOVAR](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation/Annovar)
   - [snpEff](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation/snpEff)
--[]
+- [遗传多样性](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity)
+  - [HO-HE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity/HO_HE)
+  - [LD](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity/LD)只记录了LDdeacy，至于LDblock，一般是在GWAS的时候确定有连锁关系的位点
+  - [近交系数](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity/%E8%BF%91%E4%BA%A4%E7%B3%BB%E6%95%B0)
+  PLINK的het， GCTA的grm，以及基于ROH计算的
+
+
   
      
