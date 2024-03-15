@@ -21,7 +21,8 @@
 - [群体遗传结构分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome)
    - [ADMIXTURE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture)
      - [不设定bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/01_cal-Admixture.sh)
-     - 设定随机数种子，然后进行自举重复[bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/admixture_bootstrap.sh)
+     - [bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/admixture_bootstrap.sh)
+     这个的用意是设定随机数种子，然后进行自举重复，让最后的结果更合理
      - 用于对自举重复的CV进行计算统计[CV计算](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/cal_cv.sh)
      - 这个图我还是很满意的[可视化](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/03_plot-Admixture.R)
    - [PCA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA)
