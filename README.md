@@ -22,7 +22,10 @@
 常用的方法是基于测序深度RD的策略，但是测序深度低的话会影响
    - [CNVcaller](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/CNVcaller)基于RD
    - [CNVnator](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/CNVnator)
-   - 
+   - [LUMPY](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/Lumpy)他的分析过程有点繁琐
+   - 这个[Smoove](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/Smoove)是对LUMPY的整合，操作简单
+   - 当然像结构变异这种大片段变异，还是建议有三代数据，无论是由三代检测出SV，然后用二代进行重新召回，还是都用三代，结果都是比二代数据call要好的多的
+    
 - [群体遗传结构分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome)
    - [ADMIXTURE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture)
      - [不设定bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/01_cal-Admixture.sh)
@@ -43,7 +46,7 @@
      - [NJ-MEGA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/MEGA(NJ))
      - [NJ-VCF2Dis](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/VCF2Dis(NJ))
 - [选择信号分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature)
-  - [FST]
+  - FST
   这个是没有方向性的，即分析结果看不出是哪个群体受的选择信号
       - [ANGSD](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/FST%20using%20ANGSD)
       - [VCFTOOLS](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/Fst)
@@ -65,6 +68,12 @@
   - [LD](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity/LD)只记录了LDdeacy，至于LDblock，一般是在GWAS的时候确定有连锁关系的位点
   - [近交系数](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity/%E8%BF%91%E4%BA%A4%E7%B3%BB%E6%95%B0)
   PLINK的het， GCTA的grm，以及基于ROH计算的
+
+- [基因流](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Gene_flow)，这个就是纯属个人兴趣了，里面的脚本仅用于测试，不过有问题还是可以联系探讨的
+- [RNA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA)分析的话，好久之前学的了，先记上
+  - 用hisat2 featurecount deseq2进行的[差异表达分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-DEG)
+  - 利用STAR及GATK进行[转录组SNP的calling](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-SNPcalling)
+  - rMAT的[可变剪切分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-AS)，这个也是粗略的学了一下，毕竟用不上，纯属兴趣
 
 
   
