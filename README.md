@@ -11,8 +11,40 @@
 - [ ] 算法 + 数据结构 --->  want to learn and do in the future
     - [x] Python 基础
     - [x] R绘图
-     
-- 02.Gene_flow 02.Pop_Genome 03.selection_signature 06.CNV 07.RNA部分才是精华
+
 - 绘图等的脚本可以找另一个目录 `Rscript-to-anaylise-and-visualize`
 - 理论知识等，可以在`Genome-analysis`找到
 
+### 目录
+- [SNP-calling](https://github.com/Crazzy-Rabbit/Script-in-Bio/01.SnpCalling)
+   - 包括BWA-GATK以及ANGSD
+- [群体遗传结构分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome)
+   - [ADMIXTURE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture)
+     - [不设定bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/01_cal-Admixture.sh)
+     - [bootstrap](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/admixture_bootstrap.sh)
+     - [CV计算](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/cal_cv.sh)
+     - [可视化](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Admixture/03_plot-Admixture.R)
+   - [PCA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA)
+     - [GCTA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA/GCTA)
+     - [smartPCA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/PCA/smartPCA)
+   - [Tree](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree)
+     - [ML-RAxML](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/RAxML(ML))
+     - [ML-IQTREE](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/iq-tree(ML))
+     - [NJ-MEGA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/MEGA(NJ))
+     - [NJ-VCF2Dis](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Pop_Genome/Phylogenetic_tree/VCF2Dis(NJ))
+- [选择信号分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature)
+  -[FST]
+      - [ANGSD](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/FST%20using%20ANGSD)
+      - [VCFTOOLS](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/Fst)
+  - [XP-EHH](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/XP-EHH)
+  - [XP-CLR](https://github.com/Crazzy-Rabbit/Script-in-Bio/blob/main/03.selection_signature/XP-CLR.sh)
+  - [ln_πratio](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/ln_%CF%80ratio)
+  - [CLR](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/SweeD_CLR)
+  - [iHS](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/03.selection_signature/iHS)
+  - [曼哈顿图](https://github.com/Crazzy-Rabbit/Script-in-Bio/blob/main/03.selection_signature/plot_Manhantan.R)
+- [变异注释](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation)
+  - [ANNOVAR](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation/Annovar)
+  - [snpEff](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/04.Annoation/snpEff)
+-[]
+  
+     
