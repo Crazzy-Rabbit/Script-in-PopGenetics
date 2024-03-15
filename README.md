@@ -3,7 +3,6 @@
 
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FCrazzy-Rabbit%2FScript-in-Bio&count_bg=%2379C83D&title_bg=%23555555&icon=microgenetics.svg&icon_color=%23E7E7E7&title=%E8%AE%BF%E9%97%AE%E9%87%8F&edge_flat=false"/></a>
 
-### 别偷偷看啊喂，顺手点个赞
 - [ ] pangenome --->  want to learn and do in the future
 - [ ] 单细胞分析 --->  want to learn and do in the future
 - [ ] 孟德尔随机化 --->  want to learn and do in the future
@@ -69,12 +68,12 @@
   - [近交系数](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/05.Genome_Diversity/%E8%BF%91%E4%BA%A4%E7%B3%BB%E6%95%B0)
   PLINK的het， GCTA的grm，以及基于ROH计算的
 
-- [基因流](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Gene_flow)，这个就是纯属个人兴趣了，里面的脚本仅用于测试，不过有问题还是可以联系探讨的
+- [基因流](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/02.Gene_flow)，这个就是纯属个人兴趣了，里面的脚本仅用于测试，不过有问题还是可以联系探讨的（包括群体历史等）
 - [RNA](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA)分析的话，好久之前学的了，先记上
   - 用hisat2 featurecount deseq2进行的[差异表达分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-DEG)
   - 利用STAR及GATK进行[转录组SNP的calling](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-SNPcalling)
-  - rMAT的[可变剪切分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-AS)，这个也是粗略的学了一下，毕竟用不上，纯属兴趣
+  - rMAT的[可变剪切分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/07.RNA/RNA-AS)，这个也是粗略的学了一下，毕竟用不上，纯属个人兴趣
 
-
+### 看都看完了，顺手点个赞呗！！！
   
      
