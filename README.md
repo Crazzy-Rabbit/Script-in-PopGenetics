@@ -5,7 +5,7 @@
 
 - [ ] pangenome --->  want to learn and do in the future
 - [ ] [单细胞分析](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/%E5%8D%95%E7%BB%86%E8%83%9ERNA-Seq%E5%88%86%E6%9E%90) --->  want to learn and do in the future
-      - [X] 用的Seurat4，从前期处理到UMAP降维的记录
+    - [X] 用的Seurat4，从前期处理到UMAP降维的记录
 - [ ] 孟德尔随机化 --->  want to learn and do in the future
     - [ ] 整合多组学--SMR分析，精确定位致病突变
 - [ ] 算法 + 数据结构 --->  want to learn and do in the future
