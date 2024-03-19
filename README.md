@@ -88,7 +88,7 @@
 
 - 至于[GWAS]，等以后用的再学一下吧
 
-### 一些有用的东西 
+#### 一些有用的东西 
 - [x] 基因组圈图[Circos](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/circos%E7%BB%98%E5%88%B6%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%9C%88%E5%9B%BE)
     - [x] 可用于绘制变异在染色体上的分布，挺好用的，就是安装有点费劲，需要的依赖包过多
     - [x] `https://circos.ca/documentation/images/small/`，这个是他的官网，里面有各种图及其绘图配置文件示例
