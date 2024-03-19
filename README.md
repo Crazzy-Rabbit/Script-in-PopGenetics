@@ -14,14 +14,14 @@
 
 - [X] 绘图等的脚本可以找另一个目录 [Rscript-to-anaylise-and-visualize](https://github.com/Crazzy-Rabbit/Rscript-to-anaylise-and-visualize)，无毒，放心食用
     - [X] 绘图学习网站，需要有点R语言基础了
-        - [ ] https://r-charts.com/，推荐给R绘图网站，提供绘图脚本
-        - [ ] https://r-graph-gallery.com/，再来一个，里面是一些绘图示例
-        - [ ] https://z3tt.github.io/beyond-bar-and-box-plots/， 箱线图、条形图及衍生，一些绘图示例
-        - [ ] https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/， ggplot2绘图示例
-        - [ ] https://rkabacoff.github.io/datavis/IntroGGPLOT.html，也是个可视化学习网站
+        - [ ] https://r-charts.com/  推荐给R绘图网站，提供绘图脚本
+        - [ ] https://r-graph-gallery.com/  再来一个，里面是一些绘图示例
+        - [ ] https://z3tt.github.io/beyond-bar-and-box-plots/  箱线图、条形图及衍生，一些绘图示例
+        - [ ] https://www.cedricscherer.com/2019/08/05/a-ggplot2-tutorial-for-beautiful-plotting-in-r/  ggplot2绘图示例
+        - [ ] https://rkabacoff.github.io/datavis/IntroGGPLOT.html 也是个可视化学习网站
     - [X] 在线画图网站，给数据就行的那种
-        - [ ] https://hiplot.com.cn/login?redirect=%2Fcloud-tool%2Fdrawing-tool%2Flist，hiplot--基本上用的图他都有
-        - [ ] http://www.biolantern.top/biolantern/index.php， 同上喽
+        - [ ] https://hiplot.com.cn/login?redirect=%2Fcloud-tool%2Fdrawing-tool%2Flist   hiplot--基本上用的图他都有
+        - [ ] http://www.biolantern.top/biolantern/index.php   同上喽
 - 理论知识等，可以在[`Genome-analysis`](https://github.com/Crazzy-Rabbit/Genome-analysis)找到
 
 
