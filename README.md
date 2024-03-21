@@ -3,9 +3,15 @@
 
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FCrazzy-Rabbit%2FScript-in-Bio&count_bg=%2379C83D&title_bg=%23555555&icon=microgenetics.svg&icon_color=%23E7E7E7&title=%E8%AE%BF%E9%97%AE%E9%87%8F&edge_flat=false"/></a>
 
+### 贡献者
+<a href="https://github.com/Crazzy-Rabbit/Script-in-Bio/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Crazzy-Rabbit/Script-in-Bio" />
+</a>
+
+### 还得学
 - [ ] pangenome --->  want to learn and do in the future
 - [ ] 单细胞分析 --->  want to learn and do in the future
-    - [X] 用的[Seurat4](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/%E5%8D%95%E7%BB%86%E8%83%9ERNA-Seq%E5%88%86%E6%9E%90)，从前期处理到UMAP降维的记录
+    - [X] 用的[Seurat4](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/%E5%8D%95%E7%BB%86%E8%83%9ERNA-Seq%E5%88%86%E6%9E%90)，从前期处理到UMAP降维再识别差异基因marker的记录，细胞类型注释是人为的，所以......
 - [ ] 孟德尔随机化 --->  want to learn and do in the future
     - [ ] 整合多组学--SMR分析，精确定位致病突变
 - [ ] 算法 + 数据结构 --->  want to learn and do in the future
