@@ -1,4 +1,4 @@
-configfile:"config.yaml"
+configfile: "SNPcall.config.yaml"
     
 
 rule all:
