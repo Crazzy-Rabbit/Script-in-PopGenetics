@@ -9,4 +9,4 @@ rule gatk_genotype:
     log:
         "logs/gatk/GenotypeGVCFs.log"
     shell:
-        "({params.gatk_path} GenotypeGVCFs -R {imput.ref} --variant {input.gvcf} -O {output}) 2> {log}"
+        "({params.gatk_path} GenotypeGVCFs -R {input.ref} --variant {input.gvcf} -O {output}) 2> {log}"
