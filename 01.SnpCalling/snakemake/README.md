@@ -40,7 +40,7 @@ snakemake
 
 ### 运行
 ```
-snakemake -s snpcall --cores 30
+snakemake -s SNPcall --cores 30
 
 # -s/--snakefile 指定Snakefile，否则是当前目录下的Snakefile
 # --cores/--jobs/-j N: 指定并行数，如果不指定N，则使用当前最大可用的核心数
