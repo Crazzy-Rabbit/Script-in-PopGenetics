@@ -1,0 +1,17 @@
+rule fastp:
+    input:
+        fq1="raw_fastq/{sample}_1.fastq.gz",
+        fq2="raw_fastq/{sample}_2.fastq.gz"
+    output:
+        fq1="clean_reads/{sample}.1.clean.fq.gz",
+        fq2="clean_reads/{sample}.2.clean.fq.gz",
+        json="clean_reads/{sample}.json",
+        html="clean_reads/{sample}.html"
+    params:
+        fastp=config['params']['fastp']['fastp_path']
+    threads:
+        config['params']['fastp']['fastp_thread']
+    log:
+        "logs/fastp/{sample}.clean.log"
+    shell:
+        "{params.fastp} -w {threads} -i {input.fq1} -I {input.fq2} -o {output.fq1} -O {output.fq2} -j {output.json} -h {output.html} 2> {log}"
