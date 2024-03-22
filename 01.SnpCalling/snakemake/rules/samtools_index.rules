@@ -1,0 +1,7 @@
+rule samtools_index:
+    input:
+        "sorted_reads/{sample}.sort.markdup.bam"
+    output:
+        "sorted_reads/{sample}.sort.markdup.bai"
+    shell:
+        "samtools index {input}"
