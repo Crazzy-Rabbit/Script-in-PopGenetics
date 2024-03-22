@@ -1,0 +1,13 @@
+rule gatk_haplocall:
+    input:
+        ref=config['reference'],
+        bam="sorted_reads/{sample}.sort.markdup.bam",
+        bai="sorted_reads/{sample}.sort.markdup.bai"
+    output:
+        protected("gvcf/{sample}.gvcf.gz")
+    params:
+        gatk_path=config['params']['gatk']['gatk_path']
+    log:
+        "logs/gatk/HaplotypeCaller/{sample}.HaplotypeCaller.log"
+    shell:
+        "({params.gatk_path} HaplotypeCaller -R {input.ref} -ERC GVCF -I {input.bam} -O {output}) 2> {log}"
