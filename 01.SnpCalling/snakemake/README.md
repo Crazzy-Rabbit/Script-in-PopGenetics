@@ -32,6 +32,8 @@ snakemake
        ├─ picard_sort.rules
        ├─ samtools_depth.rules
        └─ samtools_index.rules
+       └─ samtools_mapratio.rules
+      
 ```
 ### 只需修改`config.yaml`内容
 - 保持文件夹名称和文件后缀和默认一致
