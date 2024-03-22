@@ -34,6 +34,7 @@
 ### 目录
 - [SNP-calling](https://github.com/Crazzy-Rabbit/Script-in-Bio/01.SnpCalling)
    - 包括BWA-GATK以及ANGSD
+   - 写了个[BWA-GATK的snakemake流程](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/01.SnpCalling/snakemake)
 - [CNV](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV)
 常用的方法是基于测序深度RD的策略，但是测序深度低的话会影响
    - [CNVcaller](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/06.CNV/CNVcaller)基于RD

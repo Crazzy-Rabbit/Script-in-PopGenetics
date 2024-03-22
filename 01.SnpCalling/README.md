@@ -26,7 +26,7 @@ GATK4版本之后就不用对INDEL区域进行重比对了，方便
 ```
 ~/gatk-4.1.4.0/gatk HaplotypeCaller -R $reference.fa  -L $chr -ERC GVCF -I $bam -o $chr.gvcf.gz
 ~/gatk-4.1.4.0/gatk CombineGVCFs -R $reference.fa  --variant $chr.list -o $chr.gvcf.gz
-~/gatk-4.1.4.0/gatk GenotypeGVCFs -R $reference.fa  --variant $chr.gvcf.gz --includeNonVariantSites -o $chr.vcf.gz
+~/gatk-4.1.4.0/gatk GenotypeGVCFs -R $reference.fa  --variant $chr.gvcf.gz --includeNonVariantSites -O $chr.vcf.gz
 
 # -L 分染色体call，占用空间少, CombineGVCFs时指定$chr.list即可
 # --includeNonVariantSite 保留非变异位点
@@ -34,13 +34,13 @@ GATK4版本之后就不用对INDEL区域进行重比对了，方便
 #### 02.variants calling using GATK4+（hard filter）
 SNP
 ```
-~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type SNP -o Pop.SNP.vcf.gz
-~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.SNP.vcf.gz  --filter-expression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"  --filter-name "my_snp_filter" -o Pop.HDflt.SNP.vcf.gz
+~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type-to-include SNP -O Pop.SNP.vcf.gz
+~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.SNP.vcf.gz  --filter-expression "QD < 2.0 || FS > 60.0 || MQ < 40.0 || MQRankSum < -12.5 || ReadPosRankSum < -8.0"  --filter-name "my_snp_filter" -O Pop.HDflt.SNP.vcf.gz
 ```
 INDEL
 ```
-~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type INDEL -o Pop.INDEL.vcf.gz
-~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.INDEL.vcf.gz --filter-expression "QD < 2.0 || FS > 200.0 || SOR > 10.0 || MQRankSum < -12.5 || ReadPosRankSum < -20" --filter-name "my_indel_filter" -o Pop.HDflt.INDEL.vcf.gz
+~/gatk-4.1.4.0/gatk SelectVariants -R $reference.fa -V $Pop.vcf.gz --select-type-to-include INDEL -O Pop.INDEL.vcf.gz
+~/gatk-4.1.4.0/gatk VariantFiltration -R $reference.fa -V Pop.INDEL.vcf.gz --filter-expression "QD < 2.0 || FS > 200.0 || SOR > 10.0 || MQRankSum < -12.5 || ReadPosRankSum < -20" --filter-name "my_indel_filter" -O Pop.HDflt.INDEL.vcf.gz
 ```
 merge and get PASS site
 ```
