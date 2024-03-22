@@ -1,0 +1,17 @@
+configfile: "gatk_combine_SNP_INDEL.config.yaml"
+
+
+rule all:
+    input:
+        "result_vcfs/combined.vcf.gz",
+        "result_vcfs/combined.indel.filtered.vcf.gz",
+        "result_vcfs/combined.snp.filtered.vcf.gz"
+
+        
+
+include: "rules/gatk_combine.rules"
+include: "rules/gatk_genotype.rules"
+include: "rules/gatk_SNPselect.rules"
+include: "rules/gatk_SNPfilter.rules"
+include: "rules/gatk_INDELselect.rules"
+include: "rules/gatk_INDELfilter.rules"
