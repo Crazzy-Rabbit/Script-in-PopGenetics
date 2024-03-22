@@ -1,7 +1,7 @@
 rule gatk_combine:
     input:
         ref=config['reference'],
-        gvcf="gvcf/{sample}.gvcf.gz"
+        gvcf=expand("gvcf/{sample}.gvcf.gz", sample=config['samples'])
     output:
         "combined.gvcf.gz"
     params:
