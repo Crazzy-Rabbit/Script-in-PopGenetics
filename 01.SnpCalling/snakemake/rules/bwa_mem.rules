@@ -4,7 +4,7 @@ rule bwa_mem:
         fq1="clean_data/{sample}_1.clean.fq.gz",
         fq2="clean_data/{sample}_2.clean.fq.gz"
     output:
-        temp("mapped_reads/{sample}.bam")
+        "mapped_reads/{sample}.bam"
     params:
         bwa_path=config['params']['bwa']['bwa_path'],
         rg="@RG\tID:{sample}\tPL:illumina\tPU:illumina\tLB:{sample}\tSM:{sample}"      
