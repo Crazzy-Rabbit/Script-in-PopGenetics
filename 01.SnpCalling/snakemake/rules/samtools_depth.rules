@@ -1,0 +1,8 @@
+rule samtools_depth:
+    input:
+        "sorted_reads/{sample}.sort.markdup.bam"
+    output:
+        "sorted_reads/{sample}.avg_depth"
+    shell:
+        "samtools depth {input} | "
+        "awk 'BEGIN {sum=0} {sum+=$3} END {print \"Average = \", sum/NR}' > {output}"
