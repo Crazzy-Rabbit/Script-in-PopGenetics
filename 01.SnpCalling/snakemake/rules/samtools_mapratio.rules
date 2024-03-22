@@ -1,0 +1,7 @@
+rule samtools_mapratio:
+    input:
+        "sorted_reads/{sample}.sort.markdup.bam"
+    output:
+        "sorted_reads/{sample}.mapping_ratio.txt"
+    shell:
+        "samtools flagstat {input} > {output}"
