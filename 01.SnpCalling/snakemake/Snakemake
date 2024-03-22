@@ -1,0 +1,28 @@
+configfile: "config.yaml"
+    
+
+rule all:
+    input:
+        expand("sorted_data/{sample}.mapping_ratio.txt", sample=config["samples"]),
+        expand("sorted_data/{sample}.sort.markdup.bam", sample=config["samples"]),
+        expand("sorted_data/{sample}.avg_depth", sample=config["samples"]),
+        expand("gvcf/{sample}.gvcf.gz", sample=config["samples"]),
+        "result_vcfs/combined.vcf.gz",
+        "result_vcfs/combined.indel.filter.vcf.gz",
+        "result_vcfs/combined.snp.filter.vcf.gz"
+
+        
+include: "rules/fastp.rules"
+include: "rules/bwa_mem.rules"
+include: "rules/picard_sort.rules"
+include: "rules/picard_markdup.rules"
+include: "rules/samtools_index.rules"
+include: "rules/gatk_haplocall.rules"
+include: "rules/gatk_combine.rules"
+include: "rules/gatk_genotype.rules"
+include: "rules/gatk_SNPselect.rules"
+include: "rules/gatk_SNPfilter.rules"
+include: "rules/gatk_INDELselect.rules"
+include: "rules/gatk_INDELfilter.rules"
+include: "rules/samtools_depth.rules"
+include: "rules/samtools_mapratio.rules"
