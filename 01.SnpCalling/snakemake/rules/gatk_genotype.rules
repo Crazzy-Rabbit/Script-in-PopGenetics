@@ -1,0 +1,12 @@
+rule gatk_genotype:
+    input:
+        ref=config['reference'],
+        gvcf="combined.gvcf.gz"
+    output:
+        protected("result_vcfs/combined.vcf.gz")
+    params:
+        gatk_path=config['params']['gatk']['gatk_path']
+    log:
+        "logs/gatk/GenotypeGVCFs.log"
+    shell:
+        "({params.gatk_path} GenotypeGVCFs -R {imput.ref} --variant {input.gvcf} -O {output}) 2> {log}"
