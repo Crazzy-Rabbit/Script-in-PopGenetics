@@ -62,7 +62,7 @@ snakemake --dag  | dot -Tsvg > dag.svg
 - 3、gatk_combine-hardfilter(snp/indel)
   - 注意哦！！！ 这个流程需要提供`gvcf`文件夹及gvcf.gz文件，而上两个流程则只需要`raw_fastq`文件夹及其内容，其他结构不变
   - `snakemake -s gatk_combine_SNP_INDEL --cores 20`
-  - 流程图是这样子的<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/d783bba5-57e2-4fb4-a83e-efb402243b1b" width="60%">
+  - 流程图是这样子的<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/d783bba5-57e2-4fb4-a83e-efb402243b1b" width="40%">
 
 
 
