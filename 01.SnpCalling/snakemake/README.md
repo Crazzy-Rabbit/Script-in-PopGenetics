@@ -52,6 +52,6 @@ snakemake --dag  | dot -Tsvg > dag.svg
 
 # 这个cores运行的任务和你指定的bwa和fastp的thread有关
 ```
-<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/c83c5629-a996-43d2-9d07-baed2dc3845e" wodth="40%"
+<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/c83c5629-a996-43d2-9d07-baed2dc3845e" wodth="40%">
 
 > 由于总体上就分配了10个核心，于是一次就只能运行一个需要消耗8个核心的bwa_map。但是当其中一个bwa_map运行完毕，这个时候snakemaek就会同时运行一个消耗8个核心的bwa_map和没有设置核心数的samtools_sort,来保证效率最大化。因此对于需要多线程或多进程运行的程序而言，将所需的进程单独编码，而不是硬编码到shell命令中，能够更有效的使用资源。
