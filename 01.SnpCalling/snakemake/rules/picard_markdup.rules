@@ -1,0 +1,12 @@
+rule picard_markdup:
+    input:
+        "sorted_reads/{sample}.sort.bam"
+    output:
+        protected(bam="sorted_reads/{sample}.sort.markdup.bam",
+        metrics="sorted_reads/{sample}.sort.markdup.metrics")
+    params:
+        picard_path=config['params']['picard']['picard_path']
+    log:
+        "logs/picard_markdup/{sample}.log"
+    shell:
+        "(java -jar {params.picard_path} MarkDuplicates I={input} O={output.bam} M={output.metrics}) 2> {log}"   
