@@ -1,11 +1,12 @@
-configfile: "fastp_bwa_picard.config.yaml"
+configfile: "fastp_bwa_picard_gvcf.config.yaml"
     
 
 rule all:
     input:
         expand("sorted_reads/{sample}.mapping_ratio.txt", sample=config["samples"]),
         expand("sorted_reads/{sample}.sort.markdup.bam", sample=config["samples"]),
-        expand("sorted_reads/{sample}.avg_depth", sample=config["samples"])
+        expand("sorted_reads/{sample}.avg_depth", sample=config["samples"]),
+        expand("gvcf/{sample}.gvcf.gz", sample=config["samples"])
 
 
         
@@ -16,3 +17,4 @@ include: "rules/picard_markdup.rules"
 include: "rules/samtools_index.rules"
 include: "rules/samtools_depth.rules"
 include: "rules/samtools_mapratio.rules"
+include: "rules/gatk_haplocall.rules"
