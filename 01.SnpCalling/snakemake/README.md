@@ -52,7 +52,7 @@ snakemake --dag  | dot -Tsvg > dag.svg
 
 # 这个cores运行的任务和你指定的bwa和fastp的thread有关
 ```
-<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/c83c5629-a996-43d2-9d07-baed2dc3845e" width="10%">
+<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/c83c5629-a996-43d2-9d07-baed2dc3845e" width="50%">
 
 
 
