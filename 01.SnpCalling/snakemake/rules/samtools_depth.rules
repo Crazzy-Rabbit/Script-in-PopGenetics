@@ -5,4 +5,4 @@ rule samtools_depth:
         "sorted_reads/{sample}.avg_depth"
     shell:
         "samtools depth {input} | "
-        "awk 'BEGIN {sum=0} {sum+=$3} END {print \"Average = \", sum/NR}' > {output}"
+        "awk 'BEGIN {{sum=0}} {{sum+=$3}} END {{print \"Average = \", sum/NR}}' > {output}"
