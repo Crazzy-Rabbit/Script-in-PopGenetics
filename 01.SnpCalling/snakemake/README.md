@@ -42,7 +42,7 @@ snakemake
 
 ### 运行
 ```
-snakemake -s SNPcall --cores 30
+snakemake -s SNPcall --cores 20
 
 # -s/--snakefile 指定Snakefile，否则是当前目录下的Snakefile
 # --cores/--jobs/-j N: 指定并行数，如果不指定N，则使用当前最大可用的核心数
@@ -52,7 +52,18 @@ snakemake --dag  | dot -Tsvg > dag.svg
 
 # 这个cores运行的任务和你指定的bwa和fastp的thread有关
 ```
-<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/c83c5629-a996-43d2-9d07-baed2dc3845e" width="50%">
+### 我这里提供了三个流程
+- 1、fastp-bwa-picard-gatk-hardfilter(snp/indel)的全流程
+  - `snakemake -s SNPcall --cores 20`
+  - 流程图是这样子的<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/c83c5629-a996-43d2-9d07-baed2dc3845e" width="70%">
+- 2、fastp-bwa-picard-gatk_haplocall，也就是从过滤到单个个体gvcf.gz文件
+  - `snakemake -s fastp_bwa_picard_gvcf --cores 20`
+  - 流程图是这样子的<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/ff22e88e-7bab-4310-86c3-be3f61d10ca1" width="80%">
+- 3、gatk_combine-hardfilter(snp/indel)
+  - 注意哦！！！ 这个流程需要提供gvcf文件夹，而上两个流程则只需要raw_fastq文件夹及其内容，其他结构不变
+  - `snakemake -s gatk_combine_SNP_INDEL --cores 20`
+  - 流程图是这样子的<img src="https://github.com/Crazzy-Rabbit/Script-in-Bio/assets/111029483/d783bba5-57e2-4fb4-a83e-efb402243b1b" width="80%">
+
 
 
 
