@@ -1,19 +1,19 @@
 reference: "reference/ref.fa"
 
-    
+
 samples:
     SRR15006267: "raw_fastq/SRR15006267"
     SRR15006269: "raw_fastq/SRR15006269"
         
 params:
     fastp:
-        fastp_path:"/home/sll/miniconda3/bin/fastp"
+        fastp_path: "/home/sll/miniconda3/bin/fastp"
         fastp_thread: 8
     bwa:
-        bwa_path:"/home/software/bwa-0.7.17/bwa"
+        bwa_path: "/home/software/bwa-0.7.17/bwa"
         bwa_thread: 10
     picard:
         picard_path: "/home/software/picard/build/libs/picard.jar"
-        tmpdir:"/home/sll/tmp"
+        tmpdir: "/home/sll/tmp"
     gatk:
         gatk_path: "/home/software/gatk-4.1.4.0/gatk"
