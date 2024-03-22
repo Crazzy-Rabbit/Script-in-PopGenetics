@@ -1,0 +1,12 @@
+rule picard_sort:
+    input:
+        "mapped_reads/{sample}.bam"
+    output:
+        temp("sorted_reads/{sample}.sort.bam")
+    params:
+        tmpdir=config['params']['picard']['tmpdir'],
+        picard_path=config['params']['picard']['picard_path']
+    log:
+        "logs/picard_sort/{sample}.log"
+    shell:
+        "(java  -jar -Xmx40g {params.picard_path} SortSam I={input} O={output} SORT_ORDER=coordinate TMP_DIR={params.tmpdir}) 2> {log}"
