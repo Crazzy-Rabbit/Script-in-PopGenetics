@@ -1,0 +1,10 @@
+rule gatk_combine:
+    input:
+        ref=config['reference'],
+        gvcf="gvcf/{sample}.gvcf.gz"
+    output:
+        "combined.gvcf.gz"
+    params:
+        gatk_path=config['params']['gatk']['gatk_path']
+    shell:
+        "{params.gatk_path} CombineGVCFs -R {input.ref} $(echo {input.gvcf} | sed 's/gvcf/ --variant gvcf/g') -O {output}"
