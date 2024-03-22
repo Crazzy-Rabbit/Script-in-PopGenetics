@@ -1,8 +1,8 @@
 rule bwa_mem:
     input:
         ref=config['reference'],
-        fq1="clean_data/{sample}.1.clean.fq.gz",
-        fq2="clean_data/{sample}.2.clean.fq.gz"
+        fq1="clean_reads/{sample}.1.clean.fq.gz",
+        fq2="clean_reads/{sample}.2.clean.fq.gz"
     output:
         "mapped_reads/{sample}.bam"
     params:
