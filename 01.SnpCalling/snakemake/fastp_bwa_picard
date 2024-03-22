@@ -1,0 +1,18 @@
+configfile: "fastp_bwa_picard.config.yaml"
+    
+
+rule all:
+    input:
+        expand("sorted_reads/{sample}.mapping_ratio.txt", sample=config["samples"]),
+        expand("sorted_reads/{sample}.sort.markdup.bam", sample=config["samples"]),
+        expand("sorted_reads/{sample}.avg_depth", sample=config["samples"])
+
+
+        
+include: "rules/fastp.rules"
+include: "rules/bwa_mem.rules"
+include: "rules/picard_sort.rules"
+include: "rules/picard_markdup.rules"
+include: "rules/samtools_index.rules"
+include: "rules/samtools_depth.rules"
+include: "rules/samtools_mapratio.rules"
