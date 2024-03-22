@@ -15,3 +15,5 @@ params:
     picard:
         picard_path: "/home/software/picard/build/libs/picard.jar"
         tmpdir: "/home/sll/tmp"
+    gatk:
+        gatk_path: "/home/software/gatk-4.1.4.0/gatk"
