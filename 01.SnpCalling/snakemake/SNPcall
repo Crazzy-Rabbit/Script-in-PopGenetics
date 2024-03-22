@@ -1,15 +1,15 @@
-configfile: "config.yaml"
+configfile:"config.yaml"
     
 
 rule all:
     input:
-        expand("sorted_data/{sample}.mapping_ratio.txt", sample=config["samples"]),
-        expand("sorted_data/{sample}.sort.markdup.bam", sample=config["samples"]),
-        expand("sorted_data/{sample}.avg_depth", sample=config["samples"]),
+        expand("sorted_reads/{sample}.mapping_ratio.txt", sample=config["samples"]),
+        expand("sorted_reads/{sample}.sort.markdup.bam", sample=config["samples"]),
+        expand("sorted_reads/{sample}.avg_depth", sample=config["samples"]),
         expand("gvcf/{sample}.gvcf.gz", sample=config["samples"]),
         "result_vcfs/combined.vcf.gz",
-        "result_vcfs/combined.indel.filter.vcf.gz",
-        "result_vcfs/combined.snp.filter.vcf.gz"
+        "result_vcfs/combined.indel.filtered.vcf.gz",
+        "result_vcfs/combined.snp.filtered.vcf.gz"
 
         
 include: "rules/fastp.rules"
