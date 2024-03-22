@@ -1,4 +1,4 @@
-configfile: "SNPcall.config.yaml"
+configfile: "fastp_bwa_picard_gvcf.config.yaml"
     
 
 rule all:
@@ -6,10 +6,8 @@ rule all:
         expand("sorted_reads/{sample}.mapping_ratio.txt", sample=config["samples"]),
         expand("sorted_reads/{sample}.sort.markdup.bam", sample=config["samples"]),
         expand("sorted_reads/{sample}.avg_depth", sample=config["samples"]),
-        expand("gvcf/{sample}.gvcf.gz", sample=config["samples"]),
-        "result_vcfs/combined.vcf.gz",
-        "result_vcfs/combined.indel.filtered.vcf.gz",
-        "result_vcfs/combined.snp.filtered.vcf.gz"
+        expand("gvcf/{sample}.gvcf.gz", sample=config["samples"])
+
 
         
 include: "rules/fastp.rules"
@@ -17,12 +15,6 @@ include: "rules/bwa_mem.rules"
 include: "rules/picard_sort.rules"
 include: "rules/picard_markdup.rules"
 include: "rules/samtools_index.rules"
-include: "rules/gatk_haplocall.rules"
-include: "rules/gatk_combine.rules"
-include: "rules/gatk_genotype.rules"
-include: "rules/gatk_SNPselect.rules"
-include: "rules/gatk_SNPfilter.rules"
-include: "rules/gatk_INDELselect.rules"
-include: "rules/gatk_INDELfilter.rules"
 include: "rules/samtools_depth.rules"
 include: "rules/samtools_mapratio.rules"
+include: "rules/gatk_haplocall.rules"

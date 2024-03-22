@@ -1,0 +1,10 @@
+reference: "reference/ref.fa"
+
+
+samples:
+    SRR15006267: "gvcf/SRR15006267.gvcf.gz"
+    SRR15006269: "gvcf/SRR15006269.gvcf.gz"
+        
+params:
+    gatk:
+        gatk_path: "/home/software/gatk-4.1.4.0/gatk"
