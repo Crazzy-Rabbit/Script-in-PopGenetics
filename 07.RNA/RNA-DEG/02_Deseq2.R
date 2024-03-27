@@ -10,26 +10,36 @@
 
 ###数据读入和处理
 rm(list=ls()) 
-countdata<- read.table("all_fcount.matrix.txt", header=TRUE,row.names = 1) #导入数据
-head(countdata) # 查看数据前几行(列名 太长自己展示看)
+options(stringsAsFactors = F)  
+library(tidyverse) 
+library(openxlsx)
+a1 <- read.xlsx('GSE155489_gc_pcos_counts.xlsx')
+countdata <- a1[,2:ncol(a1)] 
+rownames(countdata) <- a1$gene
 ##  过滤featurecounts后，每个样本计数小于等于10的！！！！！！！
-countdata.filter<-countdata[rowSums(countdata)>=1&apply(countdata,1,function(x){all(x>=10)}),]
-colnames(countdata.filter) <- c("Han",rep("DP",3),rep("Han",3),"DP","Han","Han","DP","DP")# 修改列名，可以不改，记得样本名别重复，我这个是不对的哦
-head(countdata.filter)
-dim(countdata.filter) # 查看数据维度，即几行几列
+countdata.filter <- countdata[rowSums(countdata)>=1&apply(countdata,1,
+                                                        function(x){all(x>=10)}),]
+condition <- factor(c(rep("pcos",4),rep("control",4)))
+contrast <- c("condition","pcos","control")
 
-####dds矩阵的创建
+###### DESeq2 #####
 library(DESeq2)
-condition <- factor(c(rep("Zebu",5),rep("Holstein",5))) # 赋值因子，即变量，实验与对照
-coldata <- data.frame(row.names=colnames(countdata.filter), condition) # 创建一个condition数据框
-dds <- DESeqDataSetFromMatrix(countData=countdata.filter, colData=coldata, design=~condition) ##构建dds矩阵(后面很多分析都是基于这个dds矩阵)
-###DESeq2进行差异分析
+coldata <- data.frame(row.names=colnames(countdata.filter), condition)
+dds <- DESeqDataSetFromMatrix(countData=countdata.filter, colData=coldata, design=~condition)
 dds <- DESeq(dds)
-resdata<- results(dds,contrast = c("condition","Zebu","Holstein"))##此为前比后
-table(resdata$padj<0.05 ) # Benjamini-Hochberg矫正后的p<0.05的基因数！！！！！！！
-res_padj <- resdata[order(resdata$padj), ]  ##按照padj(矫正后的p值)列的值排序
+resdata <- results(dds,contrast = contrast)
+table(resdata$padj<0.05)
+# define down and up gene
+library(dplyr)
+resdata <- as.data.frame(resdata)
+res_padj <- resdata[order(resdata$padj), ]
+res_padj$GENE <- rownames(res_padj)
+res_padj <- res_padj %>% 
+  mutate(change = case_when(padj < 0.05 & log2FoldChange > 1 ~ "UP",
+                            padj < 0.05 & log2FoldChange < -1 ~ "DOWN",
+                            TRUE ~ "NOT"))
 
-write.table(res_padj,"diffexpr_padj_results.txt",quote = F,sep = '\t')#### 将结果文件保存到本地，打开在第一列头加gene
+write.table(res_padj,"GSE155489_diffexpr_padj_results.txt",quote = F,sep = '\t')
 
 
 ####获取DEseq标准化的 counts
