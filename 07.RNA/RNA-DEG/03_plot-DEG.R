@@ -24,3 +24,21 @@ guides(col = guide_colourbar(title = "-Log10_q-value"),
 geom_text(aes(label=c(label),color = -log10(padj)), size = 3, vjust = 1.5, hjust = 1)+ ##添加标签
 xlab("Log2FC")+ylab("-Log10(FDR q-value)")  ##修改坐标轴
 ggsave("vocanol_plot.pdf", height = 9 , width = 10) ##保存图片
+
+
+
+
+rm(list=ls())  
+resdata <- read.table("GSE155489_diffexpr_padj_results.txt",header = T,sep = '\t',row.names = 1)
+resdata$label <- c(rownames(resdata)[1:10] ,rep(NA,(nrow(resdata)-10)))
+
+library(ggplot2)
+ggplot(resdata, aes(x=log2FoldChange, y=-log10(padj), color=change))+
+  geom_point(alpha=0.8, size=3)+
+  labs(x="log2FC", y="-log10(FDR pvalue)")+
+  scale_color_manual(values=c('#a121f0','#bebebe','#ffad21'))+
+  theme_bw(base_size = 15)+
+  theme(legend.position="none")+
+  geom_vline(xintercept = 1,lty="dashed")+
+  geom_vline(xintercept = -1,lty="dashed")+
+  ggtitle("PCOS vs CON") 
