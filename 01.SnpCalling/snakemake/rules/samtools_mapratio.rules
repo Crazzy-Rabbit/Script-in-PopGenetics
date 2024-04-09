@@ -4,4 +4,8 @@ rule samtools_mapratio:
     output:
         "sorted_reads/{sample}.mapping_ratio.txt"
     shell:
+<<<<<<< HEAD
         "samtools flagstat {input} > {output}"
+=======
+        "samtools flagstat {input} > {output}"
+>>>>>>> 80fa9ad074e76f02a305b1fc8b2be94736b55b4d
