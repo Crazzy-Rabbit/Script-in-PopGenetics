@@ -100,7 +100,7 @@
     - [x] 可用于绘制变异在染色体上的分布，挺好用的，就是安装有点费劲，需要的依赖包过多
     - [x] `https://circos.ca/documentation/images/small/`，这个是他的官网，里面有各种图及其绘图配置文件示例
 
-- [ ] 给文件[换染色体号](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/%E6%8D%A2%E6%9F%93%E8%89%B2%E4%BD%93%E5%8F%B7)，同时他可以过滤没用的染色体，perl脚本换不了开头的contig，需要再转次格式
+- [ ] 给文件[换染色体号](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/%E6%9C%89%E7%94%A8%E7%9A%84%E8%84%9A%E6%9C%AC/%E6%8D%A2%E6%9F%93%E8%89%B2%E4%BD%93%E5%8F%B7)，同时他可以过滤没用的染色体，perl脚本换不了开头的contig，需要再转次格式
 
 ### 看都看完了，觉得有用顺手收藏下子呗！！！
   
