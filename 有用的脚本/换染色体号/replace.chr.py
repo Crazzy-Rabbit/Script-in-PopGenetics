@@ -38,10 +38,14 @@ def main(infile, chrlist, out):
                     contig_info = line_strip.split('=', 3)
                     contigs = contig_info[2].strip().split(',')
                     updated_contigs = [chr_mapping.get(chr_, chr_) for chr_ in contigs]
-                    outfile.write(f'{contig_info[0]}={contig_info[1]}={",".join(updated_contigs)}={contig_info[3]}\n')
+                    if updated_contigs: # 只有当有更新时才写入
+                        outfile.write(f'{contig_info[0]}={contig_info[1]}={",".join(updated_contigs)}={contig_info[3]}\n')
             else:
-                chrom = line_strip.split('\t')[0]
-                outfile.write(f'{chr_mapping.get(chrom, chrom)}\t{line_strip[len(chrom):]}\n')
+                parts = line_strip.split('\t')
+                chrom = parts[0]
+                if chrom in chr_mapping:
+                    parts[0] = chr_mapping[chrom]  # 直接替换染色体名称
+                    outfile.write('\t'.join(parts) + '\n')
 
 if __name__ == '__main__':
     main()
