@@ -34,7 +34,7 @@ def main(invcf, poslist, outvcf):
                     pos = f2.readline().strip()
                     outstring = replace(line, pos)
                     f3.write(outstring.encode())
-            # while only work as line start as # or the first line not start as #
+            # while only work as line start as '#' or the first line not start as '#'
             for line, pos in zip(f1, f2):
                 outstring = replace(line.decode(), pos)
                 f3.write(outstring.encode())
