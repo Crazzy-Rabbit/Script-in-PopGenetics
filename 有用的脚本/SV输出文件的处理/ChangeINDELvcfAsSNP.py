@@ -12,7 +12,7 @@ import click
 
 @click.command()
 @click.option('--infile', type=click.File('r'), help="")
-@click.optino('--outfile', type=click.File('w'), help="")
+@click.option('--outfile', type=click.File('w'), help="")
 def main(infile, outfile):
     for line in infile:
         if line.startswith("#"):
