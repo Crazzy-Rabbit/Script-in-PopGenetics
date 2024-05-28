@@ -11,7 +11,7 @@
 ### 还得学
 - [ ] pangenome --->  want to learn and do in the future
 - [ ] 单细胞分析 --->  want to learn and do in the future
-    - [X] 用的[Seurat4](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/%E5%8D%95%E7%BB%86%E8%83%9ERNA-Seq%E5%88%86%E6%9E%90)，从前期处理到UMAP降维再识别差异基因marker的记录，细胞类型注释是人为的，所以......
+    - [X] 用的[Seurat4](https://github.com/Crazzy-Rabbit/Script-in-Bio/tree/main/docs/%E5%8D%95%E7%BB%86%E8%83%9ERNA-Seq%E5%88%86%E6%9E%90)，从前期处理到UMAP降维再识别差异基因marker的记录，细胞类型注释是人为的，所以......
 - [ ] 孟德尔随机化 --->  want to learn and do in the future
     - [ ] 整合多组学--SMR分析，精确定位致病突变
 - [ ] 算法 + 数据结构 --->  want to learn and do in the future
