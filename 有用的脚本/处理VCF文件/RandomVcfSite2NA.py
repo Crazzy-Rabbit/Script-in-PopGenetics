@@ -17,7 +17,8 @@ import random
 @click.option('--sites', type=click.File('w'), help="the file name of SNP site which changed genotype as NA")
 def main(invcf, outvcf, sites):
     """
-    随机把位点替换成缺失
+    随机把位点替换成缺失\n
+    python --invcf test.vcf --outvcf testout.vcf --sites testSNP.txt
     """
     row = 0
     col = 0
