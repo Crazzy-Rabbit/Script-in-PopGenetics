@@ -9,7 +9,18 @@
 这篇文章：https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1720-5
         
         
-#### 更建议使用`SMOOVE`来`call SV`然后使用`svtools`注释`cnvnator`得到的相应的拷贝数
+#### 更建议使用`SMOOVE`来`call SV`然后使用`svtools`的`copynumber`模块注释`cnvnator`得到的相应的拷贝数
+```
+svtools copynumber -i ReiD-19.recode.vcf -c ReiD-19.recode.coordinarte -r ReiD-19.root -w 100 -s ReiD-19 --cnvnator /home/software/CNVnator_v0.4.1/src/cnvnator -o call_cnvnator_lumpy.vcf
+
+# -i ReiD-19.recode.vcf lumpy 结果
+# --cnvnator /home/software/CNVnator_v0.4.1/src/cnvnator cnvnator软件位置
+# -s 样本
+# -r cnvnator的.root结果
+# -w cnvnator的win
+
+``` 
+
 ```
 方案1： 推荐之后使用bedtools进行交集的获取（-f参数设置重叠比例），以CNVcaller为主，LUMPY结果用于矫正
 方案2： 使用LUMPY获得CNV边界，再使用CNVnator进行CN的注释，这个流程也挺好
