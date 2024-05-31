@@ -36,11 +36,11 @@ nohup java -Xmx4g -jar /home/sll/software/snpEff/snpEff.jar RedDeerv1.1 -i bed t
 ```
 
 ##### 脚本`TratesnpEffOutfile.py`
-用于对`snpEff`软件注释后的.anno.bed文件进行提取，提取后的每个变异占一行，方便查看对应的选择信号值与变异的关系
+用于对`snpEff`软件注释后的`.anno.bed`文件进行提取，提取后的每个变异占一行，方便查看对应的选择信号值与变异的关系
 ```
 python TratesnpEffOutfile.py --infile test.anno.bed --outfile test.anno.change.bed
 ```
-效果如下
+处理之后的文件效果如下
 ```
 # SnpEff version 5.0 (build 2020-08-09 21:23), by Pablo Cingolani
 # Command line: SnpEff  sheepv1.0 -i bed all.chart.ihs.out.50k.windows.5%.sort.chr.bed 
