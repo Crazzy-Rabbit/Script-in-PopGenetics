@@ -1,12 +1,25 @@
 ### 几种识别SV以及CNV的软件
 #### 一、CNV的识别
-#### 个人推荐使用`CNVcaller`，是专门为动植物开发的群体水平识别`CNV`的软件
+#### 个人推荐使用`CNVcaller`，是专门为动植物开发的群体水平识别`CNV`的软件（我的毕业论文的做法）
 
 基于RD算法对于长度较短的DEL或DUP时表现出较低的效率，而`CNVcaller`对`DUP`的灵敏度和准确性都是最佳的
 
 二代数据中LUMPY在调用不同大小的 DEL 方面表现出良好的表现，因此可用LUMPY来对DEL类型进行矫正，DUP类型以降低假阳性为主
 
 这篇文章：https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1720-5
+        
+        
+#### 更建议使用`SMOOVE`来`call SV`然后使用`svtools`的`copynumber`模块注释`cnvnator`得到的相应的拷贝数
+```
+svtools copynumber -i ReiD-19.recode.vcf -c ReiD-19.recode.coordinarte -r ReiD-19.root -w 100 -s ReiD-19 --cnvnator /home/software/CNVnator_v0.4.1/src/cnvnator -o call_cnvnator_lumpy.vcf
+
+# -i ReiD-19.recode.vcf lumpy 结果
+# --cnvnator /home/software/CNVnator_v0.4.1/src/cnvnator cnvnator软件位置
+# -s 样本
+# -r cnvnator的.root结果
+# -w cnvnator的win
+
+``` 
 
 ```
 方案1： 推荐之后使用bedtools进行交集的获取（-f参数设置重叠比例），以CNVcaller为主，LUMPY结果用于矫正

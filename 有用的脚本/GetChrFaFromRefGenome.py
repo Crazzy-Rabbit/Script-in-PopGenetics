@@ -10,7 +10,7 @@ Created on  07 08 11:21:25  2023
 import click
 
 @click.command()
-@click.option('-r', '--ref_fa', type=click.File('r'), help='reference genome fa file', required=True)
+@click.option('-r', '--ref-fa', type=click.File('r'), help='reference genome fa file', required=True)
 @click.option('-C', '--getchr', type=str, help='要提取的chr, such "NC_040252.1"', required=True)
 @click.option('-c', '--getchrs', type=str, help='要提取的chr的下一个chr, 如 "NC_040253.1"', required=True)
 @click.option('-o', '--out', type=click.File('w'), help='输出文件名称', required=True)
